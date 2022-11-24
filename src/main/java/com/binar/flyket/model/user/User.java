@@ -18,6 +18,7 @@ import java.util.List;
 @Table(name = "users", indexes = @Index(name = "idx_user_email", columnList = "email", unique = true))
 public class User {
     @Id
+    @Column(name = "user_id")
     private String id;
 
     @Column(name = "title")
@@ -45,6 +46,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> roles = new ArrayList<>();
 }

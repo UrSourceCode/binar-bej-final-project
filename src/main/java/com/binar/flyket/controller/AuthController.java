@@ -3,6 +3,7 @@ package com.binar.flyket.controller;
 import com.binar.flyket.dto.model.UserDTO;
 import com.binar.flyket.dto.request.LoginRequest;
 import com.binar.flyket.dto.request.RegisRequest;
+import com.binar.flyket.dto.response.JwtResponse;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.ExceptionType;
@@ -10,13 +11,19 @@ import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.user.ERoles;
 import com.binar.flyket.service.UserServiceImpl;
 import com.binar.flyket.utils.Constants;
+import com.binar.flyket.utils.JwtUtil;
+import com.binar.flyket.utils.LoginProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,13 +33,18 @@ public class AuthController {
 
     private UserServiceImpl userServiceImpl;
 
-    public AuthController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    private final AuthenticationManager authManager;
 
+    private JwtUtil jwtUtil;
+
+    public AuthController(UserServiceImpl userServiceImpl, JwtUtil jwtUtil, AuthenticationManager authManager) {
+        this.userServiceImpl = userServiceImpl;
+        this.jwtUtil = jwtUtil;
+        this.authManager = authManager;
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> regisUser(@RequestBody RegisRequest regisRequest) {
+    public ResponseEntity<?> regisUser(@RequestBody @Valid RegisRequest regisRequest) {
         try {
             if(!Constants.validateEmail(regisRequest.getEmail()))
                 throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
@@ -52,11 +64,20 @@ public class AuthController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest) {
         try {
+            LoginProvider loginProvider = Constants.validateEmail(loginRequest.getEmailOrPhoneNumber())
+                    ? LoginProvider.EMAIL : LoginProvider.PHONE_NUMBER;
 
-        return null;
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmailOrPhoneNumber(), loginRequest.getPassword()));
+
+            String accessToken = jwtUtil.generateJwtToken(authentication, loginProvider);
+
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, new JwtResponse(loginRequest.getEmailOrPhoneNumber(), accessToken)));
+
         } catch (FlyketException.EmailValidateException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(), e.getMessage()), e.getStatusCode());
@@ -73,7 +94,15 @@ public class AuthController {
         userDTO.setPhoneNumber(regisRequest.getPhoneNumber());
         userDTO.setCreatedAt(LocalDateTime.now());
 
-        ERoles userRole = ERoles.getRole(regisRequest.getRoleName());
+        String role = regisRequest.getRoleName();
+        ERoles userRole;
+
+        if(role == null) {
+            userRole = ERoles.ROLE_BUYER;
+        } else {
+            userRole = ERoles.getRole(role);
+        }
+
         String userId = userRole.name().split("_")[1] + "-" + Constants.randomIdentifier(regisRequest.getEmail())[4];
         userDTO.setId(userId);
         userDTO.setRole(userRole);

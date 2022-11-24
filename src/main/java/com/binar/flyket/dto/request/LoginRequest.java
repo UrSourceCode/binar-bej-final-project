@@ -1,6 +1,5 @@
 package com.binar.flyket.dto.request;
 
-import com.binar.flyket.utils.Constants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

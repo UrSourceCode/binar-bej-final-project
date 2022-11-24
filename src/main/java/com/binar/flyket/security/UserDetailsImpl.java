@@ -1,23 +1,22 @@
-package com.ra.bioskop.security.userservice;
+package com.binar.flyket.security;
 
-import java.util.Collection;
-import java.util.Objects;
+import com.binar.flyket.model.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ra.bioskop.model.user.Users;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Collection;
+import java.util.Objects;
 
 @Setter
 @Getter
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private Users user;
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,6 +24,8 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .toList();
     }
+
+    public String getPhoneNumber() { return user.getPhoneNumber(); }
 
     @Override
     public String getPassword() {

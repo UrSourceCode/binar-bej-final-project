@@ -1,21 +1,15 @@
-package com.ra.bioskop.util;
+package com.binar.flyket.utils;
 
-import java.util.Date;
-
+import com.binar.flyket.security.UserDetailsImpl;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.ra.bioskop.security.userservice.UserDetailsImpl;
-
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.security.SignatureException;
+import java.util.Date;
 
 @Component
 @SuppressWarnings("deprecation")
@@ -29,11 +23,12 @@ public class JwtUtil {
     @Value("${app.jwt.exp}")
     private long jwtExpirations;
 
-    public String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(Authentication authentication, LoginProvider loginProvider) {
         UserDetailsImpl appUser = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(appUser.getUsername())
                 .setIssuedAt(new Date())
+                .claim(loginProvider.name(), loginProvider)
                 .setExpiration(new Date(new Date().getTime() + jwtExpirations))
                 .signWith(SignatureAlgorithm.HS256, jwtKey)
                 .compact();

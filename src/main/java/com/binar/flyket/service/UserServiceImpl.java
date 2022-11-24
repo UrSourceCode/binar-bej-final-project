@@ -48,13 +48,13 @@ public class UserServiceImpl implements UserService {
             Optional<Roles> role = roleRepository.findByName(userDTO.getRole());
             if(role.isPresent()) {
                 User userModel = new User();
-                userModel.setId(userModel.getId());
-                userModel.setTitle(userModel.getTitle());
-                userModel.setEmail(userModel.getEmail());
-                userModel.setLastName(userModel.getLastName());
-                userModel.setFirstName(userModel.getFirstName());
-                userModel.setPhoneNumber(userModel.getPhoneNumber());
-                userModel.setPassword(encoder.encode(userModel.getPassword()));
+                userModel.setId(userDTO.getId());
+                userModel.setTitle(userDTO.getTitle());
+                userModel.setEmail(userDTO.getEmail());
+                userModel.setLastName(userDTO.getLastName());
+                userModel.setFirstName(userDTO.getFirstName());
+                userModel.setPhoneNumber(userDTO.getPhoneNumber());
+                userModel.setPassword(encoder.encode(userDTO.getPassword()));
                 userModel.getRoles().add(role.get());
                 userModel.setCreatedAt(LocalDateTime.now());
                 userModel.setUpdatedAt(LocalDateTime.now());
