@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -62,24 +61,32 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(userModel);
                 return userDTO;
             }
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,
+                    Constants.ROLE_NOT_FOUND);
         }
         throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT,
                 Constants.ALREADY_EXIST_MSG);
     }
 
-    @Override
-    public UserDTO updateProfile(UserDTO userDTO) {
-
-    }
+//    @Override
+//    public UserDTO updateProfile(UserDTO userDTO) {
+//        Optional<User> user = userRepository.findByEmail(userDTO.getEmail());
+//        if(user.isPresent()) {
+//            User userModel = new User();
+//            userModel.setUpdatedAt(LocalDateTime.now());
+//        }
+//        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+//    }
 
     @Override
     public UserDTO deleteByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()) {
-
+            User userModel = new User();
+            userRepository.delete(userModel);
+            return UserMapper.toDto(userModel);
         }
-        throw BioskopException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,
                 Constants.NOT_FOUND_MSG);
-
     }
 }

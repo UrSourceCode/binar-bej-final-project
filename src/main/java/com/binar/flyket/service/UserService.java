@@ -8,7 +8,7 @@ public interface UserService {
 
     UserDTO register(UserDTO userDTO);
 
-    UserDTO updateProfile(UserDTO userDTO);
+//    UserDTO updateProfile(UserDTO userDTO);
 
     UserDTO deleteByEmail(String email);
 }

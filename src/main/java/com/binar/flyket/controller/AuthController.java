@@ -1,7 +1,10 @@
 package com.binar.flyket.controller;
 
 import com.binar.flyket.dto.model.UserDTO;
+import com.binar.flyket.dto.request.LoginRequest;
 import com.binar.flyket.dto.request.RegisRequest;
+import com.binar.flyket.dto.response.Response;
+import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.user.ERoles;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,17 +28,38 @@ public class AuthController {
 
     public AuthController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
+
     }
 
     @PostMapping("/signup")
-    private ResponseEntity<?> regisUser(@RequestBody RegisRequest regisRequest) {
+    public ResponseEntity<?> regisUser(@RequestBody RegisRequest regisRequest) {
         try {
             if(!Constants.validateEmail(regisRequest.getEmail()))
                 throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
                         HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-        } catch () {
+            userServiceImpl.register(regisRequestToDto(regisRequest));
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.EmailValidateException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.DuplicateEntityException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
 
+    @PostMapping
+    public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest) {
+        try {
+
+        return null;
+        } catch (FlyketException.EmailValidateException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), e.getStatusCode());
         }
     }
 
