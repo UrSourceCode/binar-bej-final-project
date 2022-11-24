@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class LoginRequest {
     @NotNull
-    private String emailOrPhoneNumber;
+    private String email;
     @NotNull
     private String password;
 }

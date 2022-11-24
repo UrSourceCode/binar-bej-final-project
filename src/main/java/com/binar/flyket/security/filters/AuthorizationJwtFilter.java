@@ -1,5 +1,6 @@
 package com.binar.flyket.security.filters;
 
+import com.binar.flyket.security.UserDetailServiceImpl;
 import com.binar.flyket.utils.Constants;
 import com.binar.flyket.utils.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,19 +18,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class AuthorizationJwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
     private final UserDetailsService userDetailService;
 
-    public AuthorizationJwtFilter(JwtUtil jwtUtil, UserDetailsService userDetailService) {
+    public AuthorizationJwtFilter(JwtUtil jwtUtil, UserDetailServiceImpl userDetailService) {
         this.jwtUtil = jwtUtil;
         this.userDetailService = userDetailService;
     }
 
     @Override
-
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
@@ -51,9 +52,10 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
     }
 
     private void setAuthentication(String token, HttpServletRequest request) {
-        String email = jwtUtil.getUserNameFromJwtToken(token);
+        String name = jwtUtil.getUserNameFromJwtToken(token);
 
-        UserDetails userDetails = userDetailService.loadUserByUsername(email);
+        UserDetails userDetails = userDetailService.loadUserByUsername(name);
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,
@@ -67,6 +69,8 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
         String header = request.getHeader(Constants.HEADER);
         return header.split(" ")[1].trim();
     }
+
+
 
     private boolean hasToken(HttpServletRequest request) {
         String header = request.getHeader(Constants.HEADER);

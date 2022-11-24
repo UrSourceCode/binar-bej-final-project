@@ -23,12 +23,11 @@ public class JwtUtil {
     @Value("${app.jwt.exp}")
     private long jwtExpirations;
 
-    public String generateJwtToken(Authentication authentication, LoginProvider loginProvider) {
+    public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl appUser = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(appUser.getUsername())
                 .setIssuedAt(new Date())
-                .claim(loginProvider.name(), loginProvider)
                 .setExpiration(new Date(new Date().getTime() + jwtExpirations))
                 .signWith(SignatureAlgorithm.HS256, jwtKey)
                 .compact();
@@ -56,6 +55,13 @@ public class JwtUtil {
             LOGGER.error("JWT claims string is empty {}", e.getMessage());
         }
         return false;
+    }
+
+    public Claims parseClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 }

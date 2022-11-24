@@ -12,7 +12,6 @@ import com.binar.flyket.model.user.ERoles;
 import com.binar.flyket.service.UserServiceImpl;
 import com.binar.flyket.utils.Constants;
 import com.binar.flyket.utils.JwtUtil;
-import com.binar.flyket.utils.LoginProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,16 +66,14 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest) {
         try {
-            LoginProvider loginProvider = Constants.validateEmail(loginRequest.getEmailOrPhoneNumber())
-                    ? LoginProvider.EMAIL : LoginProvider.PHONE_NUMBER;
 
             Authentication authentication = authManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmailOrPhoneNumber(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-            String accessToken = jwtUtil.generateJwtToken(authentication, loginProvider);
+            String accessToken = jwtUtil.generateJwtToken(authentication);
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
-                    Constants.SUCCESS_MSG, new JwtResponse(loginRequest.getEmailOrPhoneNumber(), accessToken)));
+                    Constants.SUCCESS_MSG, new JwtResponse(loginRequest.getEmail(), accessToken)));
 
         } catch (FlyketException.EmailValidateException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
