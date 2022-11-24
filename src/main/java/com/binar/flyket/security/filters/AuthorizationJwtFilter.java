@@ -1,6 +1,5 @@
 package com.binar.flyket.security.filters;
 
-import com.binar.flyket.security.UserDetailServiceImpl;
 import com.binar.flyket.utils.Constants;
 import com.binar.flyket.utils.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,8 +69,6 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
         String header = request.getHeader(Constants.HEADER);
         return header.split(" ")[1].trim();
     }
-
-
 
     private boolean hasToken(HttpServletRequest request) {
         String header = request.getHeader(Constants.HEADER);
