@@ -95,13 +95,7 @@ public class AuthController {
         userDTO.setCreatedAt(LocalDateTime.now());
 
         String role = regisRequest.getRoleName();
-        ERoles userRole;
-
-        if(role == null) {
-            userRole = ERoles.ROLE_BUYER;
-        } else {
-            userRole = ERoles.getRole(role);
-        }
+        ERoles userRole = role == null ? ERoles.ROLE_BUYER : ERoles.getRole(role);
 
         String userId = userRole.name().split("_")[1] + "-" + Constants.randomIdentifier(regisRequest.getEmail())[4];
         userDTO.setId(userId);
