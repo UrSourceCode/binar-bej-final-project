@@ -25,7 +25,7 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailService;
 
-    public AuthorizationJwtFilter(JwtUtil jwtUtil, UserDetailServiceImpl userDetailService) {
+    public AuthorizationJwtFilter(JwtUtil jwtUtil, UserDetailsService userDetailService) {
         this.jwtUtil = jwtUtil;
         this.userDetailService = userDetailService;
     }
@@ -60,6 +60,7 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
                 userDetails,
                 null,
                 userDetails.getAuthorities());
+
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

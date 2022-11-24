@@ -64,8 +64,11 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> signIn(@RequestBody @Valid LoginRequest loginRequest) {
         try {
+            if(!Constants.validateEmail(loginRequest.getEmail()))
+                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
+                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
