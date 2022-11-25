@@ -22,11 +22,13 @@
     "code": "CN",
     "name": "China"
   },
+
   {
     "_class": "com.binar.flyket.model.Country",
     "code": "MY",
     "name": "Malaysia"
   },
+
   {
     "_class": "com.binar.flyket.model.Country",
     "code": "SA",
