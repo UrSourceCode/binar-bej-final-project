@@ -10,6 +10,25 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
+/*
+    Ini class untuk response.
+    @Param <T> : bisa menerima tipe data, array, null.
+
+    contoh output JSON:
+
+    misal input : Response(200, new Date(), sebuah array)
+
+  {
+    "statusCode": 200,
+    "timeStamp": "2022-09-23 00:00:00",
+    "message": "success",
+    "data": []
+  }
+
+
+
+ */
 @Getter
 @Setter
 @AllArgsConstructor

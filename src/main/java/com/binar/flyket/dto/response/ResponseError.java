@@ -10,6 +10,22 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
+/*
+    Ini class untuk responseError.
+
+    Contoh output JSON:
+
+    Misal input : ResponseError(404, new Date(), "not found")
+
+    {
+        "statusCode": 404,
+        "timeStamp": "2022-09-22 15:00:15",
+        "message": "not found"
+    }
+
+
+ */
 @Getter
 @Setter
 @AllArgsConstructor
