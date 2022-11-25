@@ -14,16 +14,13 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
-    public Integer id;
+    public String IATACode;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "city")
     private String city;
-
-    @Column(name = "IATA_code")
-    private String IATACode;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
