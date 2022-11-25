@@ -13,6 +13,8 @@ public class Constants {
     public static final String DELETED_MSG = "deleted";
 
     public static final String ROLE_NOT_FOUND = "role not found";
+    public static final String AIRPORT_NOT_FOUND = "airport not found";
+    public static final String COUNTRY_NOT_FOUND = "country not found";
     public static final String NOT_FOUND_MSG = "not found";
     public static final String ALREADY_EXIST_MSG = "already exist";
     public static final String INVALID_EMAIL_MSG = "Invalid email";

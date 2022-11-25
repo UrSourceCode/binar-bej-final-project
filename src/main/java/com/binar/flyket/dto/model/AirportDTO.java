@@ -13,5 +13,4 @@ public class AirportDTO {
     private String IATACode;
     private String name;
     private String city;
-    private String countryName;
 }
