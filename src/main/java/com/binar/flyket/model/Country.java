@@ -14,10 +14,14 @@ import java.util.List;
 @Entity
 public class Country {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "IATA_code")
+    private String IATACode;
 
     @JsonIgnore
     @OneToMany(mappedBy = "countries", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     @Column(name = "name")
