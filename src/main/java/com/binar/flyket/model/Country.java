@@ -14,14 +14,10 @@ import java.util.List;
 @Entity
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String code;
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "code")
-    private String code;
 
     @JsonIgnore
     @OneToMany(mappedBy = "countries", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
