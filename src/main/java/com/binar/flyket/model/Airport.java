@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
     @Column(name = "name")
@@ -22,6 +21,9 @@ public class Airport {
 
     @Column(name = "city")
     private String city;
+
+    @Column(name = "IATA_code")
+    private String IATACode;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

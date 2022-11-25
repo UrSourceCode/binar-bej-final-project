@@ -10,6 +10,7 @@ import lombok.Setter;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 public class AirportDTO {
+    private String IATACode;
     private String name;
     private String city;
     private String countryName;

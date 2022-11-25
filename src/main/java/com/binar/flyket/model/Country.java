@@ -20,8 +20,8 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "IATA_code")
-    private String IATACode;
+    @Column(name = "code")
+    private String code;
 
     @JsonIgnore
     @OneToMany(mappedBy = "countries", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

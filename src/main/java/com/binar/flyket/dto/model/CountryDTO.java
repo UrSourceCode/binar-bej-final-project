@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CountryDTO {
     private String name;
-    private String IATACode;
+    private String code;
 }
