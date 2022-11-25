@@ -24,11 +24,11 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean addCountry(CountryDTO countryDTO) {
-        System.out.println(countryDTO.getId());
-        Optional<Country> country = countryRepository.findById(countryDTO.getId());
+        System.out.println(countryDTO.getCode());
+        Optional<Country> country = countryRepository.findById(countryDTO.getCode());
         if(country.isEmpty()) {
             Country countryModel = new Country();
-            countryModel.setId(countryDTO.getId());
+            countryModel.setCode(countryDTO.getCode());
             countryModel.setName(countryDTO.getName());
             countryRepository.save(countryModel);
             return true;
@@ -42,7 +42,7 @@ public class CountryServiceImpl implements CountryService {
                 .map(country -> {
                     Country countryModel = new Country();
                     countryModel.setName(country.getName());
-                    countryModel.setId(country.getId());
+                    countryModel.setCode(country.getCode());
                     return countryModel;
                 }).toList();
         countryRepository.saveAll(countries);
@@ -64,7 +64,7 @@ public class CountryServiceImpl implements CountryService {
         Optional<Country> country = countryRepository.findById(countryCode);
         if(country.isPresent()) {
             Country countryModel = new Country();
-            countryModel.setId(countryCode);
+            countryModel.setCode(countryCode);
             countryModel.setName(countryDTO.getName());
             return  CountryMapper.toDto(countryModel);
         }

@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 public class Country {
     @Id
-    private String id;
+    private String code;
 
     @Column(name = "name")
     private String name;

@@ -7,7 +7,7 @@ public class CountryMapper {
 
     public static CountryDTO toDto(Country country) {
         CountryDTO countryDTO = new CountryDTO();
-        countryDTO.setId(country.getId());
+        countryDTO.setCode(country.getCode());
         countryDTO.setName(country.getName());
         return countryDTO;
     }

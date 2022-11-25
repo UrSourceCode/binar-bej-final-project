@@ -10,6 +10,6 @@ import lombok.Setter;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 public class CountryDTO {
-    private String id;
+    private String code;
     private String name;
 }
