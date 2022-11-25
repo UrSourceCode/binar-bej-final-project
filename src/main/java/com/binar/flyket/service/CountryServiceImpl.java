@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class CountryServiceImpl implements CountryService {
 
-    private CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
 
     public CountryServiceImpl(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
@@ -24,27 +24,29 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean addCountry(CountryDTO countryDTO) {
-        if(!countryRepository.existsByCode(countryDTO.getCode())) {
-            Country country = new Country();
-            country.setCode(countryDTO.getCode());
-            country.setName(countryDTO.getName());
-            countryRepository.save(country);
+        System.out.println(countryDTO.getId());
+        Optional<Country> country = countryRepository.findById(countryDTO.getId());
+        if(country.isEmpty()) {
+            Country countryModel = new Country();
+            countryModel.setId(countryDTO.getId());
+            countryModel.setName(countryDTO.getName());
+            countryRepository.save(countryModel);
             return true;
         }
-        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.COUNTRY_NOT_FOUND);
+        throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
     }
 
     @Override
-    public boolean addCountries(List<CountryDTO> countryDTO) {
+    public List<CountryDTO> addCountries(List<CountryDTO> countryDTO) {
         List<Country> countries = countryDTO.stream()
                 .map(country -> {
                     Country countryModel = new Country();
                     countryModel.setName(country.getName());
-                    countryModel.setCode(country.getCode());
+                    countryModel.setId(country.getId());
                     return countryModel;
                 }).toList();
         countryRepository.saveAll(countries);
-        return true;
+        return countryDTO;
     }
 
     @Override
@@ -59,11 +61,12 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDTO updateCountry(String countryCode, CountryDTO countryDTO) {
-        if(countryRepository.existsByCode(countryCode)) {
-            Country country = new Country();
-            country.setCode(countryCode);
-            country.setName(countryDTO.getName());
-            return  CountryMapper.toDto(country);
+        Optional<Country> country = countryRepository.findById(countryCode);
+        if(country.isPresent()) {
+            Country countryModel = new Country();
+            countryModel.setId(countryCode);
+            countryModel.setName(countryDTO.getName());
+            return  CountryMapper.toDto(countryModel);
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.COUNTRY_NOT_FOUND);
     }
@@ -74,5 +77,11 @@ public class CountryServiceImpl implements CountryService {
         if(country.isPresent())
             return CountryMapper.toDto(country.get());
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.COUNTRY_NOT_FOUND);
+    }
+
+    @Override
+    public List<CountryDTO> getCountries() {
+        return countryRepository.findAll().stream()
+                .map(CountryMapper::toDto).toList();
     }
 }
