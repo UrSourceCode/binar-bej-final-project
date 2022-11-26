@@ -23,6 +23,7 @@ public class FlyketConfig {
         Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
         factory.setResources(new Resource[] {
                 new ClassPathResource("datajson/countries.json"),
+                new ClassPathResource("datajson/airports.json"),
         });
         return factory;
     }

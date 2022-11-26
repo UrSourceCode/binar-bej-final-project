@@ -1,0 +1,72 @@
+[
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "HLP",
+    "name": "Halim Perdana Kusuma",
+    "city" : "Jakarta",
+    "country": {
+      "code": "ID",
+      "name": "Indonesia"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "CGK",
+    "name": "Soekarno-Hatta International",
+    "city" : "Jakarta",
+    "country": {
+      "code": "ID",
+      "name": "Indonesia"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "JKT",
+    "name": "Metropolitan Area",
+    "city" : "Jakarta",
+    "country": {
+      "code": "ID",
+      "name": "Indonesia"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "HND",
+    "name": "Haneda International",
+    "city" : "Tokyo",
+    "country": {
+      "code": "JP",
+      "name": "Japan"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "NRT",
+    "name": "Narita International",
+    "city" : "Tokyo",
+    "country": {
+      "code": "JP",
+      "name": "Japan"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "CAN",
+    "name": "Baiyun International Airport",
+    "city" : "Guangzhou",
+    "country": {
+      "code": "CN",
+      "name": "China"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.Airport",
+    "IATACode": "JED",
+    "name": "King Abdulaziz International",
+    "city" : "Jeddah",
+    "country": {
+      "code": "SA",
+      "name": "Saudi Arabia"
+    }
+  }
+]

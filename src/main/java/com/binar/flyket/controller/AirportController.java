@@ -1,6 +1,5 @@
 package com.binar.flyket.controller;
 
-import com.binar.flyket.dto.model.AirportDTO;
 import com.binar.flyket.dto.request.InputAirportRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
@@ -53,7 +52,7 @@ public class AirportController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> getAirportById(@RequestParam("code") String IATACode) {
+    public ResponseEntity<?> getAirportById(@RequestParam("IATACode") String IATACode) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, airportService.getAirportById(IATACode)));
@@ -62,5 +61,4 @@ public class AirportController {
                     new Date(),e.getMessage()), e.getStatusCode());
         }
     }
-
 }

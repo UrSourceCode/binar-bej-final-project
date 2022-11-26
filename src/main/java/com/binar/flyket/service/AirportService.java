@@ -5,7 +5,7 @@ import com.binar.flyket.dto.model.AirportDetailDTO;
 import com.binar.flyket.dto.request.InputAirportRequest;
 
 import java.util.List;
-
+import java.util.Optional;
 
 public interface AirportService {
 
@@ -15,7 +15,7 @@ public interface AirportService {
 
     AirportDetailDTO getAirportById(String IATACode);
 
-    List<AirportDTO> getAirports();
+    List<AirportDetailDTO> getAirports();
 
     // TODO : update airport
 

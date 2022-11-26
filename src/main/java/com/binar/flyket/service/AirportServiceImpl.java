@@ -14,6 +14,7 @@ import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public AirportDetailDTO getAirportById(String IATACode) {
-        Optional<AirportDetailDTO> airportDetailDTO = airportRepository.findAirportByIATACode(IATACode);
+        Optional<AirportDetailDTO> airportDetailDTO = airportRepository.findByIATACode(IATACode);
         if(airportDetailDTO.isPresent()) {
             return airportDetailDTO.get();
         }
@@ -69,7 +70,11 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public List<AirportDTO> getAirports() {
-        return null;
+    public List<AirportDetailDTO> getAirports() {
+        List<AirportDetailDTO> airportList = airportRepository.findAllAirport();
+        if(!airportList.isEmpty()) {
+            return airportList;
+        }
+        return new ArrayList<>();
     }
 }
