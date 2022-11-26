@@ -1,18 +1,19 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.AirportDTO;
+import com.binar.flyket.dto.model.AirportDetailDTO;
+import com.binar.flyket.dto.request.InputAirportRequest;
 
 import java.util.List;
 
 
-
 public interface AirportService {
 
-    boolean addAirport(AirportDTO airportDTO);
+    InputAirportRequest addAirport(InputAirportRequest inputAirportRequest);
 
-    boolean deleteAirportById(String IATACode);
+    AirportDTO deleteAirportById(String IATACode);
 
-    AirportDTO getAirportById(String IATACode);
+    AirportDetailDTO getAirportById(String IATACode);
 
     List<AirportDTO> getAirports();
 
