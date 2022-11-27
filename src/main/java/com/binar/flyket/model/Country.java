@@ -24,4 +24,3 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Airport> airports = new ArrayList<>();
 }
-
