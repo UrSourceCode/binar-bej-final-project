@@ -1,6 +1,5 @@
 package com.binar.flyket.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
