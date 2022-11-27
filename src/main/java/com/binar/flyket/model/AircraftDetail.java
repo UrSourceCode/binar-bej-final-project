@@ -33,5 +33,7 @@ public class AircraftDetail {
     @OneToMany(mappedBy = "aircraftDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Seat> seats = new ArrayList<>();
 
-
+    @ManyToOne
+    @JoinColumn(name = "aircraft_id")
+    private Aircraft aircraft;
 }
