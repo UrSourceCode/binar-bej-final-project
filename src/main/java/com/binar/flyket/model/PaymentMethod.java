@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,4 +20,7 @@ public class PaymentMethod {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "paymentMethod", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Booking> bookingList = new ArrayList<>();
 }

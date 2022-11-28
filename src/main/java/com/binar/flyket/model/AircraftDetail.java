@@ -41,4 +41,8 @@ public class AircraftDetail {
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "aircraftDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FlightSchedule> flightSchedules = new ArrayList<>();
+
 }
