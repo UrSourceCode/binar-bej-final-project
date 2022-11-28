@@ -21,6 +21,6 @@ public class Country {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     private List<Airport> airports = new ArrayList<>();
 }

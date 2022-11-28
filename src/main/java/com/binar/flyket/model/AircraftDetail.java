@@ -36,4 +36,5 @@ public class AircraftDetail {
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
+
 }
