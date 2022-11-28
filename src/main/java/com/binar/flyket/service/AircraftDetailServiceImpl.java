@@ -1,5 +1,6 @@
 package com.binar.flyket.service;
 
+import com.binar.flyket.dto.model.AircraftDetailDTO;
 import com.binar.flyket.dto.request.AircraftDetailRequest;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +26,6 @@ public class AircraftDetailServiceImpl implements AircraftDetailService {
     private AircraftDetailRepository aircraftDetailRepository;
 
     private AircraftRepository aircraftRepository;
-
 
     public AircraftDetailServiceImpl(AircraftDetailRepository aircraftDetailRepository, AircraftRepository aircraftRepository) {
         this.aircraftDetailRepository = aircraftDetailRepository;
@@ -45,9 +46,16 @@ public class AircraftDetailServiceImpl implements AircraftDetailService {
         aircraftDetail.setAircraft(aircraft.get());
         aircraftDetail.setAircraftClass(aircraftClass);
         aircraftDetail.setPrice(aircraftDetailRequest.getAircraftPrice());
-        aircraftDetail.setMaxBaggage(aircraftDetail.getMaxBaggage());
+        aircraftDetail.setMaxBaggage(aircraftDetailRequest.getAircraftMaxBaggage());
+        aircraftDetail.setMaxCabin(aircraftDetailRequest.getAircraftMaxCabin());
 
         aircraftDetailRepository.save(aircraftDetail);
         return true;
     }
+
+    @Override
+    public List<AircraftDetailDTO> getAllAircraftDetail() {
+        return aircraftDetailRepository.findAllAircraftDetail();
+    }
+
 }

@@ -25,6 +25,7 @@ public class FlyketConfig {
                 new ClassPathResource("datajson/countries.json"),
                 new ClassPathResource("datajson/airports.json"),
                 new ClassPathResource("datajson/aircraft.json"),
+                new ClassPathResource("datajson/aircraftdetail.json"),
         });
         return factory;
     }
