@@ -1,0 +1,32 @@
+[
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 1,
+    "type" : "Boeing 777-300ER"
+  },
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 2,
+    "type" : "Boeing 737-800NG"
+  },
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 3,
+    "type" : "Airbus A330-200"
+  },
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 4,
+    "type" : "Airbus A330-300"
+  },
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 5,
+    "type" : "Airbus A330-900neo"
+  },
+  {
+    "_class": "com.binar.flyket.model.Aircraft",
+    "id": 6,
+    "type" : "ATR 72-600"
+  }
+]
