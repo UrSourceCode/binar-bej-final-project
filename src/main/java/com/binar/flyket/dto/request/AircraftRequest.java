@@ -10,5 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AircraftRequest {
+    private Integer aircraftId;
     private String type;
 }

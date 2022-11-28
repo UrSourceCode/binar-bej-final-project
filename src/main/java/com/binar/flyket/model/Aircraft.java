@@ -17,7 +17,6 @@ import java.util.List;
 public class Aircraft {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "type")

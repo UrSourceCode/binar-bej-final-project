@@ -30,7 +30,7 @@ public class AircraftController {
             aircraftService.addAircraft(airCraftRequestToDto(aircraftRequest));
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
-        } catch (FlyketException.EntityNotFoundException e) {
+        } catch (FlyketException.DuplicateEntityException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
@@ -75,6 +75,7 @@ public class AircraftController {
 
     private AircraftDTO airCraftRequestToDto(AircraftRequest request) {
         AircraftDTO aircraftDTO = new AircraftDTO();
+        aircraftDTO.setId(request.getAircraftId());
         aircraftDTO.setType(request.getType());
         return aircraftDTO;
     }

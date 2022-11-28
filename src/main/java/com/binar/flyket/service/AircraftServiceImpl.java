@@ -28,6 +28,7 @@ public class AircraftServiceImpl implements AircraftService{
             Aircraft aircraftModel = new Aircraft();
             aircraftModel.setId(aircraftDTO.getId());
             aircraftModel.setType(aircraftDTO.getType());
+            aircraftRepository.save(aircraftModel);
             return true;
         }
         throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
@@ -63,6 +64,7 @@ public class AircraftServiceImpl implements AircraftService{
             Aircraft aircraftModel = new Aircraft();
             aircraftModel.setId(aircraftID);
             aircraftModel.setType(aircraftDTO.getType());
+            aircraftRepository.save(aircraftModel);
             return AircraftMapper.toDto(aircraftModel);
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.AIRCRAFT_NOT_FOUND);
