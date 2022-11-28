@@ -63,8 +63,8 @@ public class FlightRouteServiceImpl implements FlightRouteService {
     @Override
     @Transactional
     public Boolean addAirportRoute(AirportRouteRequest airportRouteRequest) {
-        Optional<Airport> fromAirport = airportRepository.findById(airportRouteRequest.getDestinationAirportCode());
-        Optional<Airport> toAirport = airportRepository.findById(airportRouteRequest.getOriginAirportCode());
+        Optional<Airport> fromAirport = airportRepository.findById(airportRouteRequest.getOriginAirportCode());
+        Optional<Airport> toAirport = airportRepository.findById(airportRouteRequest.getDestinationAirportCode());
         isExistRoute(fromAirport, toAirport);
 
         StringBuilder randId = new StringBuilder();
