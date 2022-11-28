@@ -18,7 +18,7 @@ import java.util.List;
 public class AircraftDetail {
 
     @Id
-    private Integer id;
+    private String id;
 
     @Enumerated(EnumType.STRING)
     private AircraftClass aircraftClass;
@@ -33,7 +33,7 @@ public class AircraftDetail {
     @OneToMany(mappedBy = "aircraftDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Seat> seats = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
 
