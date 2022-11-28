@@ -15,10 +15,10 @@ import javax.validation.constraints.Size;
 public class AirportRouteRequest {
     @NotNull
     @Size(max = 4)
-    private String fromAirport;
+    private String originAirportCode;
     @NotNull
     @Size(max = 4)
-    private String toAirport;
+    private String destinationAirportCode;
     @NotNull
     private Integer hours;
     @NotNull
