@@ -51,8 +51,8 @@ public class AirportController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> getAirportById(@RequestParam("IATACode") String IATACode) {
+    @GetMapping("/{IATACode}")
+    public ResponseEntity<?> getAirportById(@PathVariable("IATACode") String IATACode) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, airportService.getAirportById(IATACode)));

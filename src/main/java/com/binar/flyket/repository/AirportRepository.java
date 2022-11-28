@@ -19,4 +19,6 @@ public interface AirportRepository extends JpaRepository<Airport, String> {
     @Query(value = AirportQuery.AIRPORT_DETAIL_INNER_JOIN)
     List<AirportDetailDTO> findAllAirport();
 
+
+
 }
