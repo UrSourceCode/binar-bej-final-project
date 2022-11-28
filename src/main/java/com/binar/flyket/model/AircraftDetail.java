@@ -1,6 +1,7 @@
 package com.binar.flyket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import java.util.List;
 public class AircraftDetail {
 
     @Id
-    private Integer id;
+    private String id;
 
     @Enumerated(EnumType.STRING)
     private AircraftClass aircraftClass;
@@ -29,11 +30,14 @@ public class AircraftDetail {
     @Column(name = "max_baggage")
     private Integer maxBaggage;
 
+    @Column(name = "max_cabin")
+    private Integer maxCabin;
+
     @JsonIgnore
     @OneToMany(mappedBy = "aircraftDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Seat> seats = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
 

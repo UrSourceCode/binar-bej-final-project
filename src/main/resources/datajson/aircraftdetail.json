@@ -1,0 +1,62 @@
+[
+  {
+    "_class": "com.binar.flyket.model.AircraftDetail",
+    "id" : "A001",
+    "aircraftClass" : "ECONOMY",
+    "price" : 1000000,
+    "maxBaggage" : 20,
+    "maxCabin": 7,
+    "aircraft" : {
+      "id": 1,
+      "type" : "Boeing 777-300ER"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AircraftDetail",
+    "id" : "A002",
+    "aircraftClass" : "FIRST",
+    "price" : 3000000,
+    "maxBaggage" : 20,
+    "maxCabin": 7,
+    "aircraft" : {
+      "id": 4,
+      "type" : "Airbus A330-300"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AircraftDetail",
+    "id" : "A003",
+    "aircraftClass" : "BUSINESS",
+    "price" : 2000000,
+    "maxBaggage" : 30,
+    "maxCabin": 0,
+    "aircraft" : {
+      "id": 5,
+      "type" : "Airbus A330-900neo"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AircraftDetail",
+    "id" : "A004",
+    "aircraftClass" : "BUSINESS",
+    "price" : 2000000,
+    "maxBaggage" : 30,
+    "maxCabin": 0,
+    "aircraft" : {
+      "id": 2,
+      "type" : "Boeing 737-800NG"
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AircraftDetail",
+    "id" : "A005",
+    "aircraftClass" : "ECONOMY",
+    "price" : 1000000,
+    "maxBaggage" : 20,
+    "maxCabin": 7,
+    "aircraft" : {
+      "id": 1,
+      "type" : "Boeing 777-300ER"
+    }
+  }
+]
