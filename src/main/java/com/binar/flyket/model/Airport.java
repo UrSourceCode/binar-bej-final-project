@@ -33,9 +33,9 @@ public class Airport {
 
     @JsonIgnore
     @OneToMany(mappedBy = "fromAirport", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AirportRoute> fromRoutes = new ArrayList<>();
+    private List<FlightRoute> fromRoutes = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "toAirport", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AirportRoute> toRoutes = new ArrayList<>();
+    private List<FlightRoute> toRoutes = new ArrayList<>();
 }

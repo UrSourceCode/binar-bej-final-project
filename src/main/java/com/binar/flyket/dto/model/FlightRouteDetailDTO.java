@@ -11,10 +11,10 @@ import lombok.Setter;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class AirportRouteDetailDTO {
+public class FlightRouteDetailDTO {
     private String id;
-    private AirportDetailDTO from;
-    private AirportDetailDTO to;
+    private String originAirportCode;
+    private String destinationAirportCode;
     private Integer hours;
     private Integer minutes;
 }

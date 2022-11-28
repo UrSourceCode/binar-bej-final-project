@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "airport_route")
-public class AirportRoute {
+public class FlightRoute {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
