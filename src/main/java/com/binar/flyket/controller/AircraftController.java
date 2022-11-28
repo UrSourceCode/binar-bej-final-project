@@ -28,7 +28,7 @@ public class AircraftController {
     public ResponseEntity<?> addAircraft(@RequestBody AircraftRequest aircraftRequest) {
         try {
             aircraftService.addAircraft(airCraftRequestToDto(aircraftRequest));
-            return ResponseEntity.ok(new Response<>(HttpStatus.NO_CONTENT.value(), new Date(),
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
@@ -40,7 +40,18 @@ public class AircraftController {
         try {
             List<AircraftDTO> aircraftDTOS = aircraftRequest.stream().map(this::airCraftRequestToDto).toList();
             aircraftService.addAircraft(aircraftDTOS);
-            return ResponseEntity.ok(new Response<>(HttpStatus.NO_CONTENT.value(), new Date(),
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteAirCraft(@RequestParam("aircraftID") Integer airCraftID) {
+        try {
+            aircraftService.deleteAircraft(airCraftID);
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
@@ -50,6 +61,16 @@ public class AircraftController {
     @GetMapping
     public ResponseEntity<?> getAircraft() {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, aircraftService.getAircraft()));
+    }
+
+    @GetMapping("/{aircraftID}")
+    public ResponseEntity<?> getAircraftById(@PathVariable("aircraftID") Integer airCraftID) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG,  aircraftService.getAircraftById(airCraftID)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
     }
 
     private AircraftDTO airCraftRequestToDto(AircraftRequest request) {
