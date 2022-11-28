@@ -35,6 +35,13 @@ public class AircraftDetailServiceImpl implements AircraftDetailService {
     @Override
     public boolean addAircraftDetail(AircraftDetailRequest aircraftDetailRequest) {
         Optional<Aircraft> aircraft = aircraftRepository.findById(aircraftDetailRequest.getAircraftNo());
+        Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(aircraftDetailRequest.getId());
+
+        if(aircraftDetail.isPresent()) {
+            LOGGER.info("Aircraft "+ Constants.ALREADY_EXIST_MSG);
+            throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
+        }
+
         if (aircraft.isEmpty()) {
             LOGGER.info("Aircraft "+ Constants.NOT_FOUND_MSG);
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
@@ -42,20 +49,36 @@ public class AircraftDetailServiceImpl implements AircraftDetailService {
 
         AircraftClass aircraftClass = AircraftClass.getClass(aircraftDetailRequest.getAircraftClass());
 
-        AircraftDetail aircraftDetail = new AircraftDetail();
-        aircraftDetail.setAircraft(aircraft.get());
-        aircraftDetail.setAircraftClass(aircraftClass);
-        aircraftDetail.setPrice(aircraftDetailRequest.getAircraftPrice());
-        aircraftDetail.setMaxBaggage(aircraftDetailRequest.getAircraftMaxBaggage());
-        aircraftDetail.setMaxCabin(aircraftDetailRequest.getAircraftMaxCabin());
+        AircraftDetail aircraftDetailModel = new AircraftDetail();
+        aircraftDetailModel.setId(aircraftDetailRequest.getId());
+        aircraftDetailModel.setAircraft(aircraft.get());
+        aircraftDetailModel.setAircraftClass(aircraftClass);
+        aircraftDetailModel.setPrice(aircraftDetailRequest.getAircraftPrice());
+        aircraftDetailModel.setMaxBaggage(aircraftDetailRequest.getAircraftMaxBaggage());
+        aircraftDetailModel.setMaxCabin(aircraftDetailRequest.getAircraftMaxCabin());
 
-        aircraftDetailRepository.save(aircraftDetail);
+        aircraftDetailRepository.save(aircraftDetailModel);
         return true;
     }
 
     @Override
     public List<AircraftDetailDTO> getAllAircraftDetail() {
         return aircraftDetailRepository.findAllAircraftDetail();
+    }
+
+    @Override
+    public boolean addAircraftDetail(List<AircraftDetailRequest> aircraftDetailRequests) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(id);
+        if(aircraftDetail.isPresent()) {
+            aircraftDetailRepository.deleteById(id);
+            return true;
+        }
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
     }
 
 }

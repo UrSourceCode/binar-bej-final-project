@@ -12,5 +12,8 @@ public interface AircraftDetailService {
 
     List<AircraftDetailDTO> getAllAircraftDetail();
 
+    boolean addAircraftDetail(List<AircraftDetailRequest> aircraftDetailRequests);
+
+    boolean deleteById(String id);
 
 }

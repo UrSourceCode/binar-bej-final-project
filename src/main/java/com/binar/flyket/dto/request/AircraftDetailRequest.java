@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AircraftDetailRequest {
+    private String id;
     private String aircraftClass;
     private BigDecimal aircraftPrice;
     private Integer aircraftMaxBaggage;
     private Integer aircraftMaxCabin;
     private Integer aircraftNo;
-
 }
