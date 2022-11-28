@@ -15,5 +15,5 @@ public class AircraftDetailRequest {
     private String aircraftClass;
     private BigDecimal aircraftPrice;
     private Integer aircraftMaxBaggage;
-    private String aircraftType;
+    private Integer aircraftNo;
 }
