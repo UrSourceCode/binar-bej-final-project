@@ -60,6 +60,9 @@ public class FlightScheduleController {
 
             flightScheduleService.addFlightSchedule(flightScheduleRequest);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
+                    e.getMessage()), e.getStatusCode());
         } catch (FlyketException.DuplicateEntityException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
                     e.getMessage()), e.getStatusCode());

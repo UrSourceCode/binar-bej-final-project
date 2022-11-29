@@ -41,12 +41,13 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     @Override
     public Boolean addFlightSchedule(FlightScheduleRequest flightScheduleRequest) {
         Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(flightScheduleRequest.getAircraftDetailId());
-        Optional<FlightRoute> route = airportRouteRepository.findById(flightScheduleRequest.getRouteId());
 
         if(aircraftDetail.isEmpty()) {
             LOGGER.info("Aircraft: "+ Constants.NOT_FOUND_MSG);
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Aircraft " + Constants.NOT_FOUND_MSG);
         }
+
+        Optional<FlightRoute> route = airportRouteRepository.findById(flightScheduleRequest.getRouteId());
 
         if(route.isEmpty()) {
             LOGGER.info("Route: "+ Constants.NOT_FOUND_MSG);
