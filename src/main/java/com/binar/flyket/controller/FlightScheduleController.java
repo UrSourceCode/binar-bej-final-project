@@ -24,7 +24,6 @@ public class FlightScheduleController {
         this.flightScheduleService = flightScheduleService;
     }
 
-
     @GetMapping
     public ResponseEntity<?> getFlightSchedules() {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
@@ -69,7 +68,6 @@ public class FlightScheduleController {
                     e.getMessage()), e.getStatusCode());
         }
     }
-
 
     @GetMapping("/search")
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(@RequestBody SearchScheduleRequest searchScheduleRequest) {

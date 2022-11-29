@@ -1,6 +1,7 @@
 package com.binar.flyket.repository;
 
 import com.binar.flyket.dto.model.FlightScheduleDetailDTO;
+import com.binar.flyket.model.AircraftClass;
 import com.binar.flyket.model.FlightSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +27,6 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
     List<FlightScheduleDetailDTO> searchFlightScheduleByAirportAndDate(
             @Param("originAirport") String originAirport,
             @Param("destinationAirport") String destinationAirport,
-            @Param("flightDate") LocalDate flightDate);
+            @Param("flightDate") LocalDate flightDate,
+            @Param("aircraftClass") AircraftClass aircraftClass);
 }

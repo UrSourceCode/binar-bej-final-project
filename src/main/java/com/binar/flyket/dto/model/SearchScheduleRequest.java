@@ -1,5 +1,6 @@
 package com.binar.flyket.dto.model;
 
+import com.binar.flyket.model.AircraftClass;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -14,4 +15,5 @@ public class SearchScheduleRequest {
     private String destinationAirportId;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
+    private String aircraftClass;
 }

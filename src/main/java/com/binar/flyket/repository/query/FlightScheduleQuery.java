@@ -40,5 +40,6 @@ public class FlightScheduleQuery {
             "JOIN fs.flightRoute AS fr " +
             "WHERE fs.flightDate = :flightDate " +
             "AND fs.flightRoute.fromAirport.IATACode = :originAirport " +
-            "AND fs.flightRoute.toAirport.IATACode = :destinationAirport ";
+            "AND fs.flightRoute.toAirport.IATACode = :destinationAirport " +
+            "AND fs.aircraftDetail.aircraftClass = :aircraftClass";
 }
