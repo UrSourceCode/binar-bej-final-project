@@ -26,5 +26,5 @@ public class FlightScheduleQuery {
             "FROM FlightSchedule AS fs " +
             "JOIN fs.aircraftDetail AS acd " +
             "JOIN fs.flightRoute AS fr " +
-            "WHERE fs.aircraftDetail.id = :id ";
+            "WHERE fs.id = :id ";
 }

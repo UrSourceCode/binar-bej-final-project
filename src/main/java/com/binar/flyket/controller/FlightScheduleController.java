@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
@@ -54,8 +55,9 @@ public class FlightScheduleController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addFlightSchedule(@RequestBody FlightScheduleRequest flightScheduleRequest) {
+    public ResponseEntity<?> addFlightSchedule(@RequestBody @Valid FlightScheduleRequest flightScheduleRequest) {
         try {
+
             flightScheduleService.addFlightSchedule(flightScheduleRequest);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
         } catch (FlyketException.DuplicateEntityException e) {
