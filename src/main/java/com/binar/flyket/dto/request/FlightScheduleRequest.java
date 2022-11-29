@@ -1,6 +1,7 @@
 package com.binar.flyket.dto.request;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class FlightScheduleRequest {
     private String id;
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime departureTime;
+    @JsonFormat(pattern="HH:mm:ss")
     private LocalTime arrivalTime;
     private LocalDate flightDate;
     private String aircraftDetailId;

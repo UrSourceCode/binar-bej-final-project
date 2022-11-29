@@ -53,6 +53,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route " + Constants.NOT_FOUND_MSG);
         }
 
+        System.out.println(flightScheduleRequest.getId());
         FlightSchedule flightSchedule = new FlightSchedule();
         flightSchedule.setId(flightScheduleRequest.getId());
         flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());

@@ -1,5 +1,6 @@
 package com.binar.flyket.controller;
 
+import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/flight/schedules")
+@RequestMapping("/api/flights/schedules")
 public class FlightScheduleController {
 
     private FlightScheduleService flightScheduleService;
@@ -49,6 +50,17 @@ public class FlightScheduleController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addFlightSchedule(@RequestBody FlightScheduleRequest flightScheduleRequest) {
+        try {
+            flightScheduleService.addFlightSchedule(flightScheduleRequest);
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.DuplicateEntityException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
+                    e.getMessage()), e.getStatusCode());
         }
     }
 
