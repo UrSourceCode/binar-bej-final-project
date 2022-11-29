@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "airport_route")
+@Table(name = "flight_route")
 public class FlightRoute {
     @Id
     @Column(name = "id", updatable = false, nullable = false)

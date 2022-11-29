@@ -19,11 +19,9 @@ public class FlightSchedule {
 
     @Id
     private String id;
-
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private LocalDate flightDate;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_detail_id")
     private AircraftDetail aircraftDetail;

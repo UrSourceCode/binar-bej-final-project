@@ -25,7 +25,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
                                         @RequestBody UpdateRequest updateRequest) {
