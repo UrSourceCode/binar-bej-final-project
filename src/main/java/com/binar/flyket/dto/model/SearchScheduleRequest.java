@@ -1,6 +1,5 @@
 package com.binar.flyket.dto.model;
 
-import com.binar.flyket.model.AircraftClass;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 

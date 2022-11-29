@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/flights/schedules")
+@RequestMapping("/api/schedules")
 public class FlightScheduleController {
 
     private FlightScheduleService flightScheduleService;
