@@ -67,14 +67,8 @@ public class FlightRouteServiceImpl implements FlightRouteService {
         Optional<Airport> toAirport = airportRepository.findById(airportRouteRequest.getDestinationAirportCode());
         isExistRoute(fromAirport, toAirport);
 
-        StringBuilder randId = new StringBuilder();
-        for(String id : Constants.randomIdentifier(airportRouteRequest.getOriginAirportCode()
-                + airportRouteRequest.getDestinationAirportCode())) {
-            randId.append(id);
-        }
-
         FlightRoute flightRoute = new FlightRoute();
-        flightRoute.setId(randId.toString());
+        flightRoute.setId(airportRouteRequest.getId());
         flightRoute.setFromAirport(fromAirport.get());
         flightRoute.setToAirport(toAirport.get());
         flightRoute.setHours(airportRouteRequest.getHours());
