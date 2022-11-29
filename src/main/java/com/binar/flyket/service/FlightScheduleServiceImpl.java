@@ -1,5 +1,6 @@
 package com.binar.flyket.service;
 
+import com.binar.flyket.dto.model.FlightScheduleDetailDTO;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,5 +64,31 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         flightScheduleRepository.save(flightSchedule);
 
         return true;
+    }
+
+    @Override
+    public Boolean deleteFlightScheduleById(String id) {
+        Optional<FlightSchedule> flightSchedule = flightScheduleRepository.findById(id);
+        if(flightSchedule.isPresent()) {
+            flightScheduleRepository.delete(flightSchedule.get());
+            return true;
+        }
+        LOGGER.info("Flight Schedule : " + Constants.NOT_FOUND_MSG);
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+    }
+
+    @Override
+    public List<FlightScheduleDetailDTO> getFlightScheduleDetails() {
+        return flightScheduleRepository.findFlightScheduleDetail();
+    }
+
+    @Override
+    public FlightScheduleDetailDTO getFlightScheduleDetailById(String id) {
+        Optional<FlightScheduleDetailDTO> flightSchedule = flightScheduleRepository.findFlightScheduleDetailById(id);
+        if(flightSchedule.isPresent()) {
+            return flightSchedule.get();
+        }
+        LOGGER.info("Flight schedule with id "+ id + "  : " + Constants.NOT_FOUND_MSG);
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
     }
 }
