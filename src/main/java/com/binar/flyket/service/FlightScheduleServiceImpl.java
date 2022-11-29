@@ -1,10 +1,12 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.FlightScheduleDetailDTO;
+import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.AircraftDetail;
+import com.binar.flyket.model.Airport;
 import com.binar.flyket.model.FlightRoute;
 import com.binar.flyket.model.FlightSchedule;
 import com.binar.flyket.repository.AircraftDetailRepository;
@@ -91,5 +93,13 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         }
         LOGGER.info("Flight schedule with id "+ id + "  : " + Constants.NOT_FOUND_MSG);
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+    }
+
+    @Override
+    public List<FlightScheduleDetailDTO> searchFlightSchedule(SearchScheduleRequest searchScheduleRequest) {
+        return flightScheduleRepository.searchFlightScheduleByAirportAndDate(
+                searchScheduleRequest.getOriginAirportId().toUpperCase().trim(),
+                searchScheduleRequest.getDestinationAirportId().toUpperCase().trim(),
+                searchScheduleRequest.getFlightDate());
     }
 }

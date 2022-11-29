@@ -1,5 +1,6 @@
 package com.binar.flyket.controller;
 
+import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
@@ -67,6 +68,13 @@ public class FlightScheduleController {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
                     e.getMessage()), e.getStatusCode());
         }
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchFlightScheduleByAirportAndDate(@RequestBody SearchScheduleRequest searchScheduleRequest) {
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                flightScheduleService.searchFlightSchedule(searchScheduleRequest)));
     }
 
 
