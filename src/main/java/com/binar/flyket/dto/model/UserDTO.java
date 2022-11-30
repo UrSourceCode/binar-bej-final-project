@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 public class UserDTO {
     private String id;
@@ -19,6 +18,7 @@ public class UserDTO {
     private String lastName;
     private String password;
     private String email;
+    private String imgUrl;
     private String phoneNumber;
     private ERoles role;
     private LocalDateTime createdAt;

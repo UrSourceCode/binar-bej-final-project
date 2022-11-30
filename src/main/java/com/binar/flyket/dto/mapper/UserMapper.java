@@ -14,6 +14,7 @@ public class UserMapper {
         userDTO.setId(userModel.getId());
         userDTO.setPhoneNumber(userModel.getPhoneNumber());
         userDTO.setLastName(userModel.getLastName());
+        userDTO.setImgUrl(userModel.getImgUrl());
         userDTO.setFirstName(userModel.getFirstName());
         userDTO.setEmail(userModel.getEmail());
         userDTO.setCreatedAt(userModel.getCreatedAt());

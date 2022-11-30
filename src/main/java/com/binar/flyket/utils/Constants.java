@@ -1,5 +1,9 @@
 package com.binar.flyket.utils;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +15,8 @@ public class Constants {
     public static final String ERROR_MSG = "error";
     public static final String UPDATED_MSG = "updated";
     public static final String DELETED_MSG = "deleted";
+
+    public static final String UPLOAD_FAILED = "upload failed";
 
     public static final String EMPTY_MSG = "input is empty";
 
@@ -56,6 +62,12 @@ public class Constants {
         byte[] b = s.getBytes();
         UUID uuid = UUID.nameUUIDFromBytes(b);
         return uuid.toString().split("-");
+    }
+
+    public static File multipartToFile(MultipartFile multipart, String fileName) throws IllegalStateException, IOException {
+        File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
+        multipart.transferTo(convFile);
+        return convFile;
     }
 
     Constants() {}
