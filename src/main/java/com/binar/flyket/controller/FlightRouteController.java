@@ -59,4 +59,14 @@ public class FlightRouteController {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
+
+    @GetMapping("/{routeId}")
+    public ResponseEntity<?> getRouteDetailById(@PathVariable String routeId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG,  flightRouteService.getRouteDetailById(routeId)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
 }

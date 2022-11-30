@@ -99,6 +99,15 @@ public class FlightRouteServiceImpl implements FlightRouteService {
         return airportRouteRepository.findAllRoute();
     }
 
+    @Override
+    public FlightRouteDetailDTO getRouteDetailById(String routeCode) {
+        Optional<FlightRouteDetailDTO> flightRouteDetail = airportRouteRepository.findRouteDetailById(routeCode);
+        if(flightRouteDetail.isPresent()) {
+            return flightRouteDetail.get();
+        }
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.ROUTE_NOT_FOUND_MSG);
+    }
+
     private void isExistRoute(Optional<Airport> fromAirport, Optional<Airport> toAirport) {
         if(fromAirport.isEmpty()) {
             LOGGER.info("Origin Airport not found");
