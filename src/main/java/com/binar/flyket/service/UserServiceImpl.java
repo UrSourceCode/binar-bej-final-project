@@ -9,11 +9,19 @@ import com.binar.flyket.model.user.User;
 import com.binar.flyket.repository.RoleRepository;
 import com.binar.flyket.repository.UserRepository;
 import com.binar.flyket.utils.Constants;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,10 +33,13 @@ public class UserServiceImpl implements UserService {
 
     private BCryptPasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder encoder) {
+    private Cloudinary cloudinary;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder encoder, Cloudinary cloudinary) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
+        this.cloudinary = cloudinary;
     }
 
     @Override
@@ -56,6 +67,7 @@ public class UserServiceImpl implements UserService {
                 userModel.setPhoneNumber(userDTO.getPhoneNumber());
                 userModel.setPassword(encoder.encode(userDTO.getPassword()));
                 userModel.getRoles().add(role.get());
+                userModel.setImgUrl("");
                 userModel.setCreatedAt(LocalDateTime.now());
                 userModel.setUpdatedAt(LocalDateTime.now());
                 userRepository.save(userModel);
@@ -89,5 +101,27 @@ public class UserServiceImpl implements UserService {
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,
                 Constants.NOT_FOUND_MSG);
+    }
+
+    @Override
+    public Boolean uploadImage(String email, MultipartFile file) throws IOException {
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if(user.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+
+        String fileExe = Objects.requireNonNull(file.getContentType()).split("/")[0];
+
+        if(!fileExe.equalsIgnoreCase("image")) {
+            throw FlyketException.throwException(ExceptionType.UPLOAD_FAILED, HttpStatus.NOT_ACCEPTABLE, "check file extension, should jpg, png or jpeg");
+        }
+
+        File uploadFile = Constants.multipartToFile(file, file.getName());
+
+        Map uploadResult = cloudinary.uploader().upload(uploadFile, ObjectUtils.emptyMap());
+        User userModel = user.get();
+        userModel.setImgUrl(uploadResult.get("url").toString());
+        userRepository.save(userModel);
+        return true;
     }
 }
