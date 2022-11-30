@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/flights/routes")
+@RequestMapping("/api/routes")
 public class FlightRouteController {
 
     private FlightRouteService flightRouteService;
@@ -51,9 +51,9 @@ public class FlightRouteController {
 
     @PutMapping("/update")
     public ResponseEntity<?> updateRouteById(
-            @RequestParam("idRoute") String idRoute, @RequestBody UpdateRouteRequest updateRouteRequest) {
+            @RequestParam("routeId") String routeId, @RequestBody UpdateRouteRequest updateRouteRequest) {
         try {
-            flightRouteService.updateRoute(idRoute, updateRouteRequest);
+            flightRouteService.updateRoute(routeId, updateRouteRequest);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.UPDATED_MSG, null));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
