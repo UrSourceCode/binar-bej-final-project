@@ -25,7 +25,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
                                         @RequestBody UpdateRequest updateRequest) {
@@ -67,8 +66,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> findUserByEmail(@RequestParam("email") String email) {
+    @GetMapping("/{email}")
+    public ResponseEntity<?> findUserByEmail(@PathVariable("email") String email) {
         try {
             if(!Constants.validateEmail(email))
                 throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,

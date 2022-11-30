@@ -13,14 +13,16 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Country {
-    @Id
-    private String code;
+@Table(name = "aircraft")
+public class Aircraft {
 
-    @Column(name = "name")
-    private String name;
+    @Id
+    private Integer id;
+
+    @Column(name = "type")
+    private String type;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<Airport> airports = new ArrayList<>();
+    @OneToMany(mappedBy = "aircraft", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<AircraftDetail> aircraftDetailList = new ArrayList<>();
 }
