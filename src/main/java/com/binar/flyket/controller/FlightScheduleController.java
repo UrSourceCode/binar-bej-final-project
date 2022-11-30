@@ -2,11 +2,14 @@ package com.binar.flyket.controller;
 
 import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
+import com.binar.flyket.dto.request.UpdateScheduleRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.FlightScheduleService;
 import com.binar.flyket.utils.Constants;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +25,6 @@ public class FlightScheduleController {
 
     public FlightScheduleController(FlightScheduleService flightScheduleService) {
         this.flightScheduleService = flightScheduleService;
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getFlightSchedules() {
-        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
-                Constants.SUCCESS_MSG,
-                flightScheduleService.getFlightScheduleDetails()));
     }
 
     @GetMapping("/{id}")
@@ -69,12 +65,29 @@ public class FlightScheduleController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchFlightScheduleByAirportAndDate(@RequestBody SearchScheduleRequest searchScheduleRequest) {
+    @GetMapping
+    public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size,
+            @RequestBody SearchScheduleRequest searchScheduleRequest) {
+
+        Pageable paging = PageRequest.of(page, size);
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
-                flightScheduleService.searchFlightSchedule(searchScheduleRequest)));
+                flightScheduleService.searchFlightSchedule(
+                        paging,
+                        searchScheduleRequest)));
     }
 
-
-    // TODO: udpate
+    @PutMapping("/update")
+    public ResponseEntity<?> updateScheduleAirport(
+            @RequestParam("scheduleId") String scheduleId,
+            @RequestBody UpdateScheduleRequest updateScheduleRequest) {
+        try {
+            flightScheduleService.updateFlightSchedule(scheduleId, updateScheduleRequest);
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
+                    e.getMessage()), e.getStatusCode());
+        }
+    }
 }
