@@ -27,6 +27,16 @@ public class FlightScheduleController {
         this.flightScheduleService = flightScheduleService;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size) {
+
+        Pageable paging = PageRequest.of(page, size);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                Constants.SUCCESS_MSG, flightScheduleService.getFlightScheduleDetails(paging)));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getFlightSchedulesById(@PathVariable("id") String id) {
         try {
@@ -65,7 +75,7 @@ public class FlightScheduleController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "4") int size,
