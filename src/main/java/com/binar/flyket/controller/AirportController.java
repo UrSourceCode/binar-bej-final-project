@@ -1,6 +1,7 @@
 package com.binar.flyket.controller;
 
 import com.binar.flyket.dto.request.InputAirportRequest;
+import com.binar.flyket.dto.request.UpdateAirportRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
@@ -51,14 +52,27 @@ public class AirportController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> getAirportById(@RequestParam("IATACode") String IATACode) {
+    @GetMapping("/{IATACode}")
+    public ResponseEntity<?> getAirportById(@PathVariable("IATACode") String IATACode) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, airportService.getAirportById(IATACode)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(),e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateAirportById(
+            @RequestParam String IATACode,
+            @RequestBody UpdateAirportRequest updateAirportRequest) {
+
+        try {
+            airportService.updateAirport(IATACode, updateAirportRequest);
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
 }

@@ -3,6 +3,8 @@ package com.binar.flyket.repository;
 import com.binar.flyket.dto.model.AirportDetailDTO;
 import com.binar.flyket.model.Airport;
 import com.binar.flyket.repository.query.AirportQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +20,8 @@ public interface AirportRepository extends JpaRepository<Airport, String> {
 
     @Query(value = AirportQuery.AIRPORT_DETAIL_INNER_JOIN)
     List<AirportDetailDTO> findAllAirport();
+
+    @Query(value = AirportQuery.AIRPORT_DETAIL_SEARCH)
+    Page<AirportDetailDTO> searchAirport(String text, Pageable pageable);
 
 }
