@@ -27,6 +27,7 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PostMapping("/upload-image")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
@@ -55,6 +56,7 @@ public class UserController {
         }
 
     }
+
 
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
