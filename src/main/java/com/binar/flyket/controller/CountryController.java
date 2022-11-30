@@ -58,8 +58,8 @@ public class CountryController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> getCountryById(@RequestParam("code") String code) {
+    @GetMapping("/{code}")
+    public ResponseEntity<?> getCountryById(@PathVariable("code") String code) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, countryService.getCountryById(code)));
