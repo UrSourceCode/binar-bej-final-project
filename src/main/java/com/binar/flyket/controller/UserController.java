@@ -12,7 +12,9 @@ import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -25,6 +27,34 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/upload-image")
+    public ResponseEntity<?> uploadImage(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("email") String email) {
+
+        try {
+            if(!Constants.validateEmail(email))
+                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
+                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
+
+            userService.uploadImage(email, file);
+
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
+        } catch (IOException e) {
+            return new ResponseEntity<>(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    new Date(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (FlyketException.EmailValidateException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(),e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(),e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.UploadImageException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), e.getStatusCode());
+        }
+
+    }
 
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
