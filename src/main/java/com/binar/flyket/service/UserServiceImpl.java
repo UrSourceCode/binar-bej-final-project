@@ -72,8 +72,9 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()) {
             User userModel = new User();
-            userModel.setLastName(userModel.getLastName());
-            userModel.setFirstName(userModel.getFirstName());
+            userModel.setLastName(userDTO.getLastName());
+            userModel.setFirstName(userDTO.getFirstName());
+            userModel.setPhoneNumber(userDTO.getPhoneNumber());
             userModel.setUpdatedAt(LocalDateTime.now());
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);

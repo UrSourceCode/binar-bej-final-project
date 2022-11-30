@@ -44,6 +44,9 @@ public class UserController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(),e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.InputIsEmptyException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(),e.getMessage()), e.getStatusCode());
         }
     }
 
@@ -88,9 +91,15 @@ public class UserController {
     }
 
     private UserDTO updateRequestToDto(UpdateRequest updateRequest) {
+        if(updateRequest.getPhoneNumber() == null ||
+                updateRequest.getLastName() == null ||
+                updateRequest.getFirstName() == null)  {
+            throw FlyketException.throwException(ExceptionType.EMPTY_REQUEST, HttpStatus.NOT_ACCEPTABLE, Constants.EMPTY_MSG);
+        }
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName(updateRequest.getFirstName());
         userDTO.setLastName(updateRequest.getLastName());
+        userDTO.setPhoneNumber(updateRequest.getPhoneNumber());
         return userDTO;
     }
 }
