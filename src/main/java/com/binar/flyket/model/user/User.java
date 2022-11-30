@@ -35,8 +35,12 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
+
+    @Column(name = "image_url")
+    private String imgUrl;
 
     @JsonIgnore
     private LocalDateTime createdAt;
