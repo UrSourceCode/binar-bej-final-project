@@ -8,6 +8,7 @@ import com.binar.flyket.service.CountryService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,12 +31,14 @@ public class CountryController {
                 Constants.SUCCESS_MSG, countryService.getCountries()));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addAll")
     public ResponseEntity<?> addCountries(@RequestBody List<CountryDTO> countries) {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                 Constants.SUCCESS_MSG, countryService.addCountries(countries)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addCountry(@RequestBody CountryDTO country) {
         try {
@@ -47,6 +50,7 @@ public class CountryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteCountry(@RequestParam("code") String code) {
         try {

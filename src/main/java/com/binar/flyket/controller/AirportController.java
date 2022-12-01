@@ -9,6 +9,7 @@ import com.binar.flyket.service.AirportService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ public class AirportController {
                 Constants.SUCCESS_MSG, airportService.getAirports()));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addAirport(@RequestBody @Valid InputAirportRequest inputAirportRequest) {
         try {
@@ -41,6 +43,7 @@ public class AirportController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAirportById(@RequestParam("code") String code) {
         try {
@@ -63,6 +66,7 @@ public class AirportController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<?> updateAirportById(
             @RequestParam String IATACode,
