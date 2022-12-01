@@ -16,7 +16,7 @@ public interface FlightScheduleService {
 
     Boolean deleteFlightScheduleById(String id);
 
-    List<FlightScheduleDetailDTO> getFlightScheduleDetails();
+    List<FlightScheduleDetailDTO> getFlightScheduleDetails(Pageable pageable);
 
     FlightScheduleDetailDTO getFlightScheduleDetailById(String id);
 

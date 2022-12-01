@@ -15,4 +15,5 @@ public class SearchScheduleRequest {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
     private String aircraftClass;
+
 }

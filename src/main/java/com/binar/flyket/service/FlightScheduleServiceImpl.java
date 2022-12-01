@@ -84,8 +84,8 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     }
 
     @Override
-    public List<FlightScheduleDetailDTO> getFlightScheduleDetails() {
-        return flightScheduleRepository.findFlightScheduleDetail();
+    public List<FlightScheduleDetailDTO> getFlightScheduleDetails(Pageable paging) {
+        return flightScheduleRepository.findFlightScheduleDetail(paging).getContent();
     }
 
     @Override
