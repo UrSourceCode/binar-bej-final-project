@@ -75,7 +75,7 @@ public class FlightScheduleController {
         }
     }
 
-    @GetMapping("/search")
+    @GetMapping("/departure-date")
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "4") int size,
