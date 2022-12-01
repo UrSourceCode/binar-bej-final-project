@@ -30,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
         Optional<Roles> role = roleRepository.findByName(eRoles);
 
         if(Boolean.FALSE.equals(ERoles.checkRole(request.getRoleName())))
-            throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
 
         if(role.isPresent())
