@@ -9,6 +9,7 @@ import com.binar.flyket.service.AircraftService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -24,6 +25,7 @@ public class AircraftController {
         this.aircraftService = aircraftService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addAircraft(@RequestBody AircraftRequest aircraftRequest) {
         try {
@@ -35,6 +37,7 @@ public class AircraftController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-all")
     public ResponseEntity<?> addAircraft(@RequestBody List<AircraftRequest> aircraftRequest) {
         try {
@@ -47,6 +50,7 @@ public class AircraftController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAirCraft(@RequestParam("aircraftID") Integer airCraftID) {
         try {

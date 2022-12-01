@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,6 +40,7 @@ public class FlightScheduleController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteScheduleById(@PathVariable("id") String id) {
         try {
@@ -50,6 +52,7 @@ public class FlightScheduleController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addFlightSchedule(@RequestBody @Valid FlightScheduleRequest flightScheduleRequest) {
         try {
@@ -78,6 +81,7 @@ public class FlightScheduleController {
                         searchScheduleRequest)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<?> updateScheduleAirport(
             @RequestParam("scheduleId") String scheduleId,
