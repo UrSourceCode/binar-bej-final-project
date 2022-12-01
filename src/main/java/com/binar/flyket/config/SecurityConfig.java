@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/api/auth/**").permitAll()
+                .antMatchers("/", "/api/auth/**", "/api/roles/add").permitAll()
 
                 .anyRequest().authenticated()
 
