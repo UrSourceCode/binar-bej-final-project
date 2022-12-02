@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/auth")
