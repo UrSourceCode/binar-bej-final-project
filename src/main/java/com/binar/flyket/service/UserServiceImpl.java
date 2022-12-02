@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService {
         throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT,
                 Constants.ALREADY_EXIST_MSG);
     }
+
     @Override
     public UserDTO updateProfile(String email, UserDTO userDTO) {
         Optional<User> user = userRepository.findByEmail(email);
@@ -90,6 +91,7 @@ public class UserServiceImpl implements UserService {
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
     }
+
     @Override
     public UserDTO deleteByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);

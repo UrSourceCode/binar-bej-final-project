@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "users", indexes = @Index(name = "idx_user_email", columnList = "email", unique = true))
 public class User {
+
     @Id
     @Column(name = "user_id")
     private String id;

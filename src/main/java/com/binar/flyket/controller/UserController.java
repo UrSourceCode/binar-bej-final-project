@@ -11,6 +11,7 @@ import com.binar.flyket.service.UserService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('BUYER')")
     @PostMapping("/upload-image")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
@@ -56,6 +58,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasRole('BUYER')")
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
                                         @RequestBody UpdateRequest updateRequest) {
@@ -80,6 +83,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('BUYER')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUserByEmail(@RequestParam("email") String email) {
         try {
@@ -100,6 +104,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @GetMapping("/{email}")
     public ResponseEntity<?> findUserByEmail(@PathVariable("email") String email) {
         try {
