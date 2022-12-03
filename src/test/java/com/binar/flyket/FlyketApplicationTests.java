@@ -30,12 +30,4 @@ class FlyketApplicationTests {
 	@Autowired
 	private AircraftDetailRepository aircraftDetailRepository;
 
-	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	void aircraftDetail() {
-		System.out.println(LocalDateTime.now());
-	}
 }
