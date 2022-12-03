@@ -2,20 +2,20 @@ package com.binar.flyket.config;
 
 import com.binar.flyket.security.AuthEntryPoint;
 import com.binar.flyket.security.filters.AuthorizationJwtFilter;
+import com.binar.flyket.security.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 @Configuration
-//@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
@@ -31,9 +31,12 @@ public class SecurityConfig {
 
     private final AuthorizationJwtFilter jwtFilter;
 
-    public SecurityConfig(AuthEntryPoint authEntryPoint, AuthorizationJwtFilter jwtFilter) {
+    private final CorsFilter corsFilter;
+
+    public SecurityConfig(AuthEntryPoint authEntryPoint, AuthorizationJwtFilter jwtFilter, CorsFilter corsFilter) {
         this.authEntryPoint = authEntryPoint;
         this.jwtFilter = jwtFilter;
+        this.corsFilter = corsFilter;
     }
 
     @Bean
@@ -41,7 +44,7 @@ public class SecurityConfig {
         http.formLogin().disable();
 
         http
-                .cors().and()
+                .addFilterBefore(corsFilter, SessionManagementFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/api/auth/**", "/api/roles/add").permitAll()
