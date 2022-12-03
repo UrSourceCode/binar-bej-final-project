@@ -4,7 +4,7 @@ public class FlightScheduleQuery {
 
     public static final String FLIGHT_SCHEDULE_DETAIL_JOIN = "SELECT " +
             "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
-                    "fs.departureTime, fs.arrivalTime, fs.flightDate, acd.aircraftClass, " +
+                    "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
                     "acd.aircraft.type, " +
                     "fr.fromAirport.IATACode, fr.fromAirport.name, fr.fromAirport.city, " +
                     "fr.toAirport.IATACode, fr.toAirport.name, fr.toAirport.city, " +
@@ -18,7 +18,7 @@ public class FlightScheduleQuery {
 
     public static final String FLIGHT_SCHEDULE_DETAIL_JOIN_BY_ID = "SELECT " +
             "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
-                "fs.departureTime, fs.arrivalTime, fs.flightDate, acd.aircraftClass, " +
+                "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
                 "acd.aircraft.type, " +
                 "fr.fromAirport.IATACode, fr.fromAirport.name, fr.fromAirport.city, " +
                 "fr.toAirport.IATACode, fr.toAirport.name, fr.toAirport.city, " +
@@ -30,7 +30,7 @@ public class FlightScheduleQuery {
 
     public static final String FLIGHT_SCHEDULE_DETAIL_BY_AIRPORT_AND_DATE = "SELECT " +
             "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
-            "fs.departureTime, fs.arrivalTime, fs.flightDate, acd.aircraftClass, " +
+            "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
             "acd.aircraft.type, " +
             "fr.fromAirport.IATACode, fr.fromAirport.name, fr.fromAirport.city, " +
             "fr.toAirport.IATACode, fr.toAirport.name, fr.toAirport.city, " +

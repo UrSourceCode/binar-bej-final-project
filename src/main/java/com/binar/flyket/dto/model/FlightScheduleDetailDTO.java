@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Setter
@@ -16,9 +17,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class FlightScheduleDetailDTO {
     private String flightScheduleId;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
-    private LocalDate flightDate;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
     private AircraftClass aircraftClass;
     private String aircraftType;
     private String originAirportCode;

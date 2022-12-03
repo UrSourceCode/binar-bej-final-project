@@ -3,9 +3,10 @@ package com.binar.flyket.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -13,10 +14,10 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class FlightScheduleRequest {
     private String id;
-    @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime departureTime;
-    @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime arrivalTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime departureTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime arrivalTime;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
     @NonNull

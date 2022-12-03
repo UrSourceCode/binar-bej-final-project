@@ -6,9 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -19,9 +17,13 @@ public class FlightSchedule {
 
     @Id
     private String id;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
+
+    private LocalDateTime departureTime;
+
+    private LocalDateTime arrivalTime;
+
     private LocalDate flightDate;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_detail_id")
     private AircraftDetail aircraftDetail;

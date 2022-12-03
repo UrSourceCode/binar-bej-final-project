@@ -68,6 +68,7 @@ public class FlightScheduleController {
         try {
 
             flightScheduleService.addFlightSchedule(flightScheduleRequest);
+
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
@@ -83,12 +84,16 @@ public class FlightScheduleController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "4") int size,
             @RequestBody SearchScheduleRequest searchScheduleRequest) {
-
-        Pageable paging = PageRequest.of(page, size);
-        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
-                flightScheduleService.searchFlightSchedule(
-                        paging,
-                        searchScheduleRequest)));
+        try {
+            Pageable paging = PageRequest.of(page, size);
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                    flightScheduleService.searchFlightSchedule(
+                            paging,
+                            searchScheduleRequest)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
+                    e.getMessage()), e.getStatusCode());
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")
