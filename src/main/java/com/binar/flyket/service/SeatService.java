@@ -1,6 +1,7 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.SeatDTO;
+import com.binar.flyket.model.SeatNo;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ public interface SeatService {
 
     List<SeatDTO> addSeats(List<SeatDTO> seatDTO);
 
-    SeatDTO deleteSeat(Integer seatId);
+    SeatDTO deleteSeat(SeatNo seatId);
 
-    SeatDTO updateSeat(Integer seatId, SeatDTO seatDTO);
+    SeatDTO updateSeat(SeatNo seatId, SeatDTO seatDTO);
 
-    SeatDTO getSeatById(Integer seatId);
+    SeatDTO getSeatById(SeatNo seatId);
 
     List<SeatDTO> getSeats();
 }

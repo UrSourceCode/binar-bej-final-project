@@ -5,6 +5,7 @@ import com.binar.flyket.dto.model.SeatDTO;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.Seat;
+import com.binar.flyket.model.SeatNo;
 import com.binar.flyket.repository.SeatRepository;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public boolean addSeat(SeatDTO seatDTO) {
-        Optional<Seat> seat = seatRepository.findById(seatDTO.getId().getSeatNo());
+        Optional<Seat> seat = seatRepository.findById(seatDTO.getId());
         if(seat.isEmpty()) {
             Seat seatModel = new Seat();
             seatModel.setId(seatDTO.getId());
@@ -51,7 +52,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDTO deleteSeat(Integer seatId) {
+    public SeatDTO deleteSeat(SeatNo seatId) {
         Optional<Seat> seat = seatRepository.findById(seatId);
         if(seat.isPresent()) {
             seatRepository.delete(seat.get());
@@ -61,7 +62,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDTO updateSeat(Integer seatId, SeatDTO seatDTO) {
+    public SeatDTO updateSeat(SeatNo seatId, SeatDTO seatDTO) {
         Optional<Seat> seat = seatRepository.findById(seatId);
         if(seat.isPresent()) {
             Seat seatModel = new Seat();
@@ -73,7 +74,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDTO getSeatById(Integer seatId) {
+    public SeatDTO getSeatById(SeatNo seatId) {
         Optional<Seat> seat = seatRepository.findById(seatId);
         if(seat.isPresent())
             return SeatMapper.toDto(seat.get());

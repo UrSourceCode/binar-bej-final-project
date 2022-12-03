@@ -12,5 +12,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SeatDTO {
     private SeatNo id;
-    private Boolean isAvailable;
+        private Boolean isAvailable;
 }
