@@ -2,9 +2,10 @@ package com.binar.flyket.config;
 
 import com.binar.flyket.security.AuthEntryPoint;
 import com.binar.flyket.security.filters.AuthorizationJwtFilter;
-import com.binar.flyket.security.filters.CorsFilter;
+import com.cloudinary.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,7 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.session.SessionManagementFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -31,12 +34,9 @@ public class SecurityConfig {
 
     private final AuthorizationJwtFilter jwtFilter;
 
-    private final CorsFilter corsFilter;
-
-    public SecurityConfig(AuthEntryPoint authEntryPoint, AuthorizationJwtFilter jwtFilter, CorsFilter corsFilter) {
+    public SecurityConfig(AuthEntryPoint authEntryPoint, AuthorizationJwtFilter jwtFilter) {
         this.authEntryPoint = authEntryPoint;
         this.jwtFilter = jwtFilter;
-        this.corsFilter = corsFilter;
     }
 
     @Bean
@@ -44,7 +44,14 @@ public class SecurityConfig {
         http.formLogin().disable();
 
         http
-                .addFilterBefore(corsFilter, SessionManagementFilter.class)
+                .cors().configurationSource(request -> {
+                    CorsConfiguration cors = new CorsConfiguration();
+                    cors.setAllowedMethods(Arrays.asList(HttpMethod.DELETE.name(),
+                            HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name()));
+                    cors.applyPermitDefaultValues();
+                    return cors;
+                })
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/api/auth/**", "/api/roles/add").permitAll()
