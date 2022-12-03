@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/seats")
+@RequestMapping("/api/seats")
 public class SeatController {
 
     private final SeatService seatService;
@@ -29,7 +29,7 @@ public class SeatController {
                 Constants.SUCCESS_MSG, seatService.getSeats()));
     }
 
-    @PostMapping("/addAll")
+    @PostMapping("/add-all")
     public ResponseEntity<?> addSeats(@RequestBody List<SeatDTO> seats) {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                 Constants.SUCCESS_MSG, seatService.addSeats(seats)));
