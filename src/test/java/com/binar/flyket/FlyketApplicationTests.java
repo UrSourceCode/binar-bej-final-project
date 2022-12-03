@@ -37,5 +37,6 @@ class FlyketApplicationTests {
 
 	@Test
 	void aircraftDetail() {
+		System.out.println(LocalDateTime.now());
 	}
 }
