@@ -61,9 +61,9 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 
         FlightSchedule flightSchedule = new FlightSchedule();
         flightSchedule.setId(flightScheduleRequest.getId());
-        flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
         flightSchedule.setArrivalTime(flightScheduleRequest.getArrivalTime());
         flightSchedule.setDepartureTime(flightScheduleRequest.getDepartureTime());
+        flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
         flightSchedule.setAircraftDetail(aircraftDetail.get());
         flightSchedule.setFlightRoute(route.get());
 
@@ -104,6 +104,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             SearchScheduleRequest searchScheduleRequest) {
 
         AircraftClass aircraftClass = AircraftClass.getClass(searchScheduleRequest.getAircraftClass());
+        LOGGER.info("AircraftClass : " + aircraftClass );
 
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
                 searchScheduleRequest.getOriginAirportId().toUpperCase().trim(),
@@ -130,7 +131,6 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         flightSchedule.setId(scheduleId);
         flightSchedule.setFlightRoute(flightRoute.get());
         flightSchedule.setAircraftDetail(aircraftDetail.get());
-        flightSchedule.setFlightDate(updateScheduleRequest.getFlightDate());
         flightSchedule.setDepartureTime(updateScheduleRequest.getDepartureTime());
         flightSchedule.setArrivalTime(updateScheduleRequest.getArrivalTime());
 
