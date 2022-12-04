@@ -15,4 +15,6 @@ public interface FlightRouteService {
 
     List<FlightRouteDetailDTO> getAllRoute();
 
+    FlightRouteDetailDTO getRouteDetailById(String routeCode);
+
 }
