@@ -15,10 +15,13 @@ import java.util.Collections;
 
 @Configuration
 public class OpenApiConfig {
+
+
     @Bean
     public OpenAPI bioskopOpenAPI(@Value("${app.description}") String desc,
                                   @Value("${app.version}") String appVersion,
                                   @Value("${app.name}") String title) {
+
         return new OpenAPI()
                 .info(new Info()
                         .title(title)
@@ -35,6 +38,9 @@ public class OpenApiConfig {
                                 .addList("bearer-jwt", Arrays.asList("read", "write"))
                                 .addList("bearer-key", Collections.emptyList())
                 )
-                .addServersItem(new Server().url("https://api-flyket.up.railway.app/"));
+                .addServersItem(
+                        new Server().url("https://api-flyket.up.railway.app/")
+//                        new Server().url("http://localhost:8080/")
+                );
     }
 }
