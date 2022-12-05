@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(value = "*", maxAge = 3600L)
+@RestController
+@RequestMapping("/api/tickets")
 public class TicketController {
     private final TicketService ticketService;
 
