@@ -21,6 +21,9 @@ public class Booking {
     @Id
     private String id;
 
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private PaymentMethod paymentMethod;
