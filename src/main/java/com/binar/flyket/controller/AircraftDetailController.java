@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/aircraft/details")
 public class AircraftDetailController {
