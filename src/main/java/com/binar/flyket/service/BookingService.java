@@ -5,7 +5,10 @@ import com.binar.flyket.dto.response.BookingResponse;
 
 public interface BookingService {
 
-    BookingResponse addBooking(BookingRequest request);
+    BookingResponse addBooking(String userId, BookingRequest request);
 
     Boolean validateBooking(String userId, String bookingId);
+
+
+    // TODO: Payment
 }
