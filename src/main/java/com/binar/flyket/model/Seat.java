@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,6 +23,10 @@ public class Seat {
     private Boolean isAvailable;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "seat")
+    private List<SeatDetail> seatDetails = new ArrayList<>();
+
+    @JsonIgnore
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDate createdAt;
 
@@ -31,7 +37,4 @@ public class Seat {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "air_craft_id")
     private AircraftDetail aircraftDetail;
-
-
-
 }
