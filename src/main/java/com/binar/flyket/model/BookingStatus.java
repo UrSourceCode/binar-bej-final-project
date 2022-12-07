@@ -6,14 +6,10 @@ import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 
 public enum BookingStatus {
-    AWAITING_PAYMENT, CANCELLED, EXPIRED, ACTIVE, COMPLETED;
+    EXPIRED, ACTIVE, COMPLETED;
 
     public static BookingStatus getStatus (String statusName) {
-        if (statusName.trim().equalsIgnoreCase("awaiting_payment")) {
-            return BookingStatus.AWAITING_PAYMENT;
-        } else if (statusName.trim().equalsIgnoreCase("cancelled")) {
-            return BookingStatus.CANCELLED;
-        } else if (statusName.trim().equalsIgnoreCase("expired")) {
+        if (statusName.trim().equalsIgnoreCase("expired")) {
             return BookingStatus.EXPIRED;
         } else if (statusName.trim().equalsIgnoreCase("active")) {
             return BookingStatus.ACTIVE;
