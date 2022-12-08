@@ -33,8 +33,4 @@ public class Seat {
     @JsonIgnore
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDate updatedAt;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "air_craft_id")
-    private AircraftDetail aircraftDetail;
 }
