@@ -19,5 +19,4 @@ public class BookingRequest {
     private AircraftClass seatClass;
     private BigDecimal amount;
     private List<PassengerRequest> passengerRequests;
-    private Long expiredTime;
 }
