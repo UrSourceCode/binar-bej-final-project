@@ -10,6 +10,14 @@
   {
     "_class" : "com.binar.flyket.model.Seat",
     "id": {
+      "seatNo": 1,
+      "seatRow": "A"
+    },
+    "isAvailable": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.Seat",
+    "id": {
       "seatNo": 2,
       "seatRow": "A"
     },
