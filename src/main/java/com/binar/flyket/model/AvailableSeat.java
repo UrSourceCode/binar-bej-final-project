@@ -1,9 +1,12 @@
 package com.binar.flyket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -21,7 +24,12 @@ public class AvailableSeat {
 
     private Integer no;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "flight_schedule_id")
-    private FlightSchedule flightSchedule;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aircraftDetail_id")
+    private AircraftDetail aircraftDetail;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "availableSeat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Ticket> ticketList = new ArrayList<>();
+
 }
