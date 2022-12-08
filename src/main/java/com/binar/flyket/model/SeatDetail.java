@@ -26,7 +26,7 @@ public class SeatDetail {
     private List<Ticket> ticket = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "id_schedule")
+    @JoinColumn(name = "schedule_id")
     private FlightSchedule schedule;
 
     @ManyToOne
@@ -35,4 +35,8 @@ public class SeatDetail {
             @JoinColumn(name = "seat_row"),
     })
     private Seat seat;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "air_craft_id")
+    private AircraftDetail aircraftDetail;
 }
