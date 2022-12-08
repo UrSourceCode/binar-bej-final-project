@@ -20,9 +20,6 @@ public class Ticket {
     private String passengerName;
     private String passengerTitle;
 
-    private String seatRow;
-    private String seatNo;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "flight_schedule_id")
     private FlightSchedule flightSchedule;
@@ -30,6 +27,10 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_id")
     private Booking booking;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "available_seat_id")
+    private AvailableSeat availableSeat;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
