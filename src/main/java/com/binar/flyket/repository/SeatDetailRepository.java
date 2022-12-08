@@ -7,4 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface SeatDetailRepository extends JpaRepository<SeatDetail, BigInteger> { }
+public interface SeatDetailRepository extends JpaRepository<SeatDetail, Integer> { }
