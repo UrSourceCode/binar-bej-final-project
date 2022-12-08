@@ -33,9 +33,6 @@ public class AircraftDetail {
     @Column(name = "max_cabin")
     private Integer maxCabin;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "aircraftDetail", cascade = CascadeType.ALL)
-    private List<SeatDetail> seatDetails = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_id")
