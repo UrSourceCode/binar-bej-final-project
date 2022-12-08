@@ -25,10 +25,6 @@ public class Ticket {
     private FlightSchedule flightSchedule;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seat_detail_id")
-    private SeatDetail seatDetail;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
