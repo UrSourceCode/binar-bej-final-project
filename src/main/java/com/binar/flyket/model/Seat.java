@@ -23,7 +23,7 @@ public class Seat {
     private Boolean isAvailable;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "seat")
+    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL)
     private List<SeatDetail> seatDetails = new ArrayList<>();
 
     @JsonIgnore
