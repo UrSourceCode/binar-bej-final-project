@@ -8,8 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Setter
 @Getter
@@ -34,8 +33,4 @@ public class FlightSchedule {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "flight_route_id")
     private FlightRoute flightRoute;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "flightSchedule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AvailableSeat> availableSeatList = new ArrayList<>();
 }
