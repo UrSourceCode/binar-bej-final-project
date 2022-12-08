@@ -42,4 +42,8 @@ public class AircraftDetail {
     @OneToMany(mappedBy = "aircraftDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FlightSchedule> flightSchedules = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "aircraftDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AvailableSeat> availableSeatList = new ArrayList<>();
+
 }
