@@ -29,6 +29,7 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
             @Param("originAirport") String originAirport,
             @Param("destinationAirport") String destinationAirport,
             @Param("flightDate") LocalDate flightDate,
-            @Param("aircraftClass") AircraftClass aircraftClass,
+            @Param("aircraftClass")
+            AircraftClass aircraftClass,
             Pageable pageable);
 }
