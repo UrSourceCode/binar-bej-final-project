@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -47,8 +48,22 @@ public class BookingServiceImpl implements BookingService {
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Flight Schedule with id " + Constants.NOT_FOUND_MSG);
 
 
+
+
+
+
         return null;
     }
+
+    private void insertPassenger(BookingRequest request) {
+        String uid = UUID.randomUUID().toString();
+
+    }
+
+    private Boolean isSeatAvailable(String scId, ) {
+
+    }
+
 
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
