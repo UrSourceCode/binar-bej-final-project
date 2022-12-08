@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
@@ -17,26 +14,19 @@ public class SeatDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigInteger id;
+    private Integer id;
 
     private Boolean status;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seatDetail")
-    private List<Ticket> ticket = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private FlightSchedule schedule;
-
-    @ManyToOne
+    @MapsId("id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumns({
-            @JoinColumn(name = "seat_no"),
-            @JoinColumn(name = "seat_row"),
+            @JoinColumn(name = "seat_no",  nullable = false, updatable = false, insertable = false),
+            @JoinColumn(name = "seat_row",  nullable = false, updatable = false, insertable = false),
     })
     private Seat seat;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "air_craft_id")
+    @JoinColumn(name = "aircraft_id", nullable = false, updatable = false, insertable = false)
     private AircraftDetail aircraftDetail;
 }
