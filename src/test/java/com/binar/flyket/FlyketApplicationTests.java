@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.UUID;
+
 @SpringBootTest
 class FlyketApplicationTests {
 
@@ -22,7 +24,10 @@ class FlyketApplicationTests {
 
 
 	@Test
-	void contextLoads() {}
+	void contextLoads() {
+		String uuid = UUID.randomUUID().toString();
+		System.out.println(uuid);
+	}
 
 	@Autowired
 	private AirportRouteRepository routeRepository;
