@@ -3,6 +3,7 @@ package com.binar.flyket.service;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.response.BookingResponse;
 import com.binar.flyket.exception.FlyketException;
+import com.binar.flyket.model.AircraftDetail;
 import com.binar.flyket.model.FlightSchedule;
 import com.binar.flyket.model.user.User;
 import com.binar.flyket.repository.*;
@@ -19,7 +20,6 @@ public class BookingServiceImpl implements BookingService {
     private final SeatRepository seatRepository;
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
-    private final SeatDetailRepository seatDetailRepository;
     private final PaymentMethodRepository paymentMethodRepository;
     private final FlightScheduleRepository flightScheduleRepository;
 
@@ -27,13 +27,11 @@ public class BookingServiceImpl implements BookingService {
                               UserRepository userRepository,
                               SeatRepository seatRepository,
                               TicketRepository ticketRepository,
-                              SeatDetailRepository seatDetailRepository,
                               PaymentMethodRepository paymentMethodRepository) {
         this.flightScheduleRepository = flightScheduleRepository;
         this.userRepository = userRepository;
         this.seatRepository = seatRepository;
         this.ticketRepository = ticketRepository;
-        this.seatDetailRepository = seatDetailRepository;
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
@@ -47,21 +45,17 @@ public class BookingServiceImpl implements BookingService {
         if(schedule.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Flight Schedule with id " + Constants.NOT_FOUND_MSG);
 
-
-
-
-
-
         return null;
     }
 
-    private void insertPassenger(BookingRequest request) {
+    private void insertPassenger(BookingRequest request, FlightSchedule flightSchedule) {
         String uid = UUID.randomUUID().toString();
+        AircraftDetail aircraftDetail = flightSchedule.getAircraftDetail();
 
     }
 
-    private Boolean isSeatAvailable(String scId, ) {
-
+    private Boolean isSeatAvailable(FlightSchedule flightSchedule) {
+return null;
     }
 
 
