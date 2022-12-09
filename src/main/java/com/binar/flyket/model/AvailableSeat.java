@@ -18,8 +18,6 @@ public class AvailableSeat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Boolean status;
-
     private String row;
 
     private Integer no;
