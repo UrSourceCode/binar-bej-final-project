@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class BookingResponse {
     private String bookingId;
     private String name;
-    private String userEmail;
+    private String email;
     private LocalDateTime date;
     private BookingStatus bookingStatus;
 }
