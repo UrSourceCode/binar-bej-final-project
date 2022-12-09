@@ -30,8 +30,8 @@ public class Ticket {
     private Booking booking;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "available_seat_id")
-    private AvailableSeat availableSeat;
+    @JoinColumn(name = "seat_detail_id")
+    private SeatDetail seatDetail;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
