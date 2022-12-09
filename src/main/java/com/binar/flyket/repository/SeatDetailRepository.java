@@ -11,13 +11,15 @@ import java.util.Optional;
 
 
 @Repository
-public interface SeatDetailRepository extends JpaRepository<SeatDetail, Integer> {
+public interface SeatDetailRepository extends JpaRepository<SeatDetail, String> {
 
     @Query(value = "SELECT sd FROM SeatDetail AS sd " +
             "WHERE sd.aircraftDetail.id =:aircraft_id AND sd.no =:seat_no AND sd.row =:seat_row")
-    Optional<SeatDetail> helloGetSeat(
+    Optional<SeatDetail> findSeatDetail(
             @Param("aircraft_id") String aircraftId,
             @Param("seat_row") String row,
             @Param("seat_no") Integer no);
+
+
 
 }
