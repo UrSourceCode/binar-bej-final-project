@@ -9,10 +9,12 @@ import com.binar.flyket.service.AircraftDetailService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/aircraft/details")
 public class AircraftDetailController {
@@ -30,6 +32,7 @@ public class AircraftDetailController {
                 Constants.SUCCESS_MSG, aircraftDetailService.getAllAircraftDetail()));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addAircraftDetail(@RequestBody AircraftDetailRequest request) {
         try {
@@ -40,6 +43,7 @@ public class AircraftDetailController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAircraftById(@RequestParam("id") String id) {
         try {

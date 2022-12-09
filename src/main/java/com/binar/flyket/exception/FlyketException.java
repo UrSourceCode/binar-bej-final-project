@@ -14,10 +14,11 @@ public class FlyketException {
             case NOT_FOUND -> new EntityNotFoundException(httpStatus, msg);
             case INVALID_EMAIL -> new EmailValidateException(httpStatus, msg);
             case DUPLICATE_ENTITY -> new DuplicateEntityException(httpStatus, msg);
+            case EMPTY_REQUEST -> new InputIsEmptyException(httpStatus, msg);
+            case UPLOAD_FAILED -> new UploadImageException(httpStatus, msg);
             default -> new RuntimeException(msg);
         };
     }
-
 
     @Setter
     @Getter
@@ -28,7 +29,6 @@ public class FlyketException {
             this.statusCode = statusCode;
         }
     }
-
 
     @Setter
     @Getter
@@ -46,6 +46,26 @@ public class FlyketException {
     public static class EntityNotFoundException extends RuntimeException {
         private final HttpStatus statusCode;
         public EntityNotFoundException(HttpStatus statusCode, String msg) {
+            super(msg);
+            this.statusCode = statusCode;
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class InputIsEmptyException extends RuntimeException {
+        private final HttpStatus statusCode;
+        public InputIsEmptyException(HttpStatus statusCode, String msg) {
+            super(msg);
+            this.statusCode = statusCode;
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class UploadImageException extends RuntimeException {
+        private final HttpStatus statusCode;
+        public UploadImageException(HttpStatus statusCode, String msg) {
             super(msg);
             this.statusCode = statusCode;
         }

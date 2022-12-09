@@ -4,6 +4,7 @@ import com.binar.flyket.dto.mapper.AirportMapper;
 import com.binar.flyket.dto.model.AirportDTO;
 import com.binar.flyket.dto.model.AirportDetailDTO;
 import com.binar.flyket.dto.request.InputAirportRequest;
+import com.binar.flyket.dto.request.UpdateAirportRequest;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.Airport;
@@ -76,5 +77,19 @@ public class AirportServiceImpl implements AirportService {
             return airportList;
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public Boolean updateAirport(String IATACode, UpdateAirportRequest updateAirportRequest) {
+        Optional<Airport> airport = airportRepository.findById(IATACode.toUpperCase().trim());
+        if(airport.isPresent()) {
+            Airport airportModel = new Airport();
+            airportModel.setName(updateAirportRequest.getName());
+            airportModel.setCity(updateAirportRequest.getCity());
+            airportModel.setIATACode(updateAirportRequest.getIATACode().toUpperCase().trim());
+            airportRepository.save(airportModel);
+            return true;
+        }
+        throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
     }
 }
