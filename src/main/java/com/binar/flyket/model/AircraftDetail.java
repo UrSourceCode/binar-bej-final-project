@@ -1,7 +1,6 @@
 package com.binar.flyket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,6 +43,6 @@ public class AircraftDetail {
 
     @JsonIgnore
     @OneToMany(mappedBy = "aircraftDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AvailableSeat> availableSeatList = new ArrayList<>();
+    private List<SeatDetail> seatDetailList = new ArrayList<>();
 
 }
