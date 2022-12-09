@@ -23,8 +23,6 @@ class FlyketApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Optional<SeatDetail> seatDetail = seatDetailRepository.helloGetSeat("A002", "A", 1);
-		System.out.println(seatDetail.get());
 
 	}
 
