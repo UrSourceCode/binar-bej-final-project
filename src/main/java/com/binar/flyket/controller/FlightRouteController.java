@@ -9,10 +9,12 @@ import com.binar.flyket.service.FlightRouteService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/routes")
 public class FlightRouteController {
@@ -23,6 +25,7 @@ public class FlightRouteController {
         this.flightRouteService = flightRouteService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addRoute(@RequestBody AirportRouteRequest airportRouteRequest) {
         try {
@@ -33,6 +36,7 @@ public class FlightRouteController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteRoute(@RequestParam("id") String id) {
         try {
@@ -49,6 +53,7 @@ public class FlightRouteController {
                 Constants.SUCCESS_MSG, flightRouteService.getAllRoute()));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<?> updateRouteById(
             @RequestParam("routeId") String routeId, @RequestBody UpdateRouteRequest updateRouteRequest) {
