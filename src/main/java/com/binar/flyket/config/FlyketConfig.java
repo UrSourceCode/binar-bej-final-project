@@ -25,6 +25,8 @@ public class FlyketConfig {
                 new ClassPathResource("datajson/aircraft.json"),
                 new ClassPathResource("datajson/aircraftdetail.json"),
                 new ClassPathResource("datajson/seats.json"),
+                new ClassPathResource("datajson/paymentmethod.json"),
+                new ClassPathResource("datajson/flightroute.json"),
                 new ClassPathResource("datajson/availableseat.json"),
                 new ClassPathResource("datajson/countries.json"),
                 new ClassPathResource("datajson/airports.json"),
