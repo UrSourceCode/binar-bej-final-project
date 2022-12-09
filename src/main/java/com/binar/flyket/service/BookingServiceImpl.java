@@ -17,7 +17,7 @@ import java.util.*;
 @Service
 public class BookingServiceImpl implements BookingService {
 
-    private final AvailableSeatRepository availableSeatRepository;
+    private final SeatDetailRepository seatDetailRepository;
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final PaymentMethodRepository paymentMethodRepository;
@@ -26,11 +26,11 @@ public class BookingServiceImpl implements BookingService {
 
     public BookingServiceImpl(FlightScheduleRepository flightScheduleRepository,
                               UserRepository userRepository,
-                              AvailableSeatRepository availableSeatRepository, TicketRepository ticketRepository,
+                              SeatDetailRepository seatDetailRepository, TicketRepository ticketRepository,
                               PaymentMethodRepository paymentMethodRepository, BookingRepository bookingRepository) {
         this.flightScheduleRepository = flightScheduleRepository;
         this.userRepository = userRepository;
-        this.availableSeatRepository = availableSeatRepository;
+        this.seatDetailRepository = seatDetailRepository;
         this.ticketRepository = ticketRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.bookingRepository = bookingRepository;
@@ -60,7 +60,7 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
 
         for(PassengerRequest passengerRequest : request.getPassengerRequests()) {
-            passengerTicket(passengerRequest, bookingId);
+            passengerTicket(passengerRequest, schedule.get(), bookingId);
         }
 
         BookingResponse bookingResponse = new BookingResponse();
@@ -73,7 +73,11 @@ public class BookingServiceImpl implements BookingService {
         return bookingResponse;
     }
 
-    private void passengerTicket(PassengerRequest passengerRequest, String bookingId) {
+    private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
+        AircraftDetail aircraftDetail = flightSchedule.getAircraftDetail();
+        String row = passengerRequest.getSeatNo().getSeatRow();
+        Integer seatNo = passengerRequest.getSeatNo().getSeatNo();
+
 
     }
 
