@@ -1,7 +1,6 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.FlightScheduleDetailDTO;
-import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.request.UpdateScheduleRequest;
 import com.binar.flyket.exception.ExceptionType;
@@ -21,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,18 +99,18 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     }
 
     @Override
-    public List<FlightScheduleDetailDTO> searchFlightSchedule(
-            Pageable paging,
-            SearchScheduleRequest searchScheduleRequest) {
-
-        AircraftClass aircraftClass = AircraftClass.getClass(searchScheduleRequest.getAircraftClass());
+    public List<FlightScheduleDetailDTO> searchFlightSchedule(String originAirportId,
+                                                              String destinationAirportId,
+                                                              String aircraftClass,
+                                                              LocalDate flightDate,
+                                                              Pageable pageable) {
+        AircraftClass ac = AircraftClass.getClass(aircraftClass);
         LOGGER.info("AircraftClass : " + aircraftClass );
 
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
-                searchScheduleRequest.getOriginAirportId().toUpperCase().trim(),
-                searchScheduleRequest.getDestinationAirportId().toUpperCase().trim(),
-                searchScheduleRequest.getFlightDate(),
-                aircraftClass, paging);
+                originAirportId.toUpperCase().trim(),
+                destinationAirportId.toUpperCase().trim(), flightDate,
+                ac, pageable);
 
         return pageFlight.getContent();
     }

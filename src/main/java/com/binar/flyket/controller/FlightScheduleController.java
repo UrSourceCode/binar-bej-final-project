@@ -1,6 +1,5 @@
 package com.binar.flyket.controller;
 
-import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.request.UpdateScheduleRequest;
 import com.binar.flyket.dto.response.Response;
@@ -10,15 +9,17 @@ import com.binar.flyket.service.FlightScheduleService;
 import com.binar.flyket.utils.Constants;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Date;
 
-@CrossOrigin(value = "*", maxAge = 3600L)
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/schedules")
 public class FlightScheduleController {
@@ -84,13 +85,15 @@ public class FlightScheduleController {
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "4") int size,
-            @RequestBody SearchScheduleRequest searchScheduleRequest) {
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate flightDate,
+            @RequestParam("originAirportId") String originAirportId,
+            @RequestParam("destinationAirportId") String destinationAirportId,
+            @RequestParam("aircraftClass") String aircraftClass) {
         try {
             Pageable paging = PageRequest.of(page, size);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                     flightScheduleService.searchFlightSchedule(
-                            paging,
-                            searchScheduleRequest)));
+                            originAirportId, destinationAirportId, aircraftClass, flightDate, paging)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(),
                     e.getMessage()), e.getStatusCode());

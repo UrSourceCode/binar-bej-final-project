@@ -15,8 +15,12 @@ import java.util.Date;
 import java.util.List;
 
 
+
 @Deprecated(since = "move to Seat Detail")
 //@CrossOrigin(value = "*", maxAge = 3600L)
+
+@CrossOrigin(value = "*", maxAge = 3600L)
+
 //@RestController
 //@RequestMapping("/api/seats")
 public class SeatController {
