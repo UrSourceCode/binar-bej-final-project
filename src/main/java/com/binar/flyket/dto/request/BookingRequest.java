@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingRequest {
-    private String userId;
     private String scheduleId;
     private AircraftClass seatClass;
     private BigDecimal amount;
