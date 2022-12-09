@@ -1,43 +1,30 @@
 package com.binar.flyket;
 
 
-
-import com.binar.flyket.dto.model.AircraftDetailDTO;
-import com.binar.flyket.dto.model.AirportDetailDTO;
-import com.binar.flyket.dto.model.FlightRouteDetailDTO;
-import com.binar.flyket.model.Booking;
-import com.binar.flyket.model.Seat;
-import com.binar.flyket.model.SeatNo;
-import com.binar.flyket.repository.*;
-
+import com.binar.flyket.model.SeatDetail;
+import com.binar.flyket.repository.SeatDetailRepository;
+import com.binar.flyket.repository.TicketRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.Optional;
 
 @SpringBootTest
 class FlyketApplicationTests {
 
 
 	@Autowired
-	private AirportRepository repository;
+	private TicketRepository ticketRepository;
 
 	@Autowired
-	private SeatRepository seatRepository;
-
-	@Autowired
-	private BookingRepository bookingRepository;
+	private SeatDetailRepository seatDetailRepository;
 
 
 	@Test
 	void contextLoads() {
-		Booking booking = new Booking();
-
-		booking.setId("hello-ad");
-		booking.setAmount(BigDecimal.valueOf(1000000000));
-		booking.setExpiredTime(10000000L);
+		Optional<SeatDetail> seatDetail = seatDetailRepository.helloGetSeat("A002", "A", 1);
+		System.out.println(seatDetail.get());
 
 	}
 
