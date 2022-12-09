@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Date;
 
-@CrossOrigin(value = "*", maxAge = 3600L)
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/schedules")
 public class FlightScheduleController {
