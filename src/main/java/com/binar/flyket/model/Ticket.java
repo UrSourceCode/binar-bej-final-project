@@ -19,6 +19,7 @@ public class Ticket {
 
     private String passengerName;
     private String passengerTitle;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "flight_schedule_id")
