@@ -18,11 +18,11 @@ public class FlightRoute {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_from_airport", referencedColumnName = "IATACode")
     private Airport fromAirport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_to_airport", referencedColumnName = "IATACode")
     private Airport toAirport;
 
