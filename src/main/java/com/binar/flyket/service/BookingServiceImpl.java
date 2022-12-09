@@ -68,7 +68,7 @@ public class BookingServiceImpl implements BookingService {
         bookingResponse.setBookingStatus(BookingStatus.ACTIVE);
         bookingResponse.setDate(LocalDateTime.now());
         bookingResponse.setName(user.get().getFirstName() + " " + user.get().getLastName());
-        bookingResponse.setUserEmail(user.get().getEmail());
+        bookingResponse.setEmail(user.get().getEmail());
 
         return bookingResponse;
     }
