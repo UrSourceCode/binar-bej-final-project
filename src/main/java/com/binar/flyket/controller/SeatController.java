@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(value = "*", maxAge = 3600L)
-@RestController
-@RequestMapping("/api/seats")
+
+@Deprecated(since = "move to Seat Detail")
+//@CrossOrigin(value = "*", maxAge = 3600L)
+//@RestController
+//@RequestMapping("/api/seats")
 public class SeatController {
 
     private final SeatService seatService;
