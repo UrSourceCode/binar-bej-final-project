@@ -1,0 +1,509 @@
+[
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 1,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 2,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 3,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 4,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 5,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 6,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 7,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 8,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 9,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 10,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 1,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 2,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 3,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 4,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 5,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 6,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 7,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 8,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 9,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "B",
+    "no": 10,
+    "aircraftDetail": {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 1,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 2,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 3,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 4,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 5,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 6,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 7,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 8,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 9,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 10,
+    "aircraftDetail": {
+      "id" : "A002",
+      "aircraftClass" : "FIRST",
+      "price" : 3000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    }
+  },
+
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 1,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 2,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 3,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 4,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 5,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 6,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  },
+
+  {
+    "_class": "com.binar.flyket.model.AvailableSeat",
+    "status": false,
+    "row": "A",
+    "no": 7,
+    "aircraftDetail": {
+      "id" : "A003",
+      "aircraftClass" : "BUSINESS",
+      "price" : 2000000,
+      "maxBaggage" : 30,
+      "maxCabin": 0
+    }
+  }
+]
