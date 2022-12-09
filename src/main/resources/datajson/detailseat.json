@@ -1,6 +1,7 @@
 [
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A1",
     "status": false,
     "row": "A",
     "no": 1,
@@ -13,7 +14,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A2",
     "status": false,
     "row": "A",
     "no": 2,
@@ -26,7 +28,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A3",
     "status": false,
     "row": "A",
     "no": 3,
@@ -39,7 +42,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A4",
     "status": false,
     "row": "A",
     "no": 4,
@@ -52,7 +56,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A5",
     "status": false,
     "row": "A",
     "no": 5,
@@ -65,7 +70,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A6",
     "status": false,
     "row": "A",
     "no": 6,
@@ -78,7 +84,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A7",
     "status": false,
     "row": "A",
     "no": 7,
@@ -91,7 +98,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A8",
     "status": false,
     "row": "A",
     "no": 8,
@@ -104,7 +112,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A9",
     "status": false,
     "row": "A",
     "no": 9,
@@ -117,7 +126,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-A10",
     "status": false,
     "row": "A",
     "no": 10,
@@ -130,7 +140,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B1",
     "status": false,
     "row": "B",
     "no": 1,
@@ -143,7 +154,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B2",
     "status": false,
     "row": "B",
     "no": 2,
@@ -157,7 +169,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B3",
     "status": false,
     "row": "B",
     "no": 3,
@@ -171,7 +184,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B4",
     "status": false,
     "row": "B",
     "no": 4,
@@ -184,7 +198,8 @@
     }
   },
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B5",
     "status": false,
     "row": "B",
     "no": 5,
@@ -198,7 +213,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B6",
     "status": false,
     "row": "B",
     "no": 6,
@@ -212,7 +228,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B7",
     "status": false,
     "row": "B",
     "no": 7,
@@ -226,7 +243,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B8",
     "status": false,
     "row": "B",
     "no": 8,
@@ -240,7 +258,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B9",
     "status": false,
     "row": "B",
     "no": 9,
@@ -254,7 +273,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A001-B10",
     "status": false,
     "row": "B",
     "no": 10,
@@ -269,7 +289,8 @@
 
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A1",
     "status": false,
     "row": "A",
     "no": 1,
@@ -283,7 +304,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A2",
     "status": false,
     "row": "A",
     "no": 2,
@@ -297,7 +319,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A3",
     "status": false,
     "row": "A",
     "no": 3,
@@ -311,7 +334,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A4",
     "status": false,
     "row": "A",
     "no": 4,
@@ -325,7 +349,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A5",
     "status": false,
     "row": "A",
     "no": 5,
@@ -339,7 +364,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A6",
     "status": false,
     "row": "A",
     "no": 6,
@@ -353,7 +379,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A7",
     "status": false,
     "row": "A",
     "no": 7,
@@ -367,7 +394,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A8",
     "status": false,
     "row": "A",
     "no": 8,
@@ -381,7 +409,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A8",
     "status": false,
     "row": "A",
     "no": 9,
@@ -395,7 +424,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A002-A10",
     "status": false,
     "row": "A",
     "no": 10,
@@ -410,7 +440,8 @@
 
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A1",
     "status": false,
     "row": "A",
     "no": 1,
@@ -424,7 +455,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A2",
     "status": false,
     "row": "A",
     "no": 2,
@@ -438,7 +470,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A3",
     "status": false,
     "row": "A",
     "no": 3,
@@ -452,7 +485,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A4",
     "status": false,
     "row": "A",
     "no": 4,
@@ -466,7 +500,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A5",
     "status": false,
     "row": "A",
     "no": 5,
@@ -480,7 +515,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A6",
     "status": false,
     "row": "A",
     "no": 6,
@@ -494,7 +530,8 @@
   },
 
   {
-    "_class": "com.binar.flyket.model.AvailableSeat",
+    "_class": "com.binar.flyket.model.SeatDetail",
+    "id": "A003-A7",
     "status": false,
     "row": "A",
     "no": 7,
