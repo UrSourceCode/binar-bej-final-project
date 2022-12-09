@@ -11,6 +11,7 @@ import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -36,6 +37,7 @@ public class BookingServiceImpl implements BookingService {
         this.bookingRepository = bookingRepository;
     }
 
+    @Transactional
     @Override
     public BookingResponse addBooking(String userId, BookingRequest request) {
         Optional<User> user = userRepository.findById(userId);
@@ -46,8 +48,8 @@ public class BookingServiceImpl implements BookingService {
         if(schedule.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Flight Schedule with id " + Constants.NOT_FOUND_MSG);
 
-
-        String bookingId = "bk-" + UUID.randomUUID().toString().split("-")[0].toUpperCase();
+        String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String bookingId = "bk-" +  uniqueId[0] + uniqueId[1];
         Booking booking = new Booking();
         booking.setId(bookingId);
         booking.setExpiredTime(System.currentTimeMillis() + 1800000L);
@@ -75,10 +77,28 @@ public class BookingServiceImpl implements BookingService {
 
     private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
         AircraftDetail aircraftDetail = flightSchedule.getAircraftDetail();
-        String row = passengerRequest.getSeatNo().getSeatRow();
+        String row = passengerRequest.getSeatNo().getSeatRow().toUpperCase();
         Integer seatNo = passengerRequest.getSeatNo().getSeatNo();
 
+        Optional<SeatDetail> seatDetail = seatDetailRepository.findSeatDetail(aircraftDetail.getId(), row, seatNo);
 
+        Optional<Booking> booking = bookingRepository.findById(bookingId);
+
+        String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String ticketId = "ticket-" + uniqueId[0] + uniqueId[1];
+
+        Ticket ticket = new Ticket();
+        ticket.setId(ticketId);
+        ticket.setBooking(booking.get());
+        ticket.setPassengerTitle(passengerRequest.getTitle());
+        ticket.setPassengerName(passengerRequest.getName());
+        ticket.setCreatedAt(LocalDateTime.now());
+        ticket.setUpdatedAt(LocalDateTime.now());
+        ticket.setFlightSchedule(flightSchedule);
+        ticket.setStatus(false);
+        ticket.setSeatDetail(seatDetail.get());
+
+        ticketRepository.save(ticket);
     }
 
     @Override
