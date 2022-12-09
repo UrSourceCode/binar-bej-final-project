@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Deprecated
 @Service
 @Transactional
 public class SeatServiceImpl implements SeatService {
