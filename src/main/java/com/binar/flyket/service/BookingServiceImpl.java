@@ -67,6 +67,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setCreatedAt(LocalDateTime.now());
         booking.setUpdatedAt(LocalDateTime.now());
         booking.setFlightSchedule(schedule.get());
+        booking.setTotalPassenger(request.getTotalPassenger());
         booking.setBookingStatus(BookingStatus.ACTIVE);
 
         bookingRepository.save(booking);
