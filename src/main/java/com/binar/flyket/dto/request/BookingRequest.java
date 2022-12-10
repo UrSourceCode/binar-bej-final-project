@@ -16,6 +16,7 @@ import java.util.List;
 public class BookingRequest {
     private String scheduleId;
     private AircraftClass seatClass;
+    private Integer totalPassenger;
     private BigDecimal amount;
     private List<PassengerRequest> passengerRequests;
 }
