@@ -11,6 +11,8 @@ import com.binar.flyket.model.*;
 import com.binar.flyket.model.user.User;
 import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.*;
 
 @Service
 public class BookingServiceImpl implements BookingService {
+
+    private Logger LOGGER = LoggerFactory.getLogger(BookingServiceImpl.class);
 
     private final SeatDetailRepository seatDetailRepository;
     private final UserRepository userRepository;
@@ -43,6 +47,9 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public BookingResponse addBooking(String userId, BookingRequest request) {
+
+        LOGGER.info("~ Start booking ~");
+
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "User with id " + Constants.NOT_FOUND_MSG);
@@ -75,6 +82,8 @@ public class BookingServiceImpl implements BookingService {
         bookingResponse.setName(user.get().getFirstName() + " " + user.get().getLastName());
         bookingResponse.setEmail(user.get().getEmail());
 
+        LOGGER.info("~ Finish booking ~");
+
         return bookingResponse;
     }
 
@@ -105,6 +114,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
+        LOGGER.info("~ Validate Booking by ADMIN ~");
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "User with id : " + Constants.NOT_FOUND_MSG);
@@ -121,6 +131,12 @@ public class BookingServiceImpl implements BookingService {
             processTicket(tc);
         }
 
+        Booking bookingModel = booking.get();
+        bookingModel.setBookingStatus(BookingStatus.COMPLETED);
+        bookingRepository.save(bookingModel);
+
+        LOGGER.info("~ Completed validate by ADMIN ~");
+
         return true;
     }
 
@@ -132,6 +148,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public PaymentResponse setPaymentMethod(PaymentRequest request) {
+        LOGGER.info("~ Start Payment ~");
         Optional<User> user = userRepository.findById(request.getUid());
         if(user.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
@@ -151,6 +168,8 @@ public class BookingServiceImpl implements BookingService {
         paymentResponse.setPrice(bookingModel.getAmount());
         paymentResponse.setBookingId(request.getBookingId());
         paymentResponse.setEmail(user.get().getEmail());
+
+        LOGGER.info("~ Finish Payment ~");
 
         return paymentResponse;
     }
