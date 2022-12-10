@@ -2,6 +2,7 @@ package com.binar.flyket.service;
 
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
+import com.binar.flyket.dto.request.PaymentRequest;
 import com.binar.flyket.dto.response.BookingResponse;
 import com.binar.flyket.dto.response.PaymentResponse;
 import com.binar.flyket.exception.ExceptionType;
@@ -109,25 +110,25 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public PaymentResponse setPaymentMethod(String uid, String bookingId, String paymentId) {
-        Optional<User> user = userRepository.findById(uid);
+    public PaymentResponse setPaymentMethod(PaymentRequest request) {
+        Optional<User> user = userRepository.findById(request.getUid());
         if(user.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
-        Optional<Booking> booking = bookingRepository.findById(bookingId);
+        Optional<Booking> booking = bookingRepository.findById(request.getBookingId());
         if(booking.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
-        Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findById(paymentId);
+        Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findById(request.getPaymentId());
         if(paymentMethod.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
         Booking bookingModel = booking.get();
         bookingModel.setPaymentMethod(paymentMethod.get());
-        
+
         bookingRepository.save(bookingModel);
 
         PaymentResponse paymentResponse = new PaymentResponse();
         paymentResponse.setPaymentName(paymentMethod.get().getName());
         paymentResponse.setPrice(bookingModel.getAmount());
-        paymentResponse.setBookingId(bookingId);
+        paymentResponse.setBookingId(request.getBookingId());
         paymentResponse.setEmail(user.get().getEmail());
 
         return paymentResponse;
