@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface TicketRepository extends JpaRepository<Ticket, String> {
 
-    @Query(value = "SELECT new com.binar.flyket.dto.model.PassengerTicketList(tc.passengerTitle, tc.passengerName, tc.seatDetail.id) " +
+    @Query(value = "SELECT new com.binar.flyket.dto.model.PassengerTicketList(tc.id, tc.passengerTitle, tc.passengerName, tc.seatDetail.id) " +
             "FROM Ticket AS tc ")
     List<PassengerTicketList> getRecentOrderDetail();
 
