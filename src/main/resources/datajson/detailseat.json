@@ -1,332 +1,332 @@
 [
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A1",
+    "id": "1A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A2",
+    "id": "2A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A3",
+    "id": "3A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A4",
+    "id": "4A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A5",
+    "id": "5A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A6",
+    "id": "6A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A7",
+    "id": "7A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A8",
+    "id": "8A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A9",
+    "id": "9A",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "A10",
-    "status": false
-  },
-
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B1",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B2",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B3",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B4",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B5",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B6",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B7",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B8",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B9",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "B10",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C1",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C2",
-    "status": false
-  },
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C3",
+    "id": "10A",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C4",
+    "id": "1B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C5",
+    "id": "2B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C6",
+    "id": "3B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C7",
+    "id": "4B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C8",
+    "id": "5B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C9",
+    "id": "6B",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "C10",
+    "id": "7B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3C",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10C",
     "status": false
   },
 
   { "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D1",
+    "id": "1D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D2",
+    "id": "2D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D3",
+    "id": "3D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D4",
+    "id": "4D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D5",
+    "id": "5D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D6",
+    "id": "6D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D7",
+    "id": "7D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D8",
+    "id": "8D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D9",
+    "id": "9D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "D10",
+    "id": "10D",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E1",
+    "id": "1E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E2",
+    "id": "2E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E3",
+    "id": "3E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E4",
+    "id": "4E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E5",
+    "id": "5E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E6",
+    "id": "6E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E7",
+    "id": "7E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E8",
+    "id": "8E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E9",
+    "id": "9E",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "E10",
+    "id": "10E",
     "status": false
   },
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F1",
-    "status": false
-  },
-
-  {
-    "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F2",
+    "id": "1F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F3",
+    "id": "2F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F4",
+    "id": "3F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F5",
+    "id": "4F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F6",
+    "id": "5F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F7",
+    "id": "6F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F8",
+    "id": "7F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F9",
+    "id": "8F",
     "status": false
   },
 
   {
     "_class" : "com.binar.flyket.model.SeatDetail",
-    "id": "F10",
+    "id": "9F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10F",
     "status": false
   }
 ]
