@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Setter
@@ -29,4 +27,11 @@ public class Seat {
     @JsonIgnore
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDate updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "air_craft_id")
+    private AircraftDetail aircraftDetail;
+
+
+
 }

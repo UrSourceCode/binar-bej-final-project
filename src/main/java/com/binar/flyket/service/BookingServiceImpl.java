@@ -80,10 +80,8 @@ public class BookingServiceImpl implements BookingService {
 
     private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
         AircraftDetail aircraftDetail = flightSchedule.getAircraftDetail();
-        String row = passengerRequest.getSeatNo().getSeatRow().toUpperCase();
-        Integer seatNo = passengerRequest.getSeatNo().getSeatNo();
 
-        Optional<SeatDetail> seatDetail = seatDetailRepository.findSeatDetail(aircraftDetail.getId(), row, seatNo);
+        Optional<SeatDetail> seatDetail = seatDetailRepository.findById(passengerRequest.getSeatNo());
 
         Optional<Booking> booking = bookingRepository.findById(bookingId);
 
@@ -104,11 +102,34 @@ public class BookingServiceImpl implements BookingService {
         ticketRepository.save(ticket);
     }
 
+    @Transactional
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
-        return null;
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "User with id : " + Constants.NOT_FOUND_MSG);
+
+        Optional<Booking> booking = bookingRepository.findById(bookingId);
+        if(booking.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Booking with Id : " + Constants.NOT_FOUND_MSG);
+
+        List<Ticket> tickets = ticketRepository.findBooking(bookingId);
+        if(tickets.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Ticket " + Constants.NOT_FOUND_MSG);
+
+        for(Ticket tc : tickets) {
+            processTicket(tc);
+        }
+
+        return true;
     }
 
+    private void processTicket(Ticket ticket) {
+        ticket.setStatus(true);
+        ticketRepository.save(ticket);
+    }
+
+    @Transactional
     @Override
     public PaymentResponse setPaymentMethod(PaymentRequest request) {
         Optional<User> user = userRepository.findById(request.getUid());

@@ -21,15 +21,7 @@ public class SeatDetail {
     @Id
     private String id;
 
-    private String row;
-
-    private Integer no;
-
     private Boolean status;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aircraftDetail_id")
-    private AircraftDetail aircraftDetail;
 
     @JsonIgnore
     @OneToMany(mappedBy = "seatDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

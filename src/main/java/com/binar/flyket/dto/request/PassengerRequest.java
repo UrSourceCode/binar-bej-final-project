@@ -13,5 +13,5 @@ import lombok.Setter;
 public class PassengerRequest {
     private String title;
     private String name;
-    private SeatNo seatNo;
+    private String seatNo;
 }

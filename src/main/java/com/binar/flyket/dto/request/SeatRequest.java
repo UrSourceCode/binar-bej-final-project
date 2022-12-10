@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SeatRequest {
-    private String row;
-    private Integer no;
+    private String seatNo;
     private String aircraftDetailId;
 }

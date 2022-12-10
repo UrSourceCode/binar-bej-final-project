@@ -6,7 +6,7 @@ import com.binar.flyket.utils.Constants;
 import org.springframework.http.HttpStatus;
 
 public enum BookingStatus {
-    EXPIRED, ACTIVE, COMPLETED;
+   EXPIRED, ACTIVE, COMPLETED;
 
     public static BookingStatus getStatus (String statusName) {
         if (statusName.trim().equalsIgnoreCase("expired")) {

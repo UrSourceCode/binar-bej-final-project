@@ -27,9 +27,8 @@ public class SeatDetailServiceImpl implements SeatDetailService {
 
     @Override
     public Boolean addSeat(SeatRequest request) {
-        String seatId = request.getAircraftDetailId()+"-"+ request.getRow() + request.getNo();
 
-        Optional<SeatDetail> seatDetail = seatDetailRepository.findById(seatId);
+        Optional<SeatDetail> seatDetail = seatDetailRepository.findById(request.getSeatNo().toUpperCase());
         if(seatDetail.isPresent())
             throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
 
@@ -38,12 +37,8 @@ public class SeatDetailServiceImpl implements SeatDetailService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Aircraft Detail " + Constants.NOT_FOUND_MSG);
 
         SeatDetail seatDetailModel = new SeatDetail();
-        seatDetailModel.setId(seatId);
-        seatDetailModel.setAircraftDetail(aircraftDetail.get());
+        seatDetailModel.setId(seatDetailModel.getId().toUpperCase());
         seatDetailModel.setStatus(false);
-        seatDetailModel.setNo(request.getNo());
-        seatDetailModel.setRow(request.getRow());
-
         return true;
     }
 

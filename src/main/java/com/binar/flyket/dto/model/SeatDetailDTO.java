@@ -14,8 +14,7 @@ import lombok.Setter;
 public class SeatDetailDTO {
     private String seatId;
     private String aircraftDetailId;
-    private String row;
-    private Integer no;
+    private String seatNol;
     private AircraftClass aircraftClass;
     private Integer maxCabin;
     private Integer maxBaggage;
