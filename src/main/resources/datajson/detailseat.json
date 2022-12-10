@@ -1,0 +1,332 @@
+[
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A1",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A2",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A3",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A4",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A5",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A6",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A7",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A8",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A9",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "A10",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B1",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B2",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B3",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B4",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B5",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B6",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B7",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B8",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B9",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "B10",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C1",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C2",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C3",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C4",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C5",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C6",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C7",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C8",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C9",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "C10",
+    "status": false
+  },
+
+  { "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D1",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D2",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D3",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D4",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D5",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D6",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D7",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D8",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D9",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "D10",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E1",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E2",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E3",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E4",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E5",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E6",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E7",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E8",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E9",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "E10",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F1",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F2",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F3",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F4",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F5",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F6",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F7",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F8",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F9",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "F10",
+    "status": false
+  }
+]

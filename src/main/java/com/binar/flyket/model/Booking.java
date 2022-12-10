@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class Booking {
     @Id
     private String id;
 
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private PaymentMethod paymentMethod;
@@ -28,6 +32,12 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "expired_time")
+    private Long expiredTime;
+
+    @Column(name = "amount")
+    private BigDecimal amount;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_schedule_id")

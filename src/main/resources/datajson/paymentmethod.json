@@ -1,0 +1,7 @@
+[
+  {
+    "_class": "com.binar.flyket.model.PaymentMethod",
+    "id": "payment-001",
+    "name":"INDOMARET"
+  }
+]

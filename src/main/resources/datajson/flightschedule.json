@@ -1,0 +1,33 @@
+[
+  {
+    "_class": "com.binar.flyket.model.FlightSchedule",
+    "departureTime": "2022-12-13 12:09:42.411",
+    "arrivalTime": "2022-12-13 14:09:42.411",
+    "flightDate": "22-12-12",
+    "aircraftDetail" : {
+      "id" : "A001",
+      "aircraftClass" : "ECONOMY",
+      "price" : 1000000,
+      "maxBaggage" : 20,
+      "maxCabin": 7
+    },
+
+    "flightRoute": {
+      "id": "Z0001",
+      "fromAirport": {
+        "IATACode": "HLP",
+        "name": "Halim Perdana Kusuma",
+        "city" : "Jakarta"
+      },
+
+      "toAirport": {
+        "IATACode": "JED",
+        "name": "King Abdulaziz International",
+        "city" : "Jeddah"
+      },
+
+      "hours": 2,
+      "minutes": 10
+    }
+  }
+]

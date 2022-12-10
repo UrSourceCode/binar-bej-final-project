@@ -1,0 +1,20 @@
+[
+  {
+    "_class": "com.binar.flyket.model.FlightRoute",
+    "id": "Z0001",
+    "fromAirport": {
+      "IATACode": "HLP",
+      "name": "Halim Perdana Kusuma",
+      "city" : "Jakarta"
+    },
+
+    "toAirport": {
+      "IATACode": "JED",
+      "name": "King Abdulaziz International",
+      "city" : "Jeddah"
+    },
+
+    "hours": 2,
+    "minutes": 10
+  }
+]

@@ -5,7 +5,7 @@ import com.binar.flyket.model.SeatNo;
 
 import java.util.List;
 
-public interface SeatService {
+@Deprecated public interface SeatService {
 
     boolean addSeat(SeatDTO seatDTO);
 
