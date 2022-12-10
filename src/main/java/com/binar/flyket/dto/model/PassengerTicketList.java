@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PassengerTicketList {
+    private String ticketId;
     private String passengerTitle;
     private String passengerName;
     private String seatNo;
