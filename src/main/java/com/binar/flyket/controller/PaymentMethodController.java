@@ -47,7 +47,7 @@ public class PaymentMethodController {
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                 new Date(),
-                Constants.SUCCESS_MSG, 
+                Constants.SUCCESS_MSG,
                 paymentMethodService.getAll()));
     }
 }
