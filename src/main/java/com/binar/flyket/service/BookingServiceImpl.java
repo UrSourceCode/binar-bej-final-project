@@ -3,6 +3,8 @@ package com.binar.flyket.service;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
 import com.binar.flyket.dto.response.BookingResponse;
+import com.binar.flyket.dto.response.PaymentResponse;
+import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.*;
 import com.binar.flyket.model.user.User;
@@ -104,5 +106,30 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
         return null;
+    }
+
+    @Override
+    public PaymentResponse setPaymentMethod(String uid, String bookingId, String paymentId) {
+        Optional<User> user = userRepository.findById(uid);
+        if(user.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+
+        Optional<Booking> booking = bookingRepository.findById(bookingId);
+        if(booking.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+
+        Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findById(paymentId);
+        if(paymentMethod.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+
+        Booking bookingModel = booking.get();
+        bookingModel.setPaymentMethod(paymentMethod.get());
+        
+        bookingRepository.save(bookingModel);
+
+        PaymentResponse paymentResponse = new PaymentResponse();
+        paymentResponse.setPaymentName(paymentMethod.get().getName());
+        paymentResponse.setPrice(bookingModel.getAmount());
+        paymentResponse.setBookingId(bookingId);
+        paymentResponse.setEmail(user.get().getEmail());
+
+        return paymentResponse;
     }
 }
