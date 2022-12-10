@@ -50,6 +50,7 @@ public class BookingController {
         }
     }
 
+    // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/booking/validate")
     public ResponseEntity<?> validateBooking(
             @RequestParam(value = "uid") String userId, @RequestParam(value = "booking-id") String bookingId) {
