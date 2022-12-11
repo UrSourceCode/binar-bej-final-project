@@ -62,6 +62,7 @@ public class BookingServiceImpl implements BookingService {
         String bookingId = "bk-" +  uniqueId[0] + uniqueId[1];
         Booking booking = new Booking();
         booking.setId(bookingId);
+        booking.setUser(user.get());
         booking.setExpiredTime(System.currentTimeMillis() + 1800000L);
         booking.setAmount(request.getAmount());
         booking.setCreatedAt(LocalDateTime.now());
@@ -89,11 +90,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
-        AircraftDetail aircraftDetail = flightSchedule.getAircraftDetail();
 
         Optional<SeatDetail> seatDetail = seatDetailRepository.findById(passengerRequest.getSeatNo());
+        if(seatDetail.isEmpty())
+            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Seat no " + Constants.NOT_FOUND_MSG);
 
         Optional<Booking> booking = bookingRepository.findById(bookingId);
+        if(booking.isEmpty())
+            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Booking with " + bookingId + " " + Constants.NOT_FOUND_MSG);
 
         String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
         String ticketId = "ticket-" + uniqueId[0] + uniqueId[1];
@@ -124,9 +128,14 @@ public class BookingServiceImpl implements BookingService {
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Booking with Id : " + Constants.NOT_FOUND_MSG);
 
+        if(booking.get().getPaymentMethod() == null)
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Payment " + Constants.NOT_FOUND_MSG);
+
         List<Ticket> tickets = ticketRepository.findBooking(bookingId);
         if(tickets.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Ticket " + Constants.NOT_FOUND_MSG);
+
+        checkStatusBooking(booking.get());
 
         for(Ticket tc : tickets) {
             processTicket(tc);
@@ -160,6 +169,9 @@ public class BookingServiceImpl implements BookingService {
         if(paymentMethod.isEmpty()) throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
         Booking bookingModel = booking.get();
+
+        checkStatusBooking(bookingModel);
+
         bookingModel.setPaymentMethod(paymentMethod.get());
 
         bookingRepository.save(bookingModel);
@@ -173,5 +185,11 @@ public class BookingServiceImpl implements BookingService {
         LOGGER.info("~ Finish Payment ~");
 
         return paymentResponse;
+    }
+
+    private void checkStatusBooking(Booking bookingModel) {
+        switch (bookingModel.getBookingStatus()) {
+            case EXPIRED -> throw FlyketException.throwException(ExceptionType.BOOKING_EXPIRED, HttpStatus.NOT_ACCEPTABLE, "Booking expired!");
+        }
     }
 }
