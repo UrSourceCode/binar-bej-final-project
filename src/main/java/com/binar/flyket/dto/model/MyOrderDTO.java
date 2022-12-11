@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MyOrderDTO {
     private String flightScheduleId;
+    private String bookingId;
     private Integer totalPassenger;
     private LocalDateTime arrivalTime;
     private LocalDateTime departureTime;
