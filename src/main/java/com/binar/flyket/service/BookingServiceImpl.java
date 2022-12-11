@@ -119,7 +119,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
-        LOGGER.info("~ Validate Booking by ADMIN ~");
+        LOGGER.info("~ start validate Booking by ADMIN ~");
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "User with id : " + Constants.NOT_FOUND_MSG);
@@ -128,14 +128,14 @@ public class BookingServiceImpl implements BookingService {
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Booking with Id : " + Constants.NOT_FOUND_MSG);
 
+        checkStatusBooking(booking.get());
+
         if(booking.get().getPaymentMethod() == null)
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Payment " + Constants.NOT_FOUND_MSG);
 
         List<Ticket> tickets = ticketRepository.findBooking(bookingId);
         if(tickets.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Ticket " + Constants.NOT_FOUND_MSG);
-
-        checkStatusBooking(booking.get());
 
         for(Ticket tc : tickets) {
             processTicket(tc);
@@ -145,7 +145,7 @@ public class BookingServiceImpl implements BookingService {
         bookingModel.setBookingStatus(BookingStatus.COMPLETED);
         bookingRepository.save(bookingModel);
 
-        LOGGER.info("~ Completed validate by ADMIN ~");
+        LOGGER.info("~ finish validate by ADMIN ~");
 
         return true;
     }
@@ -173,6 +173,7 @@ public class BookingServiceImpl implements BookingService {
         checkStatusBooking(bookingModel);
 
         bookingModel.setPaymentMethod(paymentMethod.get());
+        bookingModel.setBookingStatus(BookingStatus.WAITING);
 
         bookingRepository.save(bookingModel);
 
