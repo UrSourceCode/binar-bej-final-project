@@ -18,7 +18,18 @@ import static com.binar.flyket.repository.query.FlightScheduleQuery.*;
 @Repository
 public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, String> {
 
-    @Query(value = FLIGHT_SCHEDULE_DETAIL_JOIN)
+    @Query(value = "SELECT " +
+            "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
+            "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
+            "acd.aircraft.type, " +
+            "fr.fromAirport.IATACode, fr.fromAirport.name, fr.fromAirport.city, " +
+            "fr.toAirport.IATACode, fr.toAirport.name, fr.toAirport.city, " +
+            "fr.hours, fr.minutes, acd.price, acd.maxBaggage, acd.maxCabin) " +
+            "FROM FlightSchedule AS fs " +
+            "JOIN fs.aircraftDetail AS acd " +
+            "JOIN fs.flightRoute AS fr " +
+            "WHERE fs.aircraftDetail.id = acd.id " +
+            "AND fs.flightRoute.id = fr.id ")
     Page<FlightScheduleDetailDTO> findFlightScheduleDetail(Pageable pageable);
 
     @Query(value = FLIGHT_SCHEDULE_DETAIL_JOIN_BY_ID)
