@@ -2,6 +2,7 @@ package com.binar.flyket.controller;
 
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
+import com.binar.flyket.dto.request.ValidateBookingRequest;
 import com.binar.flyket.dto.response.Response;
 import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
@@ -47,15 +48,17 @@ public class BookingController {
                     new Date(), Constants.SUCCESS_MSG, bookingService.setPaymentMethod(request)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.BookingExpiredException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
 
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/booking/validate")
     public ResponseEntity<?> validateBooking(
-            @RequestParam(value = "uid") String userId, @RequestParam(value = "booking-id") String bookingId) {
+            @RequestBody ValidateBookingRequest validateBookingRequest) {
         try {
-            bookingService.validateBooking(userId, bookingId);
+            bookingService.validateBooking(validateBookingRequest.getUserId(), validateBookingRequest.getBookingId());
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
