@@ -59,7 +59,7 @@ public class HistoryController {
     public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Pageable paging = PageRequest.of(page, size);
+        Pageable paging = PageRequest.of(page, size, Sort.by("createdAt"));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                 new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
     }
