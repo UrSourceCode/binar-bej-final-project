@@ -11,7 +11,7 @@ public interface TransactionHistoryService {
 
     List<MyOrderDTO> getRecentOrder(String userId, Pageable pageable);
 
-    MyOrderDetailDTO getRecentOrderDetail(String bookingId, Pageable pageable);
+    MyOrderDetailDTO getRecentOrderDetail(String bookingId);
 
     List<BookingDTO> getAllBookingHistory(Pageable pageable);
 
