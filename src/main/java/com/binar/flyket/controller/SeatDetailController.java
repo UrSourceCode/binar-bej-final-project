@@ -16,7 +16,7 @@ import java.util.Date;
 @CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/seats")
-@Tag(name = "Booking")
+@Tag(name = "Seat")
 public class SeatDetailController {
 
     private SeatDetailService seatDetailService;
