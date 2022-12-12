@@ -9,6 +9,7 @@ import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.UserService;
 import com.binar.flyket.utils.Constants;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 
+
+@Tag(name = "User Profile")
+@CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -28,7 +32,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasRole('BUYER')")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @PostMapping("/upload-image")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
@@ -58,7 +62,18 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('BUYER')")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @GetMapping("/detail/{user_id}")
+    public ResponseEntity<?> getUserById(@PathVariable("user_id") String userId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, userService.findById(userId)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @PostMapping("/update")
     public ResponseEntity<?> updateUser(@RequestParam("email") String email,
                                         @RequestBody UpdateRequest updateRequest) {
@@ -83,7 +98,7 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasRole('BUYER')")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUserByEmail(@RequestParam("email") String email) {
         try {
