@@ -13,9 +13,9 @@ public interface UserService {
 
     UserDTO register(UserDTO userDTO);
 
-    UserDTO updateProfile(String email, UserDTO userDTO);
+    UserDTO updateProfile(String userId, UserDTO userDTO);
 
-    UserDTO deleteByEmail(String email);
+    UserDTO deleteByEmail(String userId);
 
-    Boolean uploadImage(String email, MultipartFile file) throws IOException;
+    Boolean uploadImage(String userId, MultipartFile file) throws IOException;
 }
