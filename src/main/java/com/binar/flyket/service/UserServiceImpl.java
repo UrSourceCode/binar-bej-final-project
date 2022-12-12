@@ -42,6 +42,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO findById(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,"User id "+ userId + " " + Constants.NOT_FOUND_MSG);
+        return UserMapper.toDto(user.get());
+    }
+
+    @Override
     public UserDTO findByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {

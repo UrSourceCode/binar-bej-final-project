@@ -1,7 +1,6 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.FlightScheduleDetailDTO;
-import com.binar.flyket.dto.model.SearchScheduleRequest;
 import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.request.UpdateScheduleRequest;
 import com.binar.flyket.exception.ExceptionType;
@@ -21,8 +20,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FlightScheduleServiceImpl implements FlightScheduleService {
@@ -59,11 +61,14 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route " + Constants.NOT_FOUND_MSG);
         }
 
+        String[] randomId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String scheduleId = "sc-" + randomId[0] + randomId[1];
+
         FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setId(flightScheduleRequest.getId());
-        flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
+        flightSchedule.setId(scheduleId);
         flightSchedule.setArrivalTime(flightScheduleRequest.getArrivalTime());
         flightSchedule.setDepartureTime(flightScheduleRequest.getDepartureTime());
+        flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
         flightSchedule.setAircraftDetail(aircraftDetail.get());
         flightSchedule.setFlightRoute(route.get());
 
@@ -84,8 +89,8 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     }
 
     @Override
-    public List<FlightScheduleDetailDTO> getFlightScheduleDetails() {
-        return flightScheduleRepository.findFlightScheduleDetail();
+    public List<FlightScheduleDetailDTO> getFlightScheduleDetails(Pageable paging) {
+        return flightScheduleRepository.findFlightScheduleDetail(paging).getContent();
     }
 
     @Override
@@ -99,17 +104,18 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     }
 
     @Override
-    public List<FlightScheduleDetailDTO> searchFlightSchedule(
-            Pageable paging,
-            SearchScheduleRequest searchScheduleRequest) {
-
-        AircraftClass aircraftClass = AircraftClass.getClass(searchScheduleRequest.getAircraftClass());
+    public List<FlightScheduleDetailDTO> searchFlightSchedule(String originAirportId,
+                                                              String destinationAirportId,
+                                                              String aircraftClass,
+                                                              LocalDate flightDate,
+                                                              Pageable pageable) {
+        AircraftClass ac = AircraftClass.getClass(aircraftClass);
+        LOGGER.info("AircraftClass : " + aircraftClass );
 
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
-                searchScheduleRequest.getOriginAirportId().toUpperCase().trim(),
-                searchScheduleRequest.getDestinationAirportId().toUpperCase().trim(),
-                searchScheduleRequest.getFlightDate(),
-                aircraftClass, paging);
+                originAirportId.toUpperCase().trim(),
+                destinationAirportId.toUpperCase().trim(), flightDate,
+                ac, LocalDateTime.now(), pageable);
 
         return pageFlight.getContent();
     }
@@ -130,7 +136,6 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         flightSchedule.setId(scheduleId);
         flightSchedule.setFlightRoute(flightRoute.get());
         flightSchedule.setAircraftDetail(aircraftDetail.get());
-        flightSchedule.setFlightDate(updateScheduleRequest.getFlightDate());
         flightSchedule.setDepartureTime(updateScheduleRequest.getDepartureTime());
         flightSchedule.setArrivalTime(updateScheduleRequest.getArrivalTime());
 
