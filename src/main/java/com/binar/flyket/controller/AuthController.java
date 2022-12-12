@@ -9,23 +9,25 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.user.ERoles;
+import com.binar.flyket.security.UserDetailsImpl;
 import com.binar.flyket.service.UserServiceImpl;
 import com.binar.flyket.utils.Constants;
 import com.binar.flyket.utils.JwtUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Tag(name = "Sign-up & Sign-in")
+@CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -76,8 +78,10 @@ public class AuthController {
 
             String accessToken = jwtUtil.generateJwtToken(authentication);
 
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
-                    Constants.SUCCESS_MSG, new JwtResponse(loginRequest.getEmail(), accessToken)));
+                    Constants.SUCCESS_MSG, new JwtResponse(userDetails.getUserid(), loginRequest.getEmail(), accessToken)));
 
         } catch (FlyketException.EmailValidateException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
