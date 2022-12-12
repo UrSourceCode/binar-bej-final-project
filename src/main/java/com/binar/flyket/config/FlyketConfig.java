@@ -22,11 +22,11 @@ public class FlyketConfig {
     public Jackson2RepositoryPopulatorFactoryBean populatorFactoryBean() {
         Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
         factory.setResources(new Resource[] {
-                new ClassPathResource("datajson/aircraft.json"),
-                new ClassPathResource("datajson/aircraftdetail.json"),
+//                new ClassPathResource("datajson/aircraft.json"),
+//                new ClassPathResource("datajson/aircraftdetail.json"),
                 new ClassPathResource("datajson/paymentmethod.json"),
-                new ClassPathResource("datajson/flightroute.json"),
-                new ClassPathResource("datajson/detailseat.json"),
+//                new ClassPathResource("datajson/flightroute.json"),
+//                new ClassPathResource("datajson/detailseat.json"),
 //                new ClassPathResource("datajson/flightschedule.json"),
                 new ClassPathResource("datajson/countries.json"),
                 new ClassPathResource("datajson/airports.json"),
