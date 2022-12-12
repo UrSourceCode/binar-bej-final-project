@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService {
 
     private Cloudinary cloudinary;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder encoder, Cloudinary cloudinary) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           BCryptPasswordEncoder encoder, Cloudinary cloudinary) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
@@ -44,7 +46,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findById(String userId) {
         Optional<User> user = userRepository.findById(userId);
-        System.out.println(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,"User id "+ userId + " " + Constants.NOT_FOUND_MSG);
         return UserMapper.toDto(user.get());
@@ -92,11 +93,13 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateProfile(String userId, UserDTO userDTO) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
-            User userModel = new User();
+            User userModel = user.get();
             userModel.setLastName(userDTO.getLastName());
             userModel.setFirstName(userDTO.getFirstName());
             userModel.setPhoneNumber(userDTO.getPhoneNumber());
             userModel.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(userModel);
+            return userDTO;
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
     }
