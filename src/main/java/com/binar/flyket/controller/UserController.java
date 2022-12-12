@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    @PostMapping("/upload-image")
+    @PostMapping(value = "/upload-image", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
             @RequestParam("user-id") String userId) {
