@@ -8,6 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Formatter;
 import java.util.Optional;
 
 @SpringBootTest
@@ -22,8 +29,6 @@ class FlyketApplicationTests {
 
 
 	@Test
-	void contextLoads() {
-
-	}
+	void contextLoads() {}
 
 }

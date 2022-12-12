@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.binar.flyket.repository.query.FlightScheduleQuery.*;
@@ -18,7 +19,18 @@ import static com.binar.flyket.repository.query.FlightScheduleQuery.*;
 @Repository
 public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, String> {
 
-    @Query(value = FLIGHT_SCHEDULE_DETAIL_JOIN)
+    @Query(value = "SELECT " +
+            "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
+            "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
+            "acd.aircraft.type, " +
+            "fr.fromAirport.IATACode, fr.fromAirport.name, fr.fromAirport.city, " +
+            "fr.toAirport.IATACode, fr.toAirport.name, fr.toAirport.city, " +
+            "fr.hours, fr.minutes, acd.price, acd.maxBaggage, acd.maxCabin) " +
+            "FROM FlightSchedule AS fs " +
+            "JOIN fs.aircraftDetail AS acd " +
+            "JOIN fs.flightRoute AS fr " +
+            "WHERE fs.aircraftDetail.id = acd.id " +
+            "AND fs.flightRoute.id = fr.id ")
     Page<FlightScheduleDetailDTO> findFlightScheduleDetail(Pageable pageable);
 
     @Query(value = FLIGHT_SCHEDULE_DETAIL_JOIN_BY_ID)
@@ -37,11 +49,13 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
             "WHERE DATE(fs.departureTime) = :date " +
             "AND fs.flightRoute.fromAirport.IATACode = :originAirport " +
             "AND fs.flightRoute.toAirport.IATACode = :destinationAirport " +
-            "AND fs.aircraftDetail.aircraftClass = :aircraftClass")
+            "AND fs.aircraftDetail.aircraftClass = :aircraftClass " +
+            "AND fs.departureTime > :current_time")
     Page<FlightScheduleDetailDTO> searchFlightScheduleByAirportAndDate(
             @Param(value = "originAirport") String originAirport,
             @Param(value = "destinationAirport") String destinationAirport,
             @Param(value = "date") LocalDate flightDate,
             @Param(value = "aircraftClass") AircraftClass aircraftClass,
+            @Param(value = "current_time") LocalDateTime localDateTime,
             Pageable pageable);
 }

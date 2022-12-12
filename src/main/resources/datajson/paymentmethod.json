@@ -3,5 +3,29 @@
     "_class": "com.binar.flyket.model.PaymentMethod",
     "id": "payment-001",
     "name":"INDOMARET"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.PaymentMethod",
+    "id": "payment-002",
+    "name":"ALFAMART"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.PaymentMethod",
+    "id": "payment-003",
+    "name":"DANA"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.PaymentMethod",
+    "id": "payment-004",
+    "name":"SHOPEEPAY"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.PaymentMethod",
+    "id": "payment-006",
+    "name":"OVO"
   }
 ]

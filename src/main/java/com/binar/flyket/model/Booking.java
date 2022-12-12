@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "booking")
 public class Booking {
 
     @Id
@@ -24,6 +24,9 @@ public class Booking {
 
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
+
+    @Column(name = "total_passenger")
+    private Integer totalPassenger;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
