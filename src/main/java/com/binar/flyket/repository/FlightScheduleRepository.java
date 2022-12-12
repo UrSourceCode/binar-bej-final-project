@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.binar.flyket.repository.query.FlightScheduleQuery.*;
@@ -48,11 +49,13 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
             "WHERE DATE(fs.departureTime) = :date " +
             "AND fs.flightRoute.fromAirport.IATACode = :originAirport " +
             "AND fs.flightRoute.toAirport.IATACode = :destinationAirport " +
-            "AND fs.aircraftDetail.aircraftClass = :aircraftClass")
+            "AND fs.aircraftDetail.aircraftClass = :aircraftClass " +
+            "AND fs.departureTime > :current_time")
     Page<FlightScheduleDetailDTO> searchFlightScheduleByAirportAndDate(
             @Param(value = "originAirport") String originAirport,
             @Param(value = "destinationAirport") String destinationAirport,
             @Param(value = "date") LocalDate flightDate,
             @Param(value = "aircraftClass") AircraftClass aircraftClass,
+            @Param(value = "current_time") LocalDateTime localDateTime,
             Pageable pageable);
 }
