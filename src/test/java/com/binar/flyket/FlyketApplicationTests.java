@@ -1,6 +1,7 @@
 package com.binar.flyket;
 
 
+import com.binar.flyket.dto.model.AvailableSeatDTO;
 import com.binar.flyket.model.SeatDetail;
 import com.binar.flyket.repository.SeatDetailRepository;
 import com.binar.flyket.repository.TicketRepository;
@@ -15,6 +16,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest

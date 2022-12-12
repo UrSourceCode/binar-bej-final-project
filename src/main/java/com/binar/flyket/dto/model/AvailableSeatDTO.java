@@ -10,7 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AvailableSeatDTO {
-    private Integer id;
-    private Integer no;
-    private String row;
+    private String seatNo;
 }
