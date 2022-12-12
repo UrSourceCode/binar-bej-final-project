@@ -1,5 +1,6 @@
 package com.binar.flyket.service;
 
+import com.binar.flyket.dto.model.AvailableSeatDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
@@ -37,7 +38,9 @@ public class BookingServiceImpl implements BookingService {
     public BookingServiceImpl(FlightScheduleRepository flightScheduleRepository,
                               UserRepository userRepository,
                               SeatDetailRepository seatDetailRepository, TicketRepository ticketRepository,
-                              PaymentMethodRepository paymentMethodRepository, BookingRepository bookingRepository, NotificationRepository notificationRepository) {
+                              PaymentMethodRepository paymentMethodRepository,
+                              BookingRepository bookingRepository,
+                              NotificationRepository notificationRepository) {
         this.flightScheduleRepository = flightScheduleRepository;
         this.userRepository = userRepository;
         this.seatDetailRepository = seatDetailRepository;
@@ -212,6 +215,14 @@ public class BookingServiceImpl implements BookingService {
         LOGGER.info("~ Finish Payment ~");
 
         return paymentResponse;
+    }
+
+    @Override
+    public List<AvailableSeatDTO> showSeat(String scheduleId) {
+        Optional<FlightSchedule> flightSchedule = flightScheduleRepository.findById(scheduleId);
+        if(flightSchedule.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+        return ticketRepository.findAvailableSeat(scheduleId);
     }
 
     private void checkStatusBooking(Booking bookingModel) {

@@ -1,5 +1,6 @@
 package com.binar.flyket.repository;
 
+import com.binar.flyket.dto.model.AvailableSeatDTO;
 import com.binar.flyket.dto.model.PassengerTicketList;
 import com.binar.flyket.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,8 +16,11 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             "FROM Ticket AS tc WHERE tc.booking.id =:booking_id")
     List<PassengerTicketList> getRecentOrderDetail(@Param("booking_id") String bookingId);
 
-    @Query(value = "SELECT tc FROM Ticket AS tc WHERE tc.flightSchedule.id = :schedule_id")
-    Optional<Ticket> findAvailableTicket(@Param("schedule_id") String scheduleId);
+    @Query(value = "SELECT new com.binar.flyket.dto.model.AvailableSeatDTO(sd.id) " +
+            "FROM Ticket AS tc " +
+            "JOIN tc.seatDetail AS sd " +
+            "WHERE tc.flightSchedule.id = :schedule_id AND tc.status = true")
+    List<AvailableSeatDTO> findAvailableSeat(@Param("schedule_id") String scheduleId);
 
     @Query(value = "SELECT tc FROM Ticket AS tc WHERE tc.booking.id = :booking_id")
     List<Ticket> findBooking(@Param("booking_id") String bookingId);
