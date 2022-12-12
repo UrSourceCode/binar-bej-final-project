@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/history")
 @Tag(name = "History")
@@ -41,7 +42,7 @@ public class HistoryController {
         }
     }
 
-    @GetMapping("/booking/{booking-id}/detail")
+    @GetMapping("/ticket/detail/{booking-id}")
     public ResponseEntity<?> getRecentOrderDetailByUser(
             @PathVariable(value = "booking-id") String bookingId) {
         try {
