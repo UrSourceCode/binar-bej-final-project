@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api")
 @Tag(name = "Booking")
@@ -28,7 +29,18 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-//    @PreAuthorize("hasRole('BUYER')")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @GetMapping("/booking/detail/{booking_id}")
+    public ResponseEntity<?> getBookingDetail(@PathVariable("booking_id") String bookingId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                    bookingService.getBookingDetail(bookingId)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @PostMapping("/booking/add")
     public ResponseEntity<?> addBooking(@RequestParam("uid") String userId,
                                         @RequestBody BookingRequest bookingRequest) {
@@ -40,7 +52,7 @@ public class BookingController {
         }
     }
 
-//    @PreAuthorize("hasRole('BUYER')")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
     @PostMapping("/booking/set-payment")
     public ResponseEntity<?> setPayment(@RequestBody PaymentRequest request) {
         try {
@@ -53,7 +65,7 @@ public class BookingController {
         }
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
+     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/booking/validate")
     public ResponseEntity<?> validateBooking(
             @RequestBody ValidateBookingRequest validateBookingRequest) {
