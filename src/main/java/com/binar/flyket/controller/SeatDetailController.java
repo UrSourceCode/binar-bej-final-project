@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@CrossOrigin(value = "*", maxAge = 3600L)
+
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/seats")
 @Tag(name = "Seat")
