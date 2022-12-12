@@ -7,12 +7,15 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.PaymentMethodService;
 import com.binar.flyket.utils.Constants;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@Tag(name = "Payment Method")
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentMethodController {
@@ -23,6 +26,7 @@ public class PaymentMethodController {
         this.paymentMethodService = paymentMethodService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody PaymentMethodRequest request) {
         try {
@@ -33,6 +37,7 @@ public class PaymentMethodController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestParam("id") String id) {
         try {
