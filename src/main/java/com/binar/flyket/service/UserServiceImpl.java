@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findById(String userId) {
         Optional<User> user = userRepository.findById(userId);
+        System.out.println(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND,"User id "+ userId + " " + Constants.NOT_FOUND_MSG);
         return UserMapper.toDto(user.get());
@@ -88,8 +89,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateProfile(String email, UserDTO userDTO) {
-        Optional<User> user = userRepository.findByEmail(email);
+    public UserDTO updateProfile(String userId, UserDTO userDTO) {
+        Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
             User userModel = new User();
             userModel.setLastName(userDTO.getLastName());
@@ -101,8 +102,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO deleteByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+    public UserDTO deleteByEmail(String userId) {
+        Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
             User userModel = new User();
             userRepository.delete(userModel);
@@ -113,8 +114,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean uploadImage(String email, MultipartFile file) throws IOException {
-        Optional<User> user = userRepository.findByEmail(email);
+    public Boolean uploadImage(String userId, MultipartFile file) throws IOException {
+        Optional<User> user = userRepository.findById(userId);
 
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
