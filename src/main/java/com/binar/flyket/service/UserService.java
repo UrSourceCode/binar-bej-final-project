@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public interface UserService {
 
+    UserDTO findById(String userId);
+
     UserDTO findByEmail(String email);
 
     UserDTO register(UserDTO userDTO);
