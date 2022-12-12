@@ -36,14 +36,11 @@ public class UserController {
     @PostMapping("/upload-image")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("email") String email) {
+            @RequestParam("user-id") String userId) {
 
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.uploadImage(email, file);
+            userService.uploadImage(userId, file);
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
         } catch (IOException e) {
@@ -63,8 +60,8 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    @GetMapping("/detail/{user_id}")
-    public ResponseEntity<?> getUserById(@PathVariable("user_id") String userId) {
+    @GetMapping("/detail/{user-id}")
+    public ResponseEntity<?> getUserById(@PathVariable("user-id") String userId) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, userService.findById(userId)));
@@ -74,15 +71,12 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    @PostMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestParam("email") String email,
+    @PostMapping("/update/{user-id}")
+    public ResponseEntity<?> updateUser(@PathVariable("user-id") String userId,
                                         @RequestBody UpdateRequest updateRequest) {
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.updateProfile(email, updateRequestToDto(updateRequest));
+            userService.updateProfile(userId, updateRequestToDto(updateRequest));
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
@@ -99,14 +93,11 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUserByEmail(@RequestParam("email") String email) {
+    @DeleteMapping("/delete/{user-id}")
+    public ResponseEntity<?> deleteUserByEmail(@PathVariable("user-id") String userId) {
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.deleteByEmail(email);
+            userService.deleteByEmail(userId);
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
