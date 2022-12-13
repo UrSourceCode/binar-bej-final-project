@@ -49,8 +49,7 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
             "WHERE DATE(fs.departureTime) = :date " +
             "AND fs.flightRoute.fromAirport.IATACode = :originAirport " +
             "AND fs.flightRoute.toAirport.IATACode = :destinationAirport " +
-            "AND fs.aircraftDetail.aircraftClass = :aircraftClass " +
-            "AND fs.departureTime > :current_time")
+            "AND fs.aircraftDetail.aircraftClass = :aircraftClass")
     Page<FlightScheduleDetailDTO> searchFlightScheduleByAirportAndDate(
             @Param(value = "originAirport") String originAirport,
             @Param(value = "destinationAirport") String destinationAirport,
