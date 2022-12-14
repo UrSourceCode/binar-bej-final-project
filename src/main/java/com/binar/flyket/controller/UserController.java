@@ -21,7 +21,7 @@ import java.util.Date;
 
 
 @Tag(name = "User Profile")
-@CrossOrigin(value = "*", maxAge = 3600L)
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
