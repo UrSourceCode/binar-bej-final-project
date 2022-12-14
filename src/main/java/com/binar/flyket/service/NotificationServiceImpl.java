@@ -35,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService {
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
         List<NotificationDTO> notifications = notificationRepository.getNotificationByUserId(userId, pageable).getContent();
-        List<NotificationDTO> countNotification = notificationRepository.countNotification(false);
+        List<NotificationDTO> countNotification = notificationRepository.countNotification(false, userId);
         NotificationResponse notificationResponse = new NotificationResponse();
         notificationResponse.setUserId(userId);
         notificationResponse.setTotalNotification(notifications.size());
