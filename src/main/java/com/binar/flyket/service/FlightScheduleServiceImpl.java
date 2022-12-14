@@ -115,7 +115,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
                 originAirportId.toUpperCase().trim(),
                 destinationAirportId.toUpperCase().trim(), flightDate,
-                ac, LocalDateTime.now(), pageable);
+                ac, pageable);
 
         return pageFlight.getContent();
     }
