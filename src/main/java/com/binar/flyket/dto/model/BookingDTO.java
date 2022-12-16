@@ -2,6 +2,7 @@ package com.binar.flyket.dto.model;
 
 import com.binar.flyket.model.BookingStatus;
 import com.binar.flyket.model.PaymentMethod;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public class BookingDTO {
     private String bookingId;
     private BigDecimal amount;
     private BookingStatus bookingStatus;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 }
