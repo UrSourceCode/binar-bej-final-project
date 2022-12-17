@@ -1,12 +1,7 @@
 package com.binar.flyket;
 
 
-
-import com.binar.flyket.dto.model.AircraftDetailDTO;
-import com.binar.flyket.dto.model.AirportDetailDTO;
-import com.binar.flyket.dto.model.FlightRouteDetailDTO;
 import com.binar.flyket.repository.AircraftDetailRepository;
-
 import com.binar.flyket.repository.AirportRepository;
 import com.binar.flyket.repository.AirportRouteRepository;
 import org.junit.jupiter.api.Test;
