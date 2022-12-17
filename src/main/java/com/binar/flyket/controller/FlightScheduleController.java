@@ -10,6 +10,7 @@ import com.binar.flyket.utils.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -90,8 +91,8 @@ public class FlightScheduleController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteScheduleById(@PathVariable("id") String id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteScheduleById(@RequestParam("id") String id) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                     flightScheduleService.deleteFlightScheduleById(id)));
@@ -102,7 +103,15 @@ public class FlightScheduleController {
     }
 
 
-
+    @Schema(example =
+            """
+                {
+                  "departureTime": "2022-12-16 18:08:00",
+                  "arrivalTime": "2022-12-16 18:08:00",
+                  "aircraftDetailId": "string",
+                  "flightRouteId": "string"
+                }
+            """)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addFlightSchedule(@RequestBody @Valid FlightScheduleRequest flightScheduleRequest) {
