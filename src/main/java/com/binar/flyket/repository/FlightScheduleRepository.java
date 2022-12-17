@@ -38,10 +38,6 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
     Page<FlightScheduleDetailDTO> findFlightScheduleDetail(
             @Param("status") Status status, Pageable pageable);
 
-            "AND fs.flightRoute.id = fr.id ")
-    Page<FlightScheduleDetailDTO> findFlightScheduleDetail(Pageable pageable);
-
-
     @Query(value = "SELECT " +
             "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +
             "fs.departureTime, fs.arrivalTime, acd.aircraftClass, " +
