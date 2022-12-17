@@ -7,13 +7,18 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.FlightScheduleService;
 import com.binar.flyket.utils.Constants;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +30,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Tag(name = "Flight Schedule")
 @CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/schedules")
@@ -70,8 +76,8 @@ public class FlightScheduleController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @GetMapping
     public ResponseEntity<?> getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "4") int size) {
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "4", value = "size") int size) {
 
         Pageable paging = PageRequest.of(page, size);
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
@@ -163,14 +169,19 @@ public class FlightScheduleController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @GetMapping("/departure-date")
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "4") int size,
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "4", value = "size") int size,
+            @RequestParam(defaultValue = "earliest", value = "sort_by_departure") String sortBy,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate flightDate,
             @RequestParam("originAirportId") String originAirportId,
             @RequestParam("destinationAirportId") String destinationAirportId,
             @RequestParam("aircraftClass") String aircraftClass) {
         try {
-            Pageable paging = PageRequest.of(page, size);
+
+            Sort sort = sortBy.equalsIgnoreCase("earliest") ?
+                    Sort.by("departureTime").ascending() : Sort.by("departureTime").descending();
+
+            Pageable paging = PageRequest.of(page, size, sort);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                     flightScheduleService.searchFlightSchedule(
                             originAirportId, destinationAirportId, aircraftClass, flightDate, paging)));

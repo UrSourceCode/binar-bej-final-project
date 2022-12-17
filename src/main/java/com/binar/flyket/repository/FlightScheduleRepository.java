@@ -13,6 +13,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.binar.flyket.repository.query.FlightScheduleQuery.*;
@@ -31,10 +32,15 @@ public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, 
             "JOIN fs.aircraftDetail AS acd " +
             "JOIN fs.flightRoute AS fr " +
             "WHERE fs.aircraftDetail.id = acd.id " +
+
             "AND fs.flightRoute.id = fr.id " +
             "AND fs.status = :status")
     Page<FlightScheduleDetailDTO> findFlightScheduleDetail(
             @Param("status") Status status, Pageable pageable);
+
+            "AND fs.flightRoute.id = fr.id ")
+    Page<FlightScheduleDetailDTO> findFlightScheduleDetail(Pageable pageable);
+
 
     @Query(value = "SELECT " +
             "NEW com.binar.flyket.dto.model.FlightScheduleDetailDTO(fs.id, " +

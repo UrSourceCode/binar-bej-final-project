@@ -7,6 +7,7 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.AircraftService;
 import com.binar.flyket.utils.Constants;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@Tag(name = "Aircraft")
 @CrossOrigin(value = "*", maxAge = 3600L)
 @RestController
 @RequestMapping("/api/aircraft")

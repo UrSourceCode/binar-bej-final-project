@@ -58,10 +58,17 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route " + Constants.NOT_FOUND_MSG);
         }
 
+
         String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
 
         FlightSchedule flightSchedule = new FlightSchedule();
         flightSchedule.setId("sc" + randId[0] + randId[1]);
+
+        String[] randomId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String scheduleId = "sc-" + randomId[0] + randomId[1];
+
+        FlightSchedule flightSchedule = new FlightSchedule();
+        flightSchedule.setId(scheduleId);
         flightSchedule.setArrivalTime(flightScheduleRequest.getArrivalTime());
         flightSchedule.setDepartureTime(flightScheduleRequest.getDepartureTime());
         flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());

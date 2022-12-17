@@ -1,0 +1,332 @@
+[
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9A",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10A",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10B",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3C",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9C",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10C",
+    "status": false
+  },
+
+  { "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10D",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9E",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10E",
+    "status": false
+  },
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "1F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "2F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "3F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "4F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "5F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "6F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "7F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "8F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "9F",
+    "status": false
+  },
+
+  {
+    "_class" : "com.binar.flyket.model.SeatDetail",
+    "id": "10F",
+    "status": false
+  }
+]

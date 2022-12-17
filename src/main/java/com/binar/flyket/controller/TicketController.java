@@ -7,6 +7,7 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.TicketService;
 import com.binar.flyket.utils.Constants;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(value = "*", maxAge = 3600L)
-//@RestController
-//@RequestMapping("/api/tickets")
+
+@Tag(name = "Ticket")
+@CrossOrigin(value = "*")
+@RestController
+@RequestMapping("/api/tickets")
 public class TicketController {
     private final TicketService ticketService;
 
@@ -24,7 +27,7 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public ResponseEntity<?> addTicket(@RequestBody TicketRequest ticketRequest) {
         try {
             ticketService.addTicket(ticketRequest);
@@ -35,7 +38,7 @@ public class TicketController {
         }
     }
 
-    @PostMapping("/add-all")
+//    @PostMapping("/add-all")
     public ResponseEntity<?> addTickets(@RequestBody List<TicketRequest> ticketRequest) {
         try {
             List<TicketDTO> ticketDTOS = ticketRequest.stream().map(this::ticketRequestToDto).toList();

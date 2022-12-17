@@ -32,6 +32,4 @@ public class Seat {
     @JoinColumn(name = "air_craft_id")
     private AircraftDetail aircraftDetail;
 
-
-
 }
