@@ -61,24 +61,18 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 
         String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
 
-        FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setId("sc" + randId[0] + randId[1]);
+        FlightSchedule flightScheduleModel = new FlightSchedule();
+        flightScheduleModel.setId("sc" + randId[0] + randId[1]);
+        flightScheduleModel.setArrivalTime(flightScheduleRequest.getArrivalTime());
+        flightScheduleModel.setDepartureTime(flightScheduleRequest.getDepartureTime());
+        flightScheduleModel.setFlightDate(flightScheduleRequest.getFlightDate());
+        flightScheduleModel.setAircraftDetail(aircraftDetail.get());
+        flightScheduleModel.setFlightRoute(route.get());
+        flightScheduleModel.setStatus(Status.ACTIVE);
+        flightScheduleModel.setUpdatedAt(LocalDateTime.now());
+        flightScheduleModel.setCreatedAt(LocalDateTime.now());
 
-        String[] randomId = UUID.randomUUID().toString().toUpperCase().split("-");
-        String scheduleId = "sc-" + randomId[0] + randomId[1];
-
-        FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setId(scheduleId);
-        flightSchedule.setArrivalTime(flightScheduleRequest.getArrivalTime());
-        flightSchedule.setDepartureTime(flightScheduleRequest.getDepartureTime());
-        flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
-        flightSchedule.setAircraftDetail(aircraftDetail.get());
-        flightSchedule.setFlightRoute(route.get());
-        flightSchedule.setStatus(Status.ACTIVE);
-        flightSchedule.setUpdatedAt(LocalDateTime.now());
-        flightSchedule.setCreatedAt(LocalDateTime.now());
-
-        flightScheduleRepository.save(flightSchedule);
+        flightScheduleRepository.save(flightScheduleModel);
 
         return true;
     }
