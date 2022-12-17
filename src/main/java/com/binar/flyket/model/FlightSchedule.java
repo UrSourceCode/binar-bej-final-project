@@ -29,6 +29,9 @@ public class FlightSchedule {
 
     private LocalDate flightDate;
 
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aircraft_detail_id")
     private AircraftDetail aircraftDetail;
@@ -37,7 +40,13 @@ public class FlightSchedule {
     @JoinColumn(name = "flight_route_id")
     private FlightRoute flightRoute;
 
+
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "flightSchedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookingList = new ArrayList<>();
+
 }

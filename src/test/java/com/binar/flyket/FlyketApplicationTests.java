@@ -1,10 +1,16 @@
 package com.binar.flyket;
 
 
+
+import com.binar.flyket.repository.AircraftDetailRepository;
+import com.binar.flyket.repository.AirportRepository;
+import com.binar.flyket.repository.AirportRouteRepository;
+
 import com.binar.flyket.dto.model.AvailableSeatDTO;
 import com.binar.flyket.model.SeatDetail;
 import com.binar.flyket.repository.SeatDetailRepository;
 import com.binar.flyket.repository.TicketRepository;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

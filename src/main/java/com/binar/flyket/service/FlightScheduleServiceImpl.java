@@ -5,10 +5,7 @@ import com.binar.flyket.dto.request.FlightScheduleRequest;
 import com.binar.flyket.dto.request.UpdateScheduleRequest;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
-import com.binar.flyket.model.AircraftClass;
-import com.binar.flyket.model.AircraftDetail;
-import com.binar.flyket.model.FlightRoute;
-import com.binar.flyket.model.FlightSchedule;
+import com.binar.flyket.model.*;
 import com.binar.flyket.repository.AircraftDetailRepository;
 import com.binar.flyket.repository.AirportRouteRepository;
 import com.binar.flyket.repository.FlightScheduleRepository;
@@ -61,6 +58,12 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route " + Constants.NOT_FOUND_MSG);
         }
 
+
+        String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
+
+        FlightSchedule flightSchedule = new FlightSchedule();
+        flightSchedule.setId("sc" + randId[0] + randId[1]);
+
         String[] randomId = UUID.randomUUID().toString().toUpperCase().split("-");
         String scheduleId = "sc-" + randomId[0] + randomId[1];
 
@@ -71,6 +74,9 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
         flightSchedule.setAircraftDetail(aircraftDetail.get());
         flightSchedule.setFlightRoute(route.get());
+        flightSchedule.setStatus(Status.ACTIVE);
+        flightSchedule.setUpdatedAt(LocalDateTime.now());
+        flightSchedule.setCreatedAt(LocalDateTime.now());
 
         flightScheduleRepository.save(flightSchedule);
 
@@ -81,7 +87,10 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
     public Boolean deleteFlightScheduleById(String id) {
         Optional<FlightSchedule> flightSchedule = flightScheduleRepository.findById(id);
         if(flightSchedule.isPresent()) {
-            flightScheduleRepository.delete(flightSchedule.get());
+            FlightSchedule flModel = flightSchedule.get();
+            flModel.setStatus(Status.DELETE);
+            flModel.setUpdatedAt(LocalDateTime.now());
+            flightScheduleRepository.save(flModel);
             return true;
         }
         LOGGER.info("Flight Schedule : " + Constants.NOT_FOUND_MSG);
@@ -90,12 +99,12 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 
     @Override
     public List<FlightScheduleDetailDTO> getFlightScheduleDetails(Pageable paging) {
-        return flightScheduleRepository.findFlightScheduleDetail(paging).getContent();
+        return flightScheduleRepository.findFlightScheduleDetail(Status.ACTIVE, paging).getContent();
     }
 
     @Override
     public FlightScheduleDetailDTO getFlightScheduleDetailById(String id) {
-        Optional<FlightScheduleDetailDTO> flightSchedule = flightScheduleRepository.findFlightScheduleDetailById(id);
+        Optional<FlightScheduleDetailDTO> flightSchedule = flightScheduleRepository.findFlightScheduleDetailById(id, Status.ACTIVE);
         if(flightSchedule.isPresent()) {
             return flightSchedule.get();
         }
@@ -115,7 +124,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
                 originAirportId.toUpperCase().trim(),
                 destinationAirportId.toUpperCase().trim(), flightDate,
-                ac, pageable);
+                ac, Status.ACTIVE, pageable);
 
         return pageFlight.getContent();
     }
@@ -132,14 +141,18 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         if(flightRoute.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route : " + Constants.NOT_FOUND_MSG);
 
-        FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setId(scheduleId);
-        flightSchedule.setFlightRoute(flightRoute.get());
-        flightSchedule.setAircraftDetail(aircraftDetail.get());
-        flightSchedule.setDepartureTime(updateScheduleRequest.getDepartureTime());
-        flightSchedule.setArrivalTime(updateScheduleRequest.getArrivalTime());
+        Optional<FlightSchedule> flightSchedule = flightScheduleRepository.findById(scheduleId);
+        if(flightSchedule.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Flight Schedule : " + Constants.NOT_FOUND_MSG);
 
-        flightScheduleRepository.save(flightSchedule);
+        FlightSchedule flightScheduleModel = flightSchedule.get();
+        flightScheduleModel.setFlightRoute(flightRoute.get());
+        flightScheduleModel.setAircraftDetail(aircraftDetail.get());
+        flightScheduleModel.setDepartureTime(updateScheduleRequest.getDepartureTime());
+        flightScheduleModel.setArrivalTime(updateScheduleRequest.getArrivalTime());
+        flightScheduleModel.setUpdatedAt(LocalDateTime.now());
+
+        flightScheduleRepository.save(flightScheduleModel);
         return true;
     }
 }
