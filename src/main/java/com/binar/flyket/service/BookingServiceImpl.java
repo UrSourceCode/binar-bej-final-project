@@ -36,8 +36,11 @@ public class BookingServiceImpl implements BookingService {
 
     public BookingServiceImpl(FlightScheduleRepository flightScheduleRepository,
                               UserRepository userRepository,
-                              SeatDetailRepository seatDetailRepository, TicketRepository ticketRepository,
-                              PaymentMethodRepository paymentMethodRepository, BookingRepository bookingRepository, NotificationRepository notificationRepository) {
+                              SeatDetailRepository seatDetailRepository,
+                              TicketRepository ticketRepository,
+                              PaymentMethodRepository paymentMethodRepository,
+                              BookingRepository bookingRepository,
+                              NotificationRepository notificationRepository) {
         this.flightScheduleRepository = flightScheduleRepository;
         this.userRepository = userRepository;
         this.seatDetailRepository = seatDetailRepository;
@@ -97,12 +100,9 @@ public class BookingServiceImpl implements BookingService {
         bookingResponse.setName(user.get().getFirstName() + " " + user.get().getLastName());
         bookingResponse.setEmail(user.get().getEmail());
 
-        Date dt = new Date(currentTime);
-        String[] date = dt.toString().split(" ");
-        String[] time = date[3].split(":");
 
         notificationRepository.save(buildNotification("Pesananmu berhasil", "" ,
-                "Lakukan pembayaran sebelum " + time[0] + ":" + time[1] + "", false, user.get()));
+                "Ayo, segera lakukan pembayaran!!", false, user.get()));
 
         LOGGER.info("~ Finish booking ~");
 
@@ -164,7 +164,7 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(bookingModel);
 
         notificationRepository.save(buildNotification("Validasi Admin", "",
-                "Pembayaran kamu sudah divalidasi.", false, user.get()));
+                "Pembayaran kamu sudah divalidasi oleh ADMIN. Semoga perjalanan mu menyenangkan :)", false, user.get()));
 
         LOGGER.info("~ finish validate by ADMIN ~");
 
