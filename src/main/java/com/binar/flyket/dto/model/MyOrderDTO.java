@@ -19,7 +19,9 @@ public class MyOrderDTO {
     private String flightScheduleId;
     private String bookingId;
     private Integer totalPassenger;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime arrivalTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime departureTime;
     private String originAirport;
     private String destinationAirport;
