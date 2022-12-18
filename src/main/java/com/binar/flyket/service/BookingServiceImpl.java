@@ -111,6 +111,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
+        if(passengerRequest.getSeatNo() == null)
+            throw new FlyketException.InputIsEmptyException(HttpStatus.NOT_ACCEPTABLE, "Seat no : " + Constants.EMPTY_MSG);
 
         Optional<SeatDetail> seatDetail = seatDetailRepository.findById(passengerRequest.getSeatNo().toUpperCase());
         if(seatDetail.isEmpty())
