@@ -65,7 +65,7 @@ public class BookingController {
         }
     }
 
-     @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/booking/validate")
     public ResponseEntity<?> validateBooking(
             @RequestBody ValidateBookingRequest validateBookingRequest) {
@@ -75,6 +75,17 @@ public class BookingController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         } catch (FlyketException.BookingExpiredException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @GetMapping("/booking/show-seat")
+    public ResponseEntity<?> showSeats(@RequestParam("schedule-id") String scheduleId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                    bookingService.showSeat(scheduleId)));
+        } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
