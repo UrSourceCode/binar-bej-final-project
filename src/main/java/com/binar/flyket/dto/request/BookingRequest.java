@@ -1,6 +1,5 @@
 package com.binar.flyket.dto.request;
 
-import com.binar.flyket.model.AircraftClass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class BookingRequest {
     private String scheduleId;
-    private AircraftClass seatClass;
+    private String seatClass;
     private Integer totalPassenger;
     private BigDecimal amount;
     private List<PassengerRequest> passengerRequests;
