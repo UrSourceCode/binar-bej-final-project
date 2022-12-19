@@ -18,7 +18,7 @@ public class Constants {
 
     public static final String UPLOAD_FAILED = "upload failed";
 
-    public static final String EMPTY_MSG = "input is empty";
+    public static final String EMPTY_MSG = "empty";
 
     public static final String ROLE_NOT_FOUND = "role not found";
     public static final String AIRPORT_NOT_FOUND = "airport not found";
