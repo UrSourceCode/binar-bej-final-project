@@ -1,6 +1,5 @@
 package com.binar.flyket.service;
 
-import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.model.FileDB;
 import com.binar.flyket.dto.model.InvoiceBookingDTO;
 import com.binar.flyket.dto.request.InvoiceRequest;
