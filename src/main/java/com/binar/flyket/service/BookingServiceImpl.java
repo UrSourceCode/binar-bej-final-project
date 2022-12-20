@@ -227,8 +227,10 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Boolean bookingStatus(String bookingId) {
-        Optional<Booking> booking = bookingRepository.checkBookingStatus(BookingStatus.WAITING, bookingId);
-        return booking.isPresent();
+        Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
+        if(booking.isEmpty()) return false;
+        return booking.get().getBookingStatus() == BookingStatus.ACTIVE
+                || booking.get().getBookingStatus() == BookingStatus.COMPLETED;
     }
 
     private void checkStatusBooking(Booking bookingModel) {
