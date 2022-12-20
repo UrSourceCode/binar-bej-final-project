@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
         if(booking.get().getPaymentMethod() == null)
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Payment Method " + Constants.NOT_FOUND_MSG);
 
-        String qrUrl = "https://api-flyket.up.railway.app/api/booking/check-booking-status?booking-id="+request.getBookingId();
+        String qrUrl = "https://api-flyket.up.railway.app/api/booking/check-status-booking?booking-id="+request.getBookingId();
 
         Optional<InvoiceBookingDTO> invoiceBooking = bookingRepository.getInvoiceBooking(request.getBookingId(), request.getUserId());
         String invoiceId = UUID.randomUUID().toString();
