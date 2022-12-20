@@ -67,7 +67,7 @@ public class FileServiceImpl implements FileService {
         parameters.put("total_payment", "Rp."+invoiceBooking.get().getAmount().toString()+",-");
         parameters.put("status", invoiceBooking.get().getStatus().toString());
         parameters.put("QR", new ByteArrayInputStream(QRGenerator.getQRCodeImage(
-                "https://www.google.com/?client=safari", 78, 80)));
+                "https://api-flyket.up.railway.app/api/booking/check-booking-status?booking-id="+request.getBookingId(), 78, 80)));
 
         JasperReport jasperReport = jasperUtil.setJasperReport("/jasper/invoice.jrxml");
         JasperPrint jasperPrint = jasperUtil.setJasperPrint(jasperReport, parameters);
