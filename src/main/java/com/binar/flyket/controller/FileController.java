@@ -31,8 +31,13 @@ public class FileController {
     }
 
     @GetMapping(value = "/download/invoice")
-    public ResponseEntity<?> downloadInvoice(@RequestBody InvoiceRequest request) {
+    public ResponseEntity<?> downloadInvoice(
+            @RequestParam("user-id") String userId,
+            @RequestParam("booking-id") String bookingId) {
         try {
+            InvoiceRequest request = new InvoiceRequest();
+            request.setBookingId(bookingId);
+            request.setUserId(userId);
             FileDB fileDB = fileService.getInvoice(request);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_PDF)
