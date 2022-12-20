@@ -59,4 +59,5 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             "AND bk.user.id = :user_id")
     Optional<InvoiceBookingDTO> getInvoiceBooking(@Param("booking_id") String bookingId,
                                                   @Param("user_id") String userId);
+
 }
