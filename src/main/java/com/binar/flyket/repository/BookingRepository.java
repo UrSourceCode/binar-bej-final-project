@@ -2,6 +2,7 @@ package com.binar.flyket.repository;
 
 import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
+import com.binar.flyket.dto.model.InvoiceBookingDTO;
 import com.binar.flyket.dto.model.MyOrderDTO;
 import com.binar.flyket.model.Booking;
 import com.binar.flyket.model.BookingStatus;
@@ -46,4 +47,16 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     @Query(value = "SELECT bk FROM Booking bk WHERE bk.expiredTime < :current_time AND bk.bookingStatus =:status")
     List<Booking> checkStatusBooking(@Param("current_time") Long currentTime,
                                      @Param("status")BookingStatus bookingStatus);
+
+    @Query(value = "SELECT NEW com.binar.flyket.dto.model.InvoiceBookingDTO(bk.id, fs.id, " +
+            "CONCAT(usr.firstName, ' ', usr.lastName), usr.phoneNumber, usr.email, " +
+            "bk.bookingStatus, pm.name, bk.amount, CONCAT(fs.flightRoute.toAirport.name, ' - ', fs.flightRoute.fromAirport.name)) " +
+            "FROM Booking AS bk " +
+            "JOIN bk.flightSchedule AS fs " +
+            "JOIN bk.user AS usr " +
+            "JOIN bk.paymentMethod AS pm " +
+            "WHERE bk.id = :booking_id " +
+            "AND bk.user.id = :user_id")
+    Optional<InvoiceBookingDTO> getInvoiceBooking(@Param("booking_id") String bookingId,
+                                                  @Param("user_id") String userId);
 }
