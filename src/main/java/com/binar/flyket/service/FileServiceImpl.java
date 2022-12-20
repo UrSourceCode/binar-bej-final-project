@@ -57,6 +57,7 @@ public class FileServiceImpl implements FileService {
         Optional<InvoiceBookingDTO> invoiceBooking = bookingRepository.getInvoiceBooking(request.getBookingId(), request.getUserId());
         String invoiceId = UUID.randomUUID().toString();
         HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("icon_dir","jasper/icon.png");
         parameters.put("date", new Date());
         parameters.put("invoice_id", invoiceId);
         parameters.put("order_id", invoiceBooking.get().getOrderId());

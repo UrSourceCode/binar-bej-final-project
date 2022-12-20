@@ -13,6 +13,7 @@
     <parameter name="status" class="java.lang.String"/>
     <parameter name="total_payment" class="java.lang.String"/>
     <parameter name="QR" class="java.io.InputStream"/>
+    <parameter name="icon_dir" class="java.lang.String"/>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -23,7 +24,7 @@
         <band height="63" splitType="Stretch">
             <image>
                 <reportElement x="10" y="10" width="50" height="50" uuid="9fc6063e-6609-4857-bf2e-989530fcd330"/>
-                <imageExpression><![CDATA["./jasper/icon.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{icon_dir}]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="68" y="22" width="175" height="30" uuid="4e282c9a-c5c3-497b-b8d7-776aee42e72f"/>
