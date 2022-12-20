@@ -51,7 +51,8 @@ public class SecurityConfig {
                         "/api/seats/**",
                         "/api/aircraft/details/**",
                         "/api/**",
-                        "/api/file/**").permitAll()
+                        "/api/file/**",
+                        "/api/booking/check-status-booking/").permitAll()
 
                 .anyRequest().authenticated()
 
