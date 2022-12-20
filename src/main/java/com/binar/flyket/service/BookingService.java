@@ -20,4 +20,6 @@ public interface BookingService {
     PaymentResponse setPaymentMethod(PaymentRequest request);
 
     List<AvailableSeatDTO> showSeat(String scheduleId);
+
+    Boolean bookingStatus(String bookingId);
 }

@@ -89,4 +89,12 @@ public class BookingController {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
+
+    @GetMapping("/booking/check-status-booking")
+    public ResponseEntity<?> checkStatusBooking(@RequestParam("booking-id") String bookingId) {
+       return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+               Constants.SUCCESS_MSG,
+               bookingService.bookingStatus(bookingId)));
+    }
+
 }
