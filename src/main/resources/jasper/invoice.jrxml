@@ -27,7 +27,7 @@
                 <imageExpression><![CDATA[$P{icon_dir}]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="68" y="22" width="175" height="30" uuid="4e282c9a-c5c3-497b-b8d7-776aee42e72f"/>
+                <reportElement x="68" y="22" width="412" height="30" uuid="4e282c9a-c5c3-497b-b8d7-776aee42e72f"/>
                 <textElement>
                     <font size="18"/>
                 </textElement>
@@ -45,7 +45,7 @@
                 <text><![CDATA[Date :]]></text>
             </staticText>
             <textField>
-                <reportElement x="63" y="11" width="185" height="20" uuid="199a26a7-97af-4cb0-b5c3-13544ae03d78"/>
+                <reportElement x="70" y="11" width="602" height="20" uuid="199a26a7-97af-4cb0-b5c3-13544ae03d78"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
@@ -59,7 +59,7 @@
                 <text><![CDATA[Invoice ID :]]></text>
             </staticText>
             <textField>
-                <reportElement x="93" y="43" width="360" height="19" uuid="d44b5f24-1fc8-41cf-9672-96d1d0dbc764"/>
+                <reportElement x="99" y="43" width="587" height="19" uuid="d44b5f24-1fc8-41cf-9672-96d1d0dbc764"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
@@ -85,28 +85,28 @@
                 <text><![CDATA[Flight ID :]]></text>
             </staticText>
             <textField>
-                <reportElement x="81" y="2" width="162" height="21" uuid="9c8422bc-b67d-4c0a-ae2a-8c47bc96bda1"/>
+                <reportElement x="83" y="2" width="247" height="21" uuid="9c8422bc-b67d-4c0a-ae2a-8c47bc96bda1"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{flight_id}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="9" y="40" width="330" height="20" uuid="13f368b2-e931-4bea-be76-e3bfb6dab941"/>
+                <reportElement x="9" y="40" width="663" height="20" uuid="13f368b2-e931-4bea-be76-e3bfb6dab941"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{airport}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="260" y="2" width="80" height="21" uuid="be075c49-c57a-41bc-961b-14188f7f7575"/>
+                <reportElement x="364" y="2" width="80" height="21" uuid="be075c49-c57a-41bc-961b-14188f7f7575"/>
                 <textElement>
                     <font size="14" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Order ID :]]></text>
             </staticText>
             <textField>
-                <reportElement x="333" y="4" width="220" height="17" uuid="c588ce10-f32a-41b2-b31a-7591a2536a6d"/>
+                <reportElement x="452" y="4" width="220" height="17" uuid="c588ce10-f32a-41b2-b31a-7591a2536a6d"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
@@ -141,21 +141,21 @@
                 <text><![CDATA[Phone Number :]]></text>
             </staticText>
             <textField>
-                <reportElement x="65" y="127" width="412" height="16" uuid="123075d3-7d52-44b6-aae5-eb25c2e71489"/>
+                <reportElement x="75" y="127" width="666" height="16" uuid="123075d3-7d52-44b6-aae5-eb25c2e71489"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{cst_name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="64" y="161" width="412" height="20" uuid="df1fc361-8068-400d-a13e-4557e8347f42"/>
+                <reportElement x="73" y="160" width="668" height="20" uuid="df1fc361-8068-400d-a13e-4557e8347f42"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="131" y="195" width="349" height="16" uuid="334cb221-dc38-4a94-9311-6355a82ba32a"/>
+                <reportElement x="139" y="195" width="602" height="16" uuid="334cb221-dc38-4a94-9311-6355a82ba32a"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
@@ -189,28 +189,28 @@
                 </graphicElement>
             </line>
             <staticText>
-                <reportElement x="336" y="348" width="120" height="20" uuid="3743b21c-3b95-42ef-9006-8f50ff883c44"/>
+                <reportElement x="333" y="348" width="120" height="20" uuid="3743b21c-3b95-42ef-9006-8f50ff883c44"/>
                 <textElement>
                     <font size="14" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Total Payment : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="450" y="349" width="128" height="20" uuid="70d14577-350f-4520-9a23-bb1800dc2f27"/>
+                <reportElement x="458" y="349" width="325" height="20" uuid="70d14577-350f-4520-9a23-bb1800dc2f27"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{total_payment}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="88" y="279" width="290" height="19" uuid="652e133e-d9f7-4aa5-b407-968cceef508a"/>
+                <reportElement x="92" y="279" width="588" height="19" uuid="652e133e-d9f7-4aa5-b407-968cceef508a"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{payment_name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="71" y="310" width="310" height="20" uuid="1a035b2f-4372-4321-90db-cf6fff5db863"/>
+                <reportElement x="75" y="310" width="605" height="20" uuid="1a035b2f-4372-4321-90db-cf6fff5db863"/>
                 <textElement>
                     <font size="12"/>
                 </textElement>
