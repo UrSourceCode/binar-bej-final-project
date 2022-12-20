@@ -225,6 +225,12 @@ public class BookingServiceImpl implements BookingService {
         return ticketRepository.findAvailableSeat(scheduleId);
     }
 
+    @Override
+    public Boolean bookingStatus(String bookingId) {
+        Optional<Booking> booking = bookingRepository.checkBookingStatus(BookingStatus.WAITING, bookingId);
+        return booking.isPresent();
+    }
+
     private void checkStatusBooking(Booking bookingModel) {
         switch (bookingModel.getBookingStatus()) {
             case EXPIRED -> throw FlyketException.throwException(ExceptionType.BOOKING_EXPIRED, HttpStatus.NOT_ACCEPTABLE, "Booking expired!");
