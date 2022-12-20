@@ -13,15 +13,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
 
+@CrossOrigin(value = "*")
 @Tag(name = "File")
 @RestController
 @RequestMapping("/api/file")
@@ -39,7 +36,7 @@ public class FileController {
             FileDB fileDB = fileService.getInvoice(request);
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_PDF)
-                    .header(HttpHeaders.CONTENT_DISPOSITION)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+fileDB.getFilename())
                     .body(new ByteArrayResource(fileDB.getData()));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
