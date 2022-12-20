@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -59,5 +60,10 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             "AND bk.user.id = :user_id")
     Optional<InvoiceBookingDTO> getInvoiceBooking(@Param("booking_id") String bookingId,
                                                   @Param("user_id") String userId);
+
+    @Query(value = "SELECT bk FROM Booking AS bk WHERE bk.id = :booking_id AND bk.bookingStatus = :status")
+    Optional<Booking> checkBookingStatus(
+            @Param("status") BookingStatus status,
+            @Param("booking_id") String bookingId);
 
 }
