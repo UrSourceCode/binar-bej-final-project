@@ -229,7 +229,7 @@ public class BookingServiceImpl implements BookingService {
     public Boolean bookingStatus(String bookingId) {
         Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
         if(booking.isEmpty()) return false;
-        return booking.get().getBookingStatus() == BookingStatus.ACTIVE
+        return booking.get().getBookingStatus() == BookingStatus.WAITING
                 || booking.get().getBookingStatus() == BookingStatus.COMPLETED;
     }
 
