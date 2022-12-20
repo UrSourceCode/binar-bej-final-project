@@ -61,9 +61,9 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     Optional<InvoiceBookingDTO> getInvoiceBooking(@Param("booking_id") String bookingId,
                                                   @Param("user_id") String userId);
 
-    @Query(value = "SELECT bk FROM Booking AS bk WHERE bk.id = :booking_id AND bk.bookingStatus = :status")
+    @Query(value = "SELECT bk FROM Booking AS bk " +
+            "WHERE bk.id = :booking_id")
     Optional<Booking> checkBookingStatus(
-            @Param("status") BookingStatus status,
             @Param("booking_id") String bookingId);
 
 }
