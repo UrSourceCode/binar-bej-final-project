@@ -49,6 +49,8 @@ public class BookingController {
                      new Date(), Constants.SUCCESS_MSG, bookingService.addBooking(userId, bookingRequest)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        } catch (FlyketException.InputIsEmptyException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
     }
 
