@@ -46,4 +46,16 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     @Query(value = "SELECT bk FROM Booking bk WHERE bk.expiredTime < :current_time AND bk.bookingStatus =:status")
     List<Booking> checkStatusBooking(@Param("current_time") Long currentTime,
                                      @Param("status")BookingStatus bookingStatus);
+
+    @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingDTO(usr.id, " +
+            " usr.email, usr.phoneNumber, bk.id, bk.amount, bk.bookingStatus, bk.createdAt, bk.updatedAt) " +
+            "FROM Booking AS bk " +
+            "JOIN bk.flightSchedule AS fs " +
+            "JOIN bk.user AS usr " +
+            "WHERE bk.user.id = usr.id " +
+            "AND bk.flightSchedule.id = fs.id " +
+            "AND bk.bookingStatus = :booking_status")
+    Page<BookingDTO> validateBookingList(
+            @Param("booking_status") BookingStatus bookingStatus,
+            Pageable pageable);
 }
