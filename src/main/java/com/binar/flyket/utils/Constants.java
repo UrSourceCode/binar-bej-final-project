@@ -1,5 +1,6 @@
 package com.binar.flyket.utils;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -69,6 +70,16 @@ public class Constants {
         File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
         multipart.transferTo(convFile);
         return convFile;
+    }
+
+    public static Sort.Direction sortDirection(String direction) {
+        if (direction.equals("latest")) {
+            return Sort.Direction.ASC;
+        } else if (direction.equals("newest")) {
+            return Sort.Direction.DESC;
+        }
+
+        return Sort.Direction.ASC;
     }
 
     Constants() {}
