@@ -5,7 +5,9 @@ import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
 import com.binar.flyket.dto.response.BookingResponse;
+import com.binar.flyket.dto.response.BookingStatusResponse;
 import com.binar.flyket.dto.response.PaymentResponse;
+import com.binar.flyket.model.BookingStatus;
 
 import java.util.List;
 
@@ -21,5 +23,5 @@ public interface BookingService {
 
     List<AvailableSeatDTO> showSeat(String scheduleId);
 
-    Boolean bookingStatus(String bookingId);
+    BookingStatusResponse bookingStatus(String bookingId);
 }
