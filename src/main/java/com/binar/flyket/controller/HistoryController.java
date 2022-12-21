@@ -62,18 +62,20 @@ public class HistoryController {
     public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "0", value = "page") int page,
             @RequestParam(defaultValue = "10", value = "size") int size,
-            @RequestParam(defaultValue = "asc", value = "booking-status-sort") String bookingStatus,
+//            @RequestParam(defaultValue = "asc", value = "booking-status-sort") String bookingStatus,
             @RequestParam(defaultValue = "asc", value = "booking-date-sort") String bookingDate) {
 
         List<Sort.Order> orders = new ArrayList<>();
 
-        orders.add(new Sort.Order(getSortDirection(bookingStatus), "bookingStatus"));
+//        orders.add(new Sort.Order(getSortDirection(bookingStatus), "bookingStatus"));
         orders.add(new Sort.Order(getSortDirection(bookingDate), "createdAt"));
 
         Pageable paging = PageRequest.of(page, size, Sort.by(orders));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                 new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
     }
+
+
 
     private Sort.Direction getSortDirection(String direction) {
         if (direction.equals("asc")) {
