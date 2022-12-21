@@ -5,10 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AvailableSeatDTO {
-    private String seatNo;
+public class NotificationDTO {
+    private String id;
+    private String title;
+    private String content;
+    private String imgUrl;
+    private LocalDateTime createdAt;
 }

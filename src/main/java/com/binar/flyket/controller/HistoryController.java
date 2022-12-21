@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/history")
 @Tag(name = "History")
@@ -29,11 +30,11 @@ public class HistoryController {
 
     @GetMapping("/booking/{userid}")
     public ResponseEntity<?> getAllRecentOrderByUser(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size,
             @PathVariable(value = "userid") String userId) {
         try {
-            Pageable paging = PageRequest.of(page, size, Sort.by("updatedAt"));
+            Pageable paging = PageRequest.of(page, size, Sort.by("createdAt").descending());
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                     new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrder(userId, paging)));
         } catch (FlyketException.EntityNotFoundException e) {
@@ -41,15 +42,12 @@ public class HistoryController {
         }
     }
 
-    @GetMapping("/booking/{booking-id}/detail")
+    @GetMapping("/ticket/detail/{booking-id}")
     public ResponseEntity<?> getRecentOrderDetailByUser(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
             @PathVariable(value = "booking-id") String bookingId) {
         try {
-            Pageable paging = PageRequest.of(page, size, Sort.by("updatedAt"));
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
-                    new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrderDetail(bookingId, paging)));
+                    new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrderDetail(bookingId)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
@@ -57,9 +55,9 @@ public class HistoryController {
 
     @GetMapping("/booking/get-all")
     public ResponseEntity<?> getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable paging = PageRequest.of(page, size);
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size) {
+        Pageable paging = PageRequest.of(page, size, Sort.by("createdAt").descending());
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                 new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
     }

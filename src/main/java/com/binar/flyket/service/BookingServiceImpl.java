@@ -1,5 +1,7 @@
 package com.binar.flyket.service;
 
+import com.binar.flyket.dto.model.AvailableSeatDTO;
+import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
@@ -31,17 +33,29 @@ public class BookingServiceImpl implements BookingService {
     private final PaymentMethodRepository paymentMethodRepository;
     private final FlightScheduleRepository flightScheduleRepository;
     private final BookingRepository bookingRepository;
+    private final NotificationRepository notificationRepository;
 
     public BookingServiceImpl(FlightScheduleRepository flightScheduleRepository,
                               UserRepository userRepository,
                               SeatDetailRepository seatDetailRepository, TicketRepository ticketRepository,
-                              PaymentMethodRepository paymentMethodRepository, BookingRepository bookingRepository) {
+                              PaymentMethodRepository paymentMethodRepository,
+                              BookingRepository bookingRepository,
+                              NotificationRepository notificationRepository) {
         this.flightScheduleRepository = flightScheduleRepository;
         this.userRepository = userRepository;
         this.seatDetailRepository = seatDetailRepository;
         this.ticketRepository = ticketRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.bookingRepository = bookingRepository;
+        this.notificationRepository = notificationRepository;
+    }
+
+    @Override
+    public BookingDetailDTO getBookingDetail(String bookingId) {
+        Optional<BookingDetailDTO> bookingDetailDTO = bookingRepository.getBookingDetail(bookingId);
+        if(bookingDetailDTO.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+        return bookingDetailDTO.get();
     }
 
     @Transactional
@@ -52,18 +66,20 @@ public class BookingServiceImpl implements BookingService {
 
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
-            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "User with id " + Constants.NOT_FOUND_MSG);
+            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "User with id " + userId + " " + Constants.NOT_FOUND_MSG);
 
         Optional<FlightSchedule> schedule = flightScheduleRepository.findById(request.getScheduleId());
         if(schedule.isEmpty())
-            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Flight Schedule with id " + Constants.NOT_FOUND_MSG);
+            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Flight Schedule " + Constants.NOT_FOUND_MSG);
+
+        long currentTime = System.currentTimeMillis() + 1800000L;
 
         String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
         String bookingId = "bk-" +  uniqueId[0] + uniqueId[1];
         Booking booking = new Booking();
         booking.setId(bookingId);
         booking.setUser(user.get());
-        booking.setExpiredTime(System.currentTimeMillis() + 1800000L);
+        booking.setExpiredTime(currentTime);
         booking.setAmount(request.getAmount());
         booking.setCreatedAt(LocalDateTime.now());
         booking.setUpdatedAt(LocalDateTime.now());
@@ -84,14 +100,23 @@ public class BookingServiceImpl implements BookingService {
         bookingResponse.setName(user.get().getFirstName() + " " + user.get().getLastName());
         bookingResponse.setEmail(user.get().getEmail());
 
+        Date dt = new Date(currentTime);
+        String[] date = dt.toString().split(" ");
+        String[] time = date[3].split(":");
+
+        notificationRepository.save(buildNotification("Pesananmu berhasil", "" ,
+                "Lakukan pembayaran sebelum " + time[0] + ":" + time[1] + "", false, user.get()));
+
         LOGGER.info("~ Finish booking ~");
 
         return bookingResponse;
     }
 
     private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
+        if(passengerRequest.getSeatNo() == null)
+            throw new FlyketException.InputIsEmptyException(HttpStatus.NOT_ACCEPTABLE, "Seat no : " + Constants.EMPTY_MSG);
 
-        Optional<SeatDetail> seatDetail = seatDetailRepository.findById(passengerRequest.getSeatNo());
+        Optional<SeatDetail> seatDetail = seatDetailRepository.findById(passengerRequest.getSeatNo().toUpperCase());
         if(seatDetail.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Seat no " + Constants.NOT_FOUND_MSG);
 
@@ -119,7 +144,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     @Override
     public Boolean validateBooking(String userId, String bookingId) {
-        LOGGER.info("~ Validate Booking by ADMIN ~");
+        LOGGER.info("~ start validate Booking by ADMIN ~");
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "User with id : " + Constants.NOT_FOUND_MSG);
@@ -128,6 +153,8 @@ public class BookingServiceImpl implements BookingService {
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Booking with Id : " + Constants.NOT_FOUND_MSG);
 
+        checkStatusBooking(booking.get());
+
         if(booking.get().getPaymentMethod() == null)
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Payment " + Constants.NOT_FOUND_MSG);
 
@@ -135,17 +162,16 @@ public class BookingServiceImpl implements BookingService {
         if(tickets.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Ticket " + Constants.NOT_FOUND_MSG);
 
-        checkStatusBooking(booking.get());
-
-        for(Ticket tc : tickets) {
-            processTicket(tc);
-        }
+        for(Ticket tc : tickets) processTicket(tc);
 
         Booking bookingModel = booking.get();
         bookingModel.setBookingStatus(BookingStatus.COMPLETED);
         bookingRepository.save(bookingModel);
 
-        LOGGER.info("~ Completed validate by ADMIN ~");
+        notificationRepository.save(buildNotification("Validasi Admin", "",
+                "Pembayaran kamu sudah divalidasi.", false, user.get()));
+
+        LOGGER.info("~ finish validate by ADMIN ~");
 
         return true;
     }
@@ -173,6 +199,7 @@ public class BookingServiceImpl implements BookingService {
         checkStatusBooking(bookingModel);
 
         bookingModel.setPaymentMethod(paymentMethod.get());
+        bookingModel.setBookingStatus(BookingStatus.WAITING);
 
         bookingRepository.save(bookingModel);
 
@@ -182,14 +209,46 @@ public class BookingServiceImpl implements BookingService {
         paymentResponse.setBookingId(request.getBookingId());
         paymentResponse.setEmail(user.get().getEmail());
 
+        notificationRepository.save(buildNotification("Pembayaran berhasil", "",
+                "Terima kasih telah melakukan pembayaran. Metode pembayaran melalui " + paymentMethod.get().getName() +"\n" +
+                "Booking Id : " + booking.get().getId() + ".\n" +
+                "Total : " + booking.get().getAmount(), false, user.get()));
+
         LOGGER.info("~ Finish Payment ~");
 
         return paymentResponse;
+    }
+
+    @Override
+    public List<AvailableSeatDTO> showSeat(String scheduleId) {
+        Optional<FlightSchedule> flightSchedule = flightScheduleRepository.findById(scheduleId);
+        if(flightSchedule.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+        return ticketRepository.findAvailableSeat(scheduleId);
     }
 
     private void checkStatusBooking(Booking bookingModel) {
         switch (bookingModel.getBookingStatus()) {
             case EXPIRED -> throw FlyketException.throwException(ExceptionType.BOOKING_EXPIRED, HttpStatus.NOT_ACCEPTABLE, "Booking expired!");
         }
+    }
+
+    private Notification buildNotification(String title,
+                                           String imgUrl,
+                                           String content,
+                                           Boolean status,
+                                           User user) {
+        String[] uniqueId =  UUID.randomUUID().toString().toUpperCase().split("-");
+        String notificationId = "notification-" + uniqueId[0] + uniqueId[1];
+        Notification notification = new Notification();
+        notification.setId(notificationId);
+        notification.setTitle(title);
+        notification.setImgUrl(imgUrl);
+        notification.setContent(content);
+        notification.setUser(user);
+        notification.setCreatedAt(LocalDateTime.now());
+        notification.setUpdatedAt(LocalDateTime.now());
+        notification.setIsRead(status);
+        return notification;
     }
 }

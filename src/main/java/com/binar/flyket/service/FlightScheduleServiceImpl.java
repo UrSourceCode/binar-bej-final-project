@@ -21,8 +21,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FlightScheduleServiceImpl implements FlightScheduleService {
@@ -59,8 +61,11 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Route " + Constants.NOT_FOUND_MSG);
         }
 
+        String[] randomId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String scheduleId = "sc-" + randomId[0] + randomId[1];
+
         FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setId(flightScheduleRequest.getId());
+        flightSchedule.setId(scheduleId);
         flightSchedule.setArrivalTime(flightScheduleRequest.getArrivalTime());
         flightSchedule.setDepartureTime(flightScheduleRequest.getDepartureTime());
         flightSchedule.setFlightDate(flightScheduleRequest.getFlightDate());
@@ -110,7 +115,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         Page<FlightScheduleDetailDTO> pageFlight = flightScheduleRepository.searchFlightScheduleByAirportAndDate(
                 originAirportId.toUpperCase().trim(),
                 destinationAirportId.toUpperCase().trim(), flightDate,
-                ac, pageable);
+                ac, LocalDateTime.now(), pageable);
 
         return pageFlight.getContent();
     }

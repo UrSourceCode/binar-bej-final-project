@@ -9,6 +9,8 @@ import com.binar.flyket.model.Booking;
 import com.binar.flyket.model.user.User;
 import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class TransactionHistoryServiceImpl implements TransactionHistoryService {
+
+    private Logger LOGGER = LoggerFactory.getLogger(TransactionHistoryServiceImpl.class);
 
     private UserRepository userRepository;
     private BookingRepository bookingRepository;
@@ -43,22 +47,22 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
-        return bookingRepository.getRecentOrderByUser(userId, pageable);
+        return bookingRepository.getRecentOrderByUser(userId, pageable).getContent();
     }
 
     @Override
-    public MyOrderDetailDTO getRecentOrderDetail(String bookingId, Pageable pageable) {
+    public MyOrderDetailDTO getRecentOrderDetail(String bookingId) {
         Optional<Booking> booking = bookingRepository.findById(bookingId);
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
         MyOrderDetailDTO myOrderDetailDTO = new MyOrderDetailDTO();
         myOrderDetailDTO.setBookingId(bookingId);
-        myOrderDetailDTO.setPassengerTicketLists(ticketRepository.getRecentOrderDetail(pageable, bookingId));
+        myOrderDetailDTO.setPassengerTicketLists(ticketRepository.getRecentOrderDetail(bookingId));
         return myOrderDetailDTO;
     }
 
     @Override
     public List<BookingDTO> getAllBookingHistory(Pageable pageable) {
-        return bookingRepository.getAllBooking(pageable);
+        return bookingRepository.findAllBooking(pageable).getContent();
     }
 }
