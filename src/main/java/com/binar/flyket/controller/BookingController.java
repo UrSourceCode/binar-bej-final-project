@@ -9,6 +9,9 @@ import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.BookingService;
 import com.binar.flyket.utils.Constants;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -90,5 +93,16 @@ public class BookingController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/booking/validate-list")
+    public ResponseEntity<?> validateBookingList(
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "newest", value = "sort-by") String sort) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(Constants.sortDirection(sort), "createdAt"));
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                bookingService.validateBookingList(paging)));
     }
 }
