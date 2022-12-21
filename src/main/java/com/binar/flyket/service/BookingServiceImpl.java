@@ -6,6 +6,7 @@ import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
 import com.binar.flyket.dto.response.BookingResponse;
+import com.binar.flyket.dto.response.BookingStatusResponse;
 import com.binar.flyket.dto.response.PaymentResponse;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
@@ -226,11 +227,16 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Boolean bookingStatus(String bookingId) {
+    public BookingStatusResponse bookingStatus(String bookingId) {
         Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
-        if(booking.isEmpty()) return false;
-        return booking.get().getBookingStatus() == BookingStatus.WAITING
-                || booking.get().getBookingStatus() == BookingStatus.COMPLETED;
+        if(booking.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+        BookingStatusResponse response = new BookingStatusResponse();
+        response.setBookingId(bookingId);
+        response.setBookingStatus(booking.get().getBookingStatus());
+        response.setIsPaid(booking.get().getBookingStatus() == BookingStatus.WAITING
+                        || booking.get().getBookingStatus() == BookingStatus.COMPLETED);
+        return response;
     }
 
     private void checkStatusBooking(Booking bookingModel) {

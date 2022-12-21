@@ -1,5 +1,6 @@
 package com.binar.flyket.dto.model;
 
+import com.binar.flyket.model.AircraftClass;
 import com.binar.flyket.model.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,5 @@ public class InvoiceBookingDTO {
     private String paymentName;
     private BigDecimal amount;
     private String airportName;
+    private AircraftClass seatClass;
 }

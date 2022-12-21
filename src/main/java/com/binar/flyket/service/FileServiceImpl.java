@@ -33,7 +33,9 @@ public class FileServiceImpl implements FileService {
     private BookingRepository bookingRepository;
     private UserRepository userRepository;
 
-    public FileServiceImpl(JasperUtil jasperUtil, BookingRepository bookingRepository, UserRepository userRepository) {
+    public FileServiceImpl(JasperUtil jasperUtil,
+                           BookingRepository bookingRepository,
+                           UserRepository userRepository) {
         this.jasperUtil = jasperUtil;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
@@ -52,7 +54,8 @@ public class FileServiceImpl implements FileService {
         if(booking.get().getPaymentMethod() == null)
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Payment Method " + Constants.NOT_FOUND_MSG);
 
-        String qrUrl = "https://api-flyket.up.railway.app/api/booking/check-status-booking?booking-id="+request.getBookingId();
+        String qrUrl =
+                "https://api-flyket.up.railway.app/api/booking/check-status-booking?booking-id="+request.getBookingId();
 
         Optional<InvoiceBookingDTO> invoiceBooking = bookingRepository.getInvoiceBooking(request.getBookingId(), request.getUserId());
         String invoiceId = UUID.randomUUID().toString();
@@ -67,10 +70,11 @@ public class FileServiceImpl implements FileService {
         parameters.put("phone_number", invoiceBooking.get().getPhoneNumber());
         parameters.put("email", invoiceBooking.get().getEmail());
         parameters.put("payment_name", invoiceBooking.get().getPaymentName());
+        parameters.put("seat_class", invoiceBooking.get().getSeatClass().name());
         parameters.put("total_payment", "Rp."+invoiceBooking.get().getAmount().toString()+",-");
         parameters.put("status", invoiceBooking.get().getStatus().toString());
         parameters.put("QR", new ByteArrayInputStream(QRGenerator.getQRCodeImage(
-                qrUrl, 78, 80)));
+                qrUrl, 100, 100)));
 
         JasperReport jasperReport = jasperUtil.setJasperReport("/jasper/invoice.jrxml");
         JasperPrint jasperPrint = jasperUtil.setJasperPrint(jasperReport, parameters);
