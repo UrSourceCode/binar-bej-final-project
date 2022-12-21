@@ -1,6 +1,7 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.AvailableSeatDTO;
+import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
@@ -15,6 +16,7 @@ import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -225,6 +227,11 @@ public class BookingServiceImpl implements BookingService {
         if(flightSchedule.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
         return ticketRepository.findAvailableSeat(scheduleId);
+    }
+
+    @Override
+    public List<BookingDTO> validateBookingList(Pageable pageable) {
+        return bookingRepository.validateBookingList(BookingStatus.WAITING, pageable).getContent();
     }
 
     private void checkStatusBooking(Booking bookingModel) {
