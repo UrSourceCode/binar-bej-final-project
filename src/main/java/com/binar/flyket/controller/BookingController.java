@@ -100,9 +100,21 @@ public class BookingController {
     public ResponseEntity<?> validateBookingList(
             @RequestParam(defaultValue = "0", value = "page") int page,
             @RequestParam(defaultValue = "10", value = "size") int size,
-            @RequestParam(defaultValue = "newest", value = "sort-by") String sort) {
+            @RequestParam(defaultValue = "newest", value = "created-at") String sort) {
         Pageable paging = PageRequest.of(page, size, Sort.by(Constants.sortDirection(sort), "createdAt"));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                 bookingService.validateBookingList(paging)));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/booking/status")
+    public ResponseEntity<?> searchByStatus(
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "completed", value = "booking-status") String bookingStatus,
+            @RequestParam(defaultValue = "newest", value = "created-at") String sort) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(Constants.sortDirection(sort), "createdAt"));
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
+                bookingService.findByStatus(bookingStatus, paging)));
     }
 }
