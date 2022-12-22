@@ -39,7 +39,8 @@ public class BookingServiceImpl implements BookingService {
 
     public BookingServiceImpl(FlightScheduleRepository flightScheduleRepository,
                               UserRepository userRepository,
-                              SeatDetailRepository seatDetailRepository, TicketRepository ticketRepository,
+                              SeatDetailRepository seatDetailRepository,
+                              TicketRepository ticketRepository,
                               PaymentMethodRepository paymentMethodRepository,
                               BookingRepository bookingRepository,
                               NotificationRepository notificationRepository) {
@@ -232,6 +233,12 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDTO> validateBookingList(Pageable pageable) {
         return bookingRepository.validateBookingList(BookingStatus.WAITING, pageable).getContent();
+    }
+
+    @Override
+    public List<BookingDTO> findByStatus(String status, Pageable pageable) {
+        BookingStatus bookingStatus = BookingStatus.getStatus(status);
+        return bookingRepository.findBookingStatus(bookingStatus, pageable).getContent();
     }
 
     private void checkStatusBooking(Booking bookingModel) {
