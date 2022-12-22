@@ -1,6 +1,7 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.AvailableSeatDTO;
+import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
@@ -16,6 +17,7 @@ import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -227,6 +229,16 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+
+    public List<BookingDTO> validateBookingList(Pageable pageable) {
+        return bookingRepository.validateBookingList(BookingStatus.WAITING, pageable).getContent();
+    }
+
+    @Override
+    public List<BookingDTO> findByStatus(String status, Pageable pageable) {
+        BookingStatus bookingStatus = BookingStatus.getStatus(status);
+        return bookingRepository.findBookingStatus(bookingStatus, pageable).getContent();
+
     public BookingStatusResponse bookingStatus(String bookingId) {
         Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
         if(booking.isEmpty())
@@ -237,6 +249,7 @@ public class BookingServiceImpl implements BookingService {
         response.setIsPaid(booking.get().getBookingStatus() == BookingStatus.WAITING
                         || booking.get().getBookingStatus() == BookingStatus.COMPLETED);
         return response;
+
     }
 
     private void checkStatusBooking(Booking bookingModel) {
