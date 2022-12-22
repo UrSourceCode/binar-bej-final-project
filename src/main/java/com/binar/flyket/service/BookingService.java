@@ -25,4 +25,6 @@ public interface BookingService {
 
     List<BookingDTO> validateBookingList(Pageable pageable);
 
+    List<BookingDTO> findByStatus(String status, Pageable pageable);
+
 }
