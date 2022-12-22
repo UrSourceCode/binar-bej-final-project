@@ -62,7 +62,7 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
 
         FlightSchedule flightScheduleModel = new FlightSchedule();
-        flightScheduleModel.setId("sc" + randId[0] + randId[1]);
+        flightScheduleModel.setId("sc-" + randId[0] + randId[1]);
         flightScheduleModel.setArrivalTime(flightScheduleRequest.getArrivalTime());
         flightScheduleModel.setDepartureTime(flightScheduleRequest.getDepartureTime());
         flightScheduleModel.setFlightDate(flightScheduleRequest.getFlightDate());
