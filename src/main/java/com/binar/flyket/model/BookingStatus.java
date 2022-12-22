@@ -20,4 +20,5 @@ public enum BookingStatus {
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Booking Status" + Constants.NOT_FOUND_MSG);
     }
+
 }
