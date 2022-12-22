@@ -117,6 +117,7 @@ public class BookingController {
         Pageable paging = PageRequest.of(page, size, Sort.by(Constants.sortDirection(sort), "createdAt"));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                 bookingService.findByStatus(bookingStatus, paging)));
+    }
 
     @GetMapping("/booking/check-status-booking")
     public ResponseEntity<?> checkStatusBooking(@RequestParam("booking-id") String bookingId) {
