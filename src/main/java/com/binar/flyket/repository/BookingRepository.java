@@ -89,7 +89,7 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT bk FROM Booking AS bk " +
             "WHERE bk.id = :booking_id")
-    Optional<Booking> checkBookingStatus(
+    Optional<Booking> checkStatus(
             @Param("booking_id") String bookingId);
 
 
