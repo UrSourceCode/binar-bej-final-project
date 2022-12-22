@@ -2,6 +2,7 @@ package com.binar.flyket.dto.model;
 
 
 import com.binar.flyket.model.BookingStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,13 @@ public class MyOrderDTO {
     private String flightScheduleId;
     private String bookingId;
     private Integer totalPassenger;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime arrivalTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime departureTime;
     private String originAirport;
     private String destinationAirport;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime purchaseCompleteAt;
     private BookingStatus bookingStatus;
     private Integer hours;

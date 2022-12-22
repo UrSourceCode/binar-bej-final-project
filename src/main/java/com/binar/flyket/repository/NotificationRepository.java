@@ -23,8 +23,11 @@ public interface NotificationRepository extends JpaRepository<Notification, Stri
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.NotificationDTO(ntf.id, ntf.title, ntf.content, ntf.imgUrl, ntf.createdAt) " +
             "FROM Notification AS ntf " +
-            "WHERE ntf.isRead = :is_read")
-    List<NotificationDTO> countNotification(@Param("is_read") Boolean isRead);
+            "JOIN ntf.user AS usr " +
+            "WHERE ntf.isRead = :is_read AND usr.id =:user_id ")
+    List<NotificationDTO> countNotification(
+            @Param("is_read") Boolean isRead,
+            @Param("user_id") String userId);
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.NotificationDTO(ntf.id, ntf.title, ntf.content, ntf.imgUrl, ntf.createdAt) " +
             "FROM Notification AS ntf " +

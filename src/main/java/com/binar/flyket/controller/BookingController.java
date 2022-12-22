@@ -95,6 +95,7 @@ public class BookingController {
         }
     }
 
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/booking/validate-list")
     public ResponseEntity<?> validateBookingList(
@@ -116,5 +117,16 @@ public class BookingController {
         Pageable paging = PageRequest.of(page, size, Sort.by(Constants.sortDirection(sort), "createdAt"));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                 bookingService.findByStatus(bookingStatus, paging)));
+
+    @GetMapping("/booking/check-status-booking")
+    public ResponseEntity<?> checkStatusBooking(@RequestParam("booking-id") String bookingId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG,
+                    bookingService.bookingStatus(bookingId)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+
     }
 }

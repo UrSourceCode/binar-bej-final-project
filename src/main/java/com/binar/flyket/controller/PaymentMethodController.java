@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+
 @Tag(name = "Payment Method")
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentMethodController {
