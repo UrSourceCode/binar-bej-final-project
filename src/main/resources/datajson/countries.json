@@ -1,0 +1,37 @@
+[
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "ID",
+    "name": "Indonesia"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "JP",
+    "name": "Japan"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "IN",
+    "name": "India"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "CN",
+    "name": "China"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "MY",
+    "name": "Malaysia"
+  },
+
+  {
+    "_class": "com.binar.flyket.model.Country",
+    "code": "SA",
+    "name": "Saudi Arabia"
+  }
+]
