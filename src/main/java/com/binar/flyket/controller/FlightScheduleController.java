@@ -178,8 +178,15 @@ public class FlightScheduleController {
             @RequestParam("aircraftClass") String aircraftClass) {
         try {
 
-            Sort sort = sortBy.equalsIgnoreCase("earliest") ?
-                    Sort.by("departureTime").ascending() : Sort.by("departureTime").descending();
+            Sort sort;
+
+            if(sortBy.equalsIgnoreCase("earliest")) {
+                sort = Sort.by("departureTime").ascending();
+            } else if(sortBy.equalsIgnoreCase("latest"))  {
+                sort = Sort.by("departureTime").descending();
+            } else {
+                sort = Sort.by("departureTime").ascending();
+            }
 
             Pageable paging = PageRequest.of(page, size, sort);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
