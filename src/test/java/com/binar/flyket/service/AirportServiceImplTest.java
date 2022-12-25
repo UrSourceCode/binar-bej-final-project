@@ -128,7 +128,7 @@ class AirportServiceImplTest {
 
         var actualValue = airportService.updateAirport(IATACode, request);
         var expectedValue = true;
-        
+
         Assertions.assertEquals(expectedValue, actualValue);
     }
 }
