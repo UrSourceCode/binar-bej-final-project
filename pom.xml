@@ -76,7 +76,6 @@
 			<version>2.21.0</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
