@@ -33,8 +33,8 @@ class CountryServiceImplTest {
     @Test
     void testAddCountry() {
         CountryDTO countryDTO = new CountryDTO();
-        countryDTO.setName("Jakarta");
-        countryDTO.setCode("JKT");
+        countryDTO.setName("Indonesia");
+        countryDTO.setCode("ID");
 
         Mockito.when(countryRepository.findById(countryDTO.getCode())).thenReturn(Optional.empty());
         Mockito.when(countryRepository.save(CountryDummies.countryList().get(0))).thenReturn(CountryDummies.countryList().get(0));
@@ -48,12 +48,12 @@ class CountryServiceImplTest {
     @Test
     void testAddCountries() {
         CountryDTO countryDTO1 = new CountryDTO();
-        countryDTO1.setName("Jakarta");
-        countryDTO1.setCode("JKT");
+        countryDTO1.setName("Indonesia");
+        countryDTO1.setCode("ID");
 
         CountryDTO countryDTO2 = new CountryDTO();
-        countryDTO2.setName("Surabaya");
-        countryDTO2.setCode("SBY");
+        countryDTO2.setName("Japan");
+        countryDTO2.setCode("JP");
 
         List<CountryDTO> listDto = new ArrayList<>();
         listDto.add(countryDTO1);
@@ -76,7 +76,7 @@ class CountryServiceImplTest {
 
     @Test
     void testDeleteCountry() {
-        String id = "JKT";
+        String id = "ID";
 
         Mockito.when(countryRepository.findById(id))
                 .thenReturn(Optional.of(CountryDummies.countryList().get(0)));
@@ -84,8 +84,8 @@ class CountryServiceImplTest {
                 .when(countryRepository).delete(CountryDummies.countryList().get(0));
 
         var actualValue = countryService.deleteCountry(id);
-        var expectedCode = "JKT";
-        var expectedName = "Jakarta";
+        var expectedCode = "ID";
+        var expectedName = "Indonesia";
 
         Assertions.assertEquals(expectedCode, actualValue.getCode());
         Assertions.assertEquals(expectedName, actualValue.getName());
@@ -93,17 +93,17 @@ class CountryServiceImplTest {
 
     @Test
     void testUpdateCountry() {
-        String countryCode = "JKT";
+        String countryCode = "ID";
         CountryDTO countryDTO1 = new CountryDTO();
-        countryDTO1.setName("jakarta");
-        countryDTO1.setCode("JKT");
+        countryDTO1.setName("indonesia");
+        countryDTO1.setCode("ID");
 
         Mockito.when(countryRepository.findById(countryCode))
                 .thenReturn(Optional.of(CountryDummies.countryList().get(0)));
 
         var actualValue = countryService.updateCountry(countryCode, countryDTO1);
-        var expectedName = "jakarta";
-        var expectedCode = "JKT";
+        var expectedName = "indonesia";
+        var expectedCode = "ID";
 
         Assertions.assertEquals(expectedCode, actualValue.getCode());
         Assertions.assertEquals(expectedName, actualValue.getName());
@@ -111,14 +111,14 @@ class CountryServiceImplTest {
 
     @Test
     void testGetCountryById() {
-        String id = "JKT";
+        String id = "ID";
 
         Mockito.when(countryRepository.findById(id))
                 .thenReturn(Optional.of(CountryDummies.countryList().get(0)));
 
         var actualValue = countryService.getCountryById(id);
-        var expectedCode = "JKT";
-        var expectedName = "Jakarta";
+        var expectedCode = "ID";
+        var expectedName = "Indonesia";
 
         Assertions.assertEquals(expectedCode, actualValue.getCode());
         Assertions.assertEquals(expectedName, actualValue.getName());
