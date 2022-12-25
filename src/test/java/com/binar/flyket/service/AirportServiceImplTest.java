@@ -3,6 +3,7 @@ package com.binar.flyket.service;
 import com.binar.flyket.dto.model.AirportDTO;
 import com.binar.flyket.dto.model.AirportDetailDTO;
 import com.binar.flyket.dto.request.InputAirportRequest;
+import com.binar.flyket.dto.request.UpdateAirportRequest;
 import com.binar.flyket.dummy.AirportDummies;
 import com.binar.flyket.dummy.CountryDummies;
 import com.binar.flyket.model.Airport;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,10 +99,36 @@ class AirportServiceImplTest {
     @Test
     void testGetAirports() {
 
+        List<AirportDetailDTO> list = AirportDummies.airports().stream()
+                        .map(it -> {
+                            AirportDetailDTO airport = new AirportDetailDTO();
+                            airport.setIATACode(it.IATACode);
+                            airport.setName(it.getName());
+                            return airport;
+                        }).toList();
+
+        Mockito.when(airportRepository.findAllAirport())
+                .thenReturn(list);
+
+        var actualValue = airportService.getAirports();
+        var expectedSize = 2;
+
+        Assertions.assertEquals(expectedSize, actualValue.size());
     }
 
     @Test
     void testUpdateAirport() {
+        String IATACode = "CGK";
+        UpdateAirportRequest request = new UpdateAirportRequest();
+        request.setName("Hello World");
+        request.setIATACode(IATACode);
 
+        Mockito.when(airportRepository.findById(IATACode))
+                .thenReturn(Optional.of(AirportDummies.airports().get(0)));
+
+        var actualValue = airportService.updateAirport(IATACode, request);
+        var expectedValue = true;
+        
+        Assertions.assertEquals(expectedValue, actualValue);
     }
 }
