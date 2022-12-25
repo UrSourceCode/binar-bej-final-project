@@ -8,12 +8,12 @@ public class CountryDummies {
 
     public static List<Country> countryList() {
         Country c1 = new Country();
-        c1.setName("Jakarta");
-        c1.setCode("JKT");
+        c1.setName("Indonesia");
+        c1.setCode("ID");
 
         Country c2 = new Country();
-        c2.setName("Surabaya");
-        c2.setCode("SBY");
+        c2.setName("Japan");
+        c2.setCode("JP");
 
         return List.of(c1, c2);
     }
