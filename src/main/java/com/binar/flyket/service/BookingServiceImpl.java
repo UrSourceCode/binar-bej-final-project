@@ -242,7 +242,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     public BookingStatusResponse bookingStatus(String bookingId) {
-        Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
+        Optional<Booking> booking = bookingRepository.checkStatus(bookingId);
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
         BookingStatusResponse response = new BookingStatusResponse();

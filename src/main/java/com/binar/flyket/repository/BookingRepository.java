@@ -26,14 +26,15 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             "WHERE bk.user.id = :user_id")
     Page<MyOrderDTO> getRecentOrderByUser(@Param("user_id") String userId, Pageable pageable);
 
-    @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingDTO(usr.id, " +
+
+    @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingHistoryDTO(fs.id, usr.id, " +
             " usr.email, usr.phoneNumber, bk.id, bk.amount, bk.bookingStatus, bk.createdAt, bk.updatedAt) " +
             "FROM Booking AS bk " +
             "JOIN bk.flightSchedule AS fs " +
             "JOIN bk.user AS usr " +
             "WHERE bk.user.id = usr.id " +
             "AND bk.flightSchedule.id = fs.id ")
-    Page<BookingDTO> findAllBooking(Pageable pageable);
+    Page<BookingHistoryDTO> findAllBooking(Pageable pageable);
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingDetailDTO(bk.id, fs.flightRoute.fromAirport.IATACode, " +
             "fs.flightRoute.toAirport.IATACode, fs.flightRoute.hours, fs.flightRoute.minutes, bk.amount) " +
@@ -86,7 +87,7 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT bk FROM Booking AS bk " +
             "WHERE bk.id = :booking_id")
-    Optional<Booking> checkBookingStatus(
+    Optional<Booking> checkStatus(
             @Param("booking_id") String bookingId);
 
 
