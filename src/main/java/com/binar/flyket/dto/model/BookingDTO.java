@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingDTO {
-    private String flightId;
     private String userId;
     private String email;
     private String phoneNumber;
