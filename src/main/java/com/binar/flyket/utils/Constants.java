@@ -72,5 +72,15 @@ public class Constants {
         return convFile;
     }
 
+    public static Sort.Direction sortDirection(String direction) {
+        if (direction.equals("latest")) {
+            return Sort.Direction.ASC;
+        } else if (direction.equals("newest")) {
+            return Sort.Direction.DESC;
+        }
+
+        return Sort.Direction.ASC;
+    }
+
     Constants() {}
 }

@@ -7,12 +7,21 @@ import com.binar.flyket.dto.response.ResponseError;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.FlightScheduleService;
 import com.binar.flyket.utils.Constants;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +42,38 @@ public class FlightScheduleController {
         this.flightScheduleService = flightScheduleService;
     }
 
+    @Operation(responses = {
+            @ApiResponse(responseCode = "200", content = @Content(examples = {
+                    @ExampleObject(name = "Get Flight Schedule",
+                            description = "Untuk mengambil semua schedule",
+                            value = """
+                                    {
+                                       "statusCode": 200,
+                                       "timeStamp": "2022-12-16 17:27:25",
+                                       "message": "success",
+                                       "data": [
+                                           {
+                                               "flightScheduleId": "A003-zzkdhfiwnd",
+                                               "departureTime": "2022-12-30 12:00:00",
+                                               "arrivalTime": "2022-12-30 14:00:00",
+                                               "aircraftClass": "ECONOMY",
+                                               "aircraftType": "Boeing 777-300ER",
+                                               "originAirportCode": "HND",
+                                               "originAirportName": "Haneda International",
+                                               "originAirportCity": "Tokyo",
+                                               "destinationAirportCode": "CGK",
+                                               "destinationAirportName": "Soekarno-Hatta International",
+                                               "destinationAirportCity": "Jakarta",
+                                               "hours": 1,
+                                               "minutes": 20,
+                                               "price": 1000000.00,
+                                               "maxBaggage": 20,
+                                               "maxCabin": 7
+                                           }
+                                        ]
+                                    }
+                                    """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @GetMapping
     public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "0", value = "page") int page,
@@ -56,8 +97,8 @@ public class FlightScheduleController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteScheduleById(@PathVariable("id") String id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteScheduleById(@RequestParam("id") String id) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
                     flightScheduleService.deleteFlightScheduleById(id)));
@@ -67,6 +108,16 @@ public class FlightScheduleController {
         }
     }
 
+
+    @Schema(example =
+            """
+                {
+                  "departureTime": "2022-12-16 18:08:00",
+                  "arrivalTime": "2022-12-16 18:08:00",
+                  "aircraftDetailId": "string",
+                  "flightRouteId": "string"
+                }
+            """)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addFlightSchedule(@RequestBody @Valid FlightScheduleRequest flightScheduleRequest) {
@@ -84,6 +135,38 @@ public class FlightScheduleController {
         }
     }
 
+    @Operation(responses = {
+            @ApiResponse(responseCode = "200", content = @Content(examples = {
+                    @ExampleObject(name = "Get Flight Schedule",
+                            description = "Mengambil schedule berdasarkan airport tujuan/asal, tanggal, dan class",
+                            value = """
+                                    {
+                                       "statusCode": 200,
+                                       "timeStamp": "2022-12-16 17:27:25",
+                                       "message": "success",
+                                       "data": [
+                                           {
+                                               "flightScheduleId": "A003-zzkdhfiwnd",
+                                               "departureTime": "2022-12-30 12:00:00",
+                                               "arrivalTime": "2022-12-30 14:00:00",
+                                               "aircraftClass": "ECONOMY",
+                                               "aircraftType": "Boeing 777-300ER",
+                                               "originAirportCode": "HND",
+                                               "originAirportName": "Haneda International",
+                                               "originAirportCity": "Tokyo",
+                                               "destinationAirportCode": "CGK",
+                                               "destinationAirportName": "Soekarno-Hatta International",
+                                               "destinationAirportCity": "Jakarta",
+                                               "hours": 1,
+                                               "minutes": 20,
+                                               "price": 1000000.00,
+                                               "maxBaggage": 20,
+                                               "maxCabin": 7
+                                           }
+                                        ]
+                                    }
+                                    """)
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @GetMapping("/departure-date")
     public ResponseEntity<?> searchFlightScheduleByAirportAndDate(
             @RequestParam(defaultValue = "0", value = "page") int page,
@@ -95,8 +178,15 @@ public class FlightScheduleController {
             @RequestParam("aircraftClass") String aircraftClass) {
         try {
 
-            Sort sort = sortBy.equalsIgnoreCase("earliest") ?
-                    Sort.by("departureTime").ascending() : Sort.by("departureTime").descending();
+            Sort sort;
+
+            if(sortBy.equalsIgnoreCase("earliest")) {
+                sort = Sort.by("departureTime").ascending();
+            } else if(sortBy.equalsIgnoreCase("latest"))  {
+                sort = Sort.by("departureTime").descending();
+            } else {
+                sort = Sort.by("departureTime").ascending();
+            }
 
             Pageable paging = PageRequest.of(page, size, sort);
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG,
