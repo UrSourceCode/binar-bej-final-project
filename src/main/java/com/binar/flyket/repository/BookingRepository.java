@@ -26,6 +26,7 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             "WHERE bk.user.id = :user_id")
     Page<MyOrderDTO> getRecentOrderByUser(@Param("user_id") String userId, Pageable pageable);
 
+
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingHistoryDTO(fs.id, usr.id, " +
             " usr.email, usr.phoneNumber, bk.id, bk.amount, bk.bookingStatus, bk.createdAt, bk.updatedAt) " +
             "FROM Booking AS bk " +
