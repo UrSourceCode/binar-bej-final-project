@@ -33,10 +33,6 @@ public class SeatDetailServiceImpl implements SeatDetailService {
         if(seatDetail.isPresent())
             throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
 
-        Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(request.getAircraftDetailId());
-        if(aircraftDetail.isEmpty())
-            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Aircraft Detail " + Constants.NOT_FOUND_MSG);
-
         SeatDetail seatDetailModel = new SeatDetail();
         seatDetailModel.setId(seatDetailModel.getId().toUpperCase());
         seatDetailModel.setStatus(false);
