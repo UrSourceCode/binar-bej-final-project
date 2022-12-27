@@ -3,6 +3,7 @@ package com.binar.flyket.service;
 import com.binar.flyket.dto.model.AvailableSeatDTO;
 import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
+import com.binar.flyket.dto.model.BookingValidateDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
@@ -230,7 +231,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
 
-    public List<BookingDTO> validateBookingList(Pageable pageable) {
+    public List<BookingValidateDTO> validateBookingList(Pageable pageable) {
         return bookingRepository.validateBookingList(BookingStatus.WAITING, pageable).getContent();
     }
 

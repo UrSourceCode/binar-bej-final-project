@@ -128,6 +128,6 @@ public class BookingController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
         }
-
     }
+
 }
