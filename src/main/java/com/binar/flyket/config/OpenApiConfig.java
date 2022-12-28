@@ -40,9 +40,12 @@ public class OpenApiConfig {
                 )
                 .addServersItem(
 
+
                         new Server().url("https://flyket-app.herokuapp.com/")
 //                        new Server().url("https://api-flyket.up.railway.app/")
 //                        new Server().url("http://localhost:8080/")
                 );
+
+
     }
 }

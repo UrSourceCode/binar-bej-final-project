@@ -31,7 +31,7 @@ public class SeatDetailServiceImpl implements SeatDetailService {
             throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
 
         SeatDetail seatDetailModel = new SeatDetail();
-        seatDetailModel.setId(seatDetailModel.getId().toUpperCase());
+        seatDetailModel.setId(request.getSeatNo().toUpperCase());
         seatDetailModel.setStatus(false);
 
         seatDetailRepository.save(seatDetailModel);
