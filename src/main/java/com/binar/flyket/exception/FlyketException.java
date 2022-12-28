@@ -16,13 +16,23 @@ public class FlyketException {
             case DUPLICATE_ENTITY -> new DuplicateEntityException(httpStatus, msg);
             case EMPTY_REQUEST -> new InputIsEmptyException(httpStatus, msg);
             case UPLOAD_FAILED -> new UploadImageException(httpStatus, msg);
+            case INVALID_PASSWORD -> new PasswordValidateException(httpStatus, msg);
             case BOOKING_EXPIRED -> new BookingExpiredException(httpStatus, msg);
+
             default -> new RuntimeException(msg);
         };
     }
 
     @Setter
     @Getter
+    public static class PasswordValidateException extends RuntimeException {
+        private final HttpStatus statusCode;
+        public PasswordValidateException(HttpStatus statusCode, String msg) {
+          super(msg);
+            this.statusCode = statusCode;
+        }
+     }
+     
     public static class BookingExpiredException extends RuntimeException {
         private final HttpStatus statusCode;
         public BookingExpiredException(HttpStatus statusCode, String msg) {
