@@ -163,6 +163,7 @@ public class BookingServiceImpl implements BookingService {
         for(Ticket tc : tickets) processTicket(tc);
 
         Booking bookingModel = booking.get();
+        bookingModel.setUpdatedAt(LocalDateTime.now());
         bookingModel.setBookingStatus(BookingStatus.COMPLETED);
         bookingRepository.save(bookingModel);
 
@@ -198,7 +199,7 @@ public class BookingServiceImpl implements BookingService {
 
         bookingModel.setPaymentMethod(paymentMethod.get());
         bookingModel.setBookingStatus(BookingStatus.WAITING);
-
+        bookingModel.setUpdatedAt(LocalDateTime.now());
         bookingRepository.save(bookingModel);
 
         PaymentResponse paymentResponse = new PaymentResponse();
