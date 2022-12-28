@@ -9,4 +9,8 @@ public enum ERoles {
         }
         return ERoles.ROLE_BUYER;
     }
+
+    public static boolean checkRole(String role) {
+        return "admin".equalsIgnoreCase(role.trim()) || "buyer".equalsIgnoreCase(role);
+    }
 }

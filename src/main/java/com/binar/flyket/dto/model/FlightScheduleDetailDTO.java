@@ -1,6 +1,7 @@
 package com.binar.flyket.dto.model;
 
 import com.binar.flyket.model.AircraftClass;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Setter
@@ -16,9 +18,10 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class FlightScheduleDetailDTO {
     private String flightScheduleId;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
-    private LocalDate flightDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime departureTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime arrivalTime;
     private AircraftClass aircraftClass;
     private String aircraftType;
     private String originAirportCode;

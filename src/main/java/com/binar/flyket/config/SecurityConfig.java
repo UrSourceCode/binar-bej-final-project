@@ -8,14 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-//@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
@@ -41,10 +39,20 @@ public class SecurityConfig {
         http.formLogin().disable();
 
         http
-                .cors().and()
+                .cors()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/api/auth/**").permitAll()
+                .antMatchers("/", "/api/auth/**", "/api/roles/add",
+                        "/api/schedules/**",
+                        "/api/airports/**",
+                        "/api/countries/**",
+                        "/api/routes/**",
+                        "/api/seats/**",
+                        "/api/aircraft/details/**",
+                        "/api/**",
+                        "/api/file/**",
+                        "/api/booking/check-status-booking/").permitAll()
 
                 .anyRequest().authenticated()
 

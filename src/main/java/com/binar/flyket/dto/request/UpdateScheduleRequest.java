@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -15,10 +16,10 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateScheduleRequest {
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate flightDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime departureTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime arrivalTime;
     private String aircraftDetailId;
     private String flightRouteId;
 }

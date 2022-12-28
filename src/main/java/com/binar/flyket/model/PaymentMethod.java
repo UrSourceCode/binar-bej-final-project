@@ -16,8 +16,7 @@ import java.util.List;
 @Table(name = "payment_method")
 public class PaymentMethod {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
 
     @Column(name = "name")
     private String name;

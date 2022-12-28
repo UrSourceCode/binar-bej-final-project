@@ -24,6 +24,8 @@ public class UserDetailsImpl implements UserDetails {
                 .toList();
     }
 
+    public String getUserid() { return user.getId(); }
+
     public String getPhoneNumber() { return user.getPhoneNumber(); }
 
     @Override

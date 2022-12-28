@@ -1,5 +1,6 @@
 package com.binar.flyket.utils;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,11 +19,12 @@ public class Constants {
 
     public static final String UPLOAD_FAILED = "upload failed";
 
-    public static final String EMPTY_MSG = "input is empty";
+    public static final String EMPTY_MSG = "empty";
 
     public static final String ROLE_NOT_FOUND = "role not found";
     public static final String AIRPORT_NOT_FOUND = "airport not found";
     public static final String AIRCRAFT_NOT_FOUND = "aircraft not found";
+    public static final String TICKET_NOT_FOUND = "ticket not found";
     public static final String COUNTRY_NOT_FOUND = "country not found";
 
     public static final String FROM_AIRPORT_NOT_FOUND_MSG = "origin airport not found";
@@ -78,6 +80,16 @@ public class Constants {
         File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
         multipart.transferTo(convFile);
         return convFile;
+    }
+
+    public static Sort.Direction sortDirection(String direction) {
+        if (direction.equals("latest")) {
+            return Sort.Direction.ASC;
+        } else if (direction.equals("newest")) {
+            return Sort.Direction.DESC;
+        }
+
+        return Sort.Direction.ASC;
     }
 
     Constants() {}

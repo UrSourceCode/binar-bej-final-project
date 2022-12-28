@@ -9,6 +9,7 @@ import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.service.UserService;
 import com.binar.flyket.utils.Constants;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 
+
+@Tag(name = "User Profile")
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -28,18 +32,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasRole('BUYER')")
-    @PostMapping("/upload-image")
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @PostMapping(value = "/upload-image", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadImage(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("email") String email) {
+            @RequestParam("user-id") String userId) {
 
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.uploadImage(email, file);
+            userService.uploadImage(userId, file);
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(), Constants.SUCCESS_MSG, null));
         } catch (IOException e) {
@@ -58,16 +59,24 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('BUYER')")
-    @PostMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestParam("email") String email,
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @GetMapping("/detail/{user-id}")
+    public ResponseEntity<?> getUserById(@PathVariable("user-id") String userId) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, userService.findById(userId)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(), new Date(), e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @PostMapping("/update/{user-id}")
+    public ResponseEntity<?> updateUser(@PathVariable("user-id") String userId,
                                         @RequestBody UpdateRequest updateRequest) {
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.updateProfile(email, updateRequestToDto(updateRequest));
+            userService.updateProfile(userId, updateRequestToDto(updateRequest));
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
@@ -83,15 +92,12 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasRole('BUYER')")
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUserByEmail(@RequestParam("email") String email) {
+    @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
+    @DeleteMapping("/delete/{user-id}")
+    public ResponseEntity<?> deleteUserByEmail(@PathVariable("user-id") String userId) {
         try {
-            if(!Constants.validateEmail(email))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
-            userService.deleteByEmail(email);
+            userService.deleteByEmail(userId);
 
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, null));
