@@ -21,8 +21,8 @@ class FlyketApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d#$@!%&*?\\s]{8,}$";
-		String password = "Riswan123";
+		String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$";
+		String password = "riswan123@";
 		Pattern pattern = Pattern.compile(passwordPattern);
 		Matcher matcher = pattern.matcher(password);
 

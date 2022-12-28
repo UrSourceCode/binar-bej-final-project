@@ -62,15 +62,15 @@ public class AuthController {
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(), e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (FlyketException.PasswordValidateException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(), e.getMessage()), HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(@RequestBody @Valid LoginRequest loginRequest) {
         try {
-            if(!Constants.validateEmail(loginRequest.getEmail()))
-                throw FlyketException.throwException(ExceptionType.INVALID_EMAIL,
-                        HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
 
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -90,6 +90,12 @@ public class AuthController {
     }
 
     private UserDTO regisRequestToDto(RegisRequest regisRequest) {
+        if(!Constants.validateEmail(regisRequest.getEmail()))
+            throw FlyketException.throwException(ExceptionType.INVALID_EMAIL, HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_EMAIL_MSG);
+
+        if(!Constants.validatePassword(regisRequest.getPassword()))
+            throw FlyketException.throwException(ExceptionType.INVALID_PASSWORD, HttpStatus.NOT_ACCEPTABLE, Constants.INVALID_PASSWORD_MSG);
+
         UserDTO userDTO = new UserDTO();
         userDTO.setTitle(regisRequest.getTitle());
         userDTO.setFirstName(regisRequest.getFirstName().trim());
