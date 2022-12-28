@@ -75,7 +75,46 @@ public class HistoryController {
                 new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
     }
 
+    @GetMapping("/booking/sort-by-status")
+    public ResponseEntity<?> sortByStatus(
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "asc", value = "booking-status-sort") String bookingStatus) {
 
+        Sort sort;
+
+        if(bookingStatus.equalsIgnoreCase("asc")) {
+            sort = Sort.by("bookingStatus").ascending();
+        } else if(bookingStatus.equalsIgnoreCase("desc"))  {
+            sort = Sort.by("bookingStatus").descending();
+        } else {
+            sort = Sort.by("bookingStatus").ascending();
+        }
+
+        Pageable paging = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
+    }
+
+    @GetMapping("/booking/sort-by-date")
+    public ResponseEntity<?> sortByDate( @RequestParam(defaultValue = "0", value = "page") int page,
+                                         @RequestParam(defaultValue = "10", value = "size") int size,
+                                         @RequestParam(defaultValue = "asc", value = "booking-date-sort") String bookingDate) {
+
+        Sort sort;
+
+        if(bookingDate.equalsIgnoreCase("asc")) {
+            sort = Sort.by("createdAt").ascending();
+        } else if(bookingDate.equalsIgnoreCase("desc"))  {
+            sort = Sort.by("createdAt").descending();
+        } else {
+            sort = Sort.by("createdAt").ascending();
+        }
+
+        Pageable paging = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
+    }
 
     private Sort.Direction getSortDirection(String direction) {
         if (direction.equals("asc")) {

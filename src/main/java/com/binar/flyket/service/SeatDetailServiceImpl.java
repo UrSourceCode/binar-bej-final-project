@@ -19,11 +19,8 @@ public class SeatDetailServiceImpl implements SeatDetailService {
 
     private SeatDetailRepository seatDetailRepository;
 
-    private AircraftDetailRepository aircraftDetailRepository;
-
-    public SeatDetailServiceImpl(SeatDetailRepository seatDetailRepository, AircraftDetailRepository aircraftDetailRepository) {
+    public SeatDetailServiceImpl(SeatDetailRepository seatDetailRepository) {
         this.seatDetailRepository = seatDetailRepository;
-        this.aircraftDetailRepository = aircraftDetailRepository;
     }
 
     @Override
@@ -36,6 +33,8 @@ public class SeatDetailServiceImpl implements SeatDetailService {
         SeatDetail seatDetailModel = new SeatDetail();
         seatDetailModel.setId(request.getSeatNo().toUpperCase());
         seatDetailModel.setStatus(false);
+
+        seatDetailRepository.save(seatDetailModel);
         return true;
     }
 
