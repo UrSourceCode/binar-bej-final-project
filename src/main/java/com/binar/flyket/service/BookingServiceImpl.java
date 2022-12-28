@@ -95,7 +95,7 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
 
         for(PassengerRequest passengerRequest : request.getPassengerRequests()) {
-            passengerTicket(passengerRequest, schedule.get(), bookingId);
+            passengerTicket(passengerRequest, schedule.get(), booking);
         }
 
         BookingResponse bookingResponse = new BookingResponse();
@@ -114,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingResponse;
     }
 
-    private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
+    private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, Booking booking) {
         if(passengerRequest.getSeatNo() == null)
             throw new FlyketException.InputIsEmptyException(HttpStatus.NOT_ACCEPTABLE, "Seat no : " + Constants.EMPTY_MSG);
 
@@ -122,16 +122,12 @@ public class BookingServiceImpl implements BookingService {
         if(seatDetail.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Seat no " + Constants.NOT_FOUND_MSG);
 
-        Optional<Booking> booking = bookingRepository.findById(bookingId);
-        if(booking.isEmpty())
-            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Booking with " + bookingId + " " + Constants.NOT_FOUND_MSG);
-
         String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
         String ticketId = "ticket-" + uniqueId[0] + uniqueId[1];
 
         Ticket ticket = new Ticket();
         ticket.setId(ticketId);
-        ticket.setBooking(booking.get());
+        ticket.setBooking(booking);
         ticket.setPassengerTitle(passengerRequest.getTitle());
         ticket.setPassengerName(passengerRequest.getName());
         ticket.setCreatedAt(LocalDateTime.now());
