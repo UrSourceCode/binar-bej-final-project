@@ -6,12 +6,15 @@ import com.binar.flyket.dto.model.MyOrderDetailDTO;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.Booking;
+import com.binar.flyket.model.BookingStatus;
 import com.binar.flyket.model.user.User;
 import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +65,26 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     }
 
     @Override
-    public List<BookingHistoryDTO> getAllBookingHistory(Pageable pageable) {
+    public List<BookingHistoryDTO> getAllBookingHistory(Integer page, Integer size, String bookingStatusFilter, String bookingDate) {
+        Sort sortBy;
+
+        if(bookingDate.equalsIgnoreCase("asc")) {
+            sortBy = Sort.by("createdAt").ascending();
+        } else if(bookingDate.equalsIgnoreCase("desc")) {
+            sortBy =Sort.by("createdAt").descending();
+        } else {
+            sortBy =Sort.by("createdAt").descending();
+        }
+
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+
+        if(bookingStatusFilter.equalsIgnoreCase("completed")
+                || bookingStatusFilter.equalsIgnoreCase("waiting")
+                || bookingStatusFilter.equalsIgnoreCase("expired")
+                || bookingStatusFilter.equalsIgnoreCase("active")) {
+            BookingStatus status = BookingStatus.getStatus(bookingStatusFilter);
+            return bookingRepository.findAllBookingByStatus(status, pageable).getContent();
+        }
         return bookingRepository.findAllBooking(pageable).getContent();
     }
 }

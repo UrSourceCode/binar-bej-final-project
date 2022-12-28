@@ -13,6 +13,6 @@ public interface TransactionHistoryService {
 
     MyOrderDetailDTO getRecentOrderDetail(String bookingId);
 
-    List<BookingHistoryDTO> getAllBookingHistory(Pageable pageable);
+    List<BookingHistoryDTO> getAllBookingHistory(Integer page, Integer size, String bookingStatusFilter, String bookingDate);
 
 }
