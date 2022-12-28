@@ -13,28 +13,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @SpringBootTest
 class FlyketApplicationTests {
 
-
-	@Autowired
-	private AirportRepository repository;
-
-
-	@Test
-	void contextLoads() {}
-
-	@Autowired
-	private AirportRouteRepository routeRepository;
-
-	@Autowired
-	private AircraftDetailRepository aircraftDetailRepository;
-
 	@Test
 	void contextLoads() {
-	}
+		String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d#$@!%&*?\\s]{8,}$";
+		String password = "Riswan123";
+		Pattern pattern = Pattern.compile(passwordPattern);
+		Matcher matcher = pattern.matcher(password);
 
-	@Test
-	void aircraftDetail() {
+		System.out.println(matcher.matches() ? "OK" : "NO");
 	}
 }

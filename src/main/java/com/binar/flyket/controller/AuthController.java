@@ -92,11 +92,11 @@ public class AuthController {
     private UserDTO regisRequestToDto(RegisRequest regisRequest) {
         UserDTO userDTO = new UserDTO();
         userDTO.setTitle(regisRequest.getTitle());
-        userDTO.setFirstName(regisRequest.getFirstName());
-        userDTO.setLastName(regisRequest.getLastName());
-        userDTO.setPassword(regisRequest.getPassword());
-        userDTO.setEmail(regisRequest.getEmail());
-        userDTO.setPhoneNumber(regisRequest.getPhoneNumber());
+        userDTO.setFirstName(regisRequest.getFirstName().trim());
+        userDTO.setLastName(regisRequest.getLastName().trim());
+        userDTO.setPassword(regisRequest.getPassword().trim());
+        userDTO.setEmail(regisRequest.getEmail().trim());
+        userDTO.setPhoneNumber(regisRequest.getPhoneNumber().trim());
         userDTO.setCreatedAt(LocalDateTime.now());
 
         ERoles userRole = regisRequest.getRoleName() == null ? ERoles.ROLE_BUYER
