@@ -1,6 +1,5 @@
 package com.binar.flyket.service;
 
-import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingHistoryDTO;
 import com.binar.flyket.dto.model.MyOrderDTO;
 import com.binar.flyket.dto.model.MyOrderDetailDTO;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public interface TransactionHistoryService {
 
-    List<BookingHistoryDTO> getRecentOrder(String userId, Pageable pageable);
+    List<MyOrderDTO> getRecentOrder(String userId, Pageable pageable);
 
     MyOrderDetailDTO getRecentOrderDetail(String bookingId);
 
