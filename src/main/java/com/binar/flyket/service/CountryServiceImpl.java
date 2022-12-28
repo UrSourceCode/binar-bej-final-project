@@ -24,12 +24,11 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean addCountry(CountryDTO countryDTO) {
-        System.out.println(countryDTO.getCode());
         Optional<Country> country = countryRepository.findById(countryDTO.getCode());
         if(country.isEmpty()) {
             Country countryModel = new Country();
-            countryModel.setCode(countryDTO.getCode());
-            countryModel.setName(countryDTO.getName());
+            countryModel.setCode(countryDTO.getCode().toUpperCase().trim());
+            countryModel.setName(countryDTO.getName().trim());
             countryRepository.save(countryModel);
             return true;
         }
@@ -41,8 +40,8 @@ public class CountryServiceImpl implements CountryService {
         List<Country> countries = countryDTO.stream()
                 .map(country -> {
                     Country countryModel = new Country();
-                    countryModel.setName(country.getName());
-                    countryModel.setCode(country.getCode());
+                    countryModel.setName(country.getName().trim());
+                    countryModel.setCode(country.getCode().trim());
                     return countryModel;
                 }).toList();
         countryRepository.saveAll(countries);
@@ -63,9 +62,10 @@ public class CountryServiceImpl implements CountryService {
     public CountryDTO updateCountry(String countryCode, CountryDTO countryDTO) {
         Optional<Country> country = countryRepository.findById(countryCode);
         if(country.isPresent()) {
-            Country countryModel = new Country();
-            countryModel.setCode(countryCode);
-            countryModel.setName(countryDTO.getName());
+            Country countryModel = country.get();
+            countryModel.setCode(countryCode.toUpperCase().trim());
+            countryModel.setName(countryDTO.getName().trim());
+            countryRepository.save(countryModel);
             return  CountryMapper.toDto(countryModel);
         }
         throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.COUNTRY_NOT_FOUND);

@@ -58,6 +58,17 @@ public class CountryController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCountry(@RequestParam("code") String code, @RequestBody CountryDTO countryDTO) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, countryService.updateCountry(code, countryDTO)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(),e.getMessage()), e.getStatusCode());
+        }
+    }
+
     @GetMapping("/{code}")
     public ResponseEntity<?> getCountryById(@PathVariable("code") String code) {
         try {
