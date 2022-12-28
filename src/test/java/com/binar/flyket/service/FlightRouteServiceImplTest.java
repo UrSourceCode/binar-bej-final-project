@@ -116,7 +116,7 @@ class FlightRouteServiceImplTest {
                 .thenReturn(ls);
 
         var actualValue = flightRouteService.getAllRoute();
-        var expectedSize = 1;
+        var expectedSize = 2;
         var expectedHours = 4;
         var expectedMinutes = 10;
         var expectedOriginAirport = "CGK";
