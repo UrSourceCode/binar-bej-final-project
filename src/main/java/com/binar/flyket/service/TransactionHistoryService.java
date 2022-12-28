@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TransactionHistoryService {
 
-    List<MyOrderDTO> getRecentOrder(String userId, Pageable pageable);
+    List<BookingHistoryDTO> getRecentOrder(String userId, Pageable pageable);
 
     MyOrderDetailDTO getRecentOrderDetail(String bookingId);
 
