@@ -32,7 +32,9 @@ public class FlyketException {
             this.statusCode = statusCode;
         }
      }
-     
+
+    @Setter
+    @Getter
     public static class BookingExpiredException extends RuntimeException {
         private final HttpStatus statusCode;
         public BookingExpiredException(HttpStatus statusCode, String msg) {
