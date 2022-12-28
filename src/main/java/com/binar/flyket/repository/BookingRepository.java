@@ -18,10 +18,12 @@ import java.util.Optional;
 public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.MyOrderDTO(fs.id, bk.id, " +
+            " usr.id, usr.email, usr.phoneNumber, bk.amount, " +
             " bk.totalPassenger, fs.arrivalTime, fs.departureTime, fs.flightRoute.fromAirport.IATACode , fs.flightRoute.toAirport.IATACode," +
             " bk.updatedAt, bk.bookingStatus, " +
             " fs.flightRoute.hours, fs.flightRoute.minutes, fs.aircraftDetail.price) " +
             "FROM Booking AS bk " +
+            "JOIN bk.user AS usr " +
             "JOIN bk.flightSchedule AS fs " +
             "WHERE bk.user.id = :user_id")
     Page<MyOrderDTO> getRecentOrderByUser(@Param("user_id") String userId, Pageable pageable);

@@ -1,6 +1,5 @@
 package com.binar.flyket.service;
 
-import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingHistoryDTO;
 import com.binar.flyket.dto.model.MyOrderDTO;
 import com.binar.flyket.dto.model.MyOrderDetailDTO;
@@ -43,12 +42,12 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     }
 
     @Override
-    public List<BookingHistoryDTO> getRecentOrder(String userId, Pageable pageable) {
+    public List<MyOrderDTO> getRecentOrder(String userId, Pageable pageable) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
 
-        return bookingRepository.findAllBookingByUser(userId, pageable).getContent();
+        return bookingRepository.getRecentOrderByUser(userId, pageable).getContent();
     }
 
     @Override
