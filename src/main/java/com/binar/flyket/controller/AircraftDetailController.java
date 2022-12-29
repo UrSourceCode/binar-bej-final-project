@@ -46,7 +46,7 @@ public class AircraftDetailController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAircraftById(@RequestParam("id") String id) {
         try {
             aircraftDetailService.deleteById(id);
