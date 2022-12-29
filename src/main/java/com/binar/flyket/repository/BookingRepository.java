@@ -19,7 +19,8 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.MyOrderDTO(fs.id, bk.id, " +
             " usr.id, usr.email, usr.phoneNumber, bk.amount, " +
-            " bk.totalPassenger, fs.arrivalTime, fs.departureTime, fs.flightRoute.fromAirport.IATACode , fs.flightRoute.toAirport.IATACode," +
+            " bk.totalPassenger, fs.arrivalTime, fs.departureTime, " +
+            " fs.flightRoute.fromAirport.IATACode , fs.flightRoute.toAirport.IATACode," +
             " bk.updatedAt, bk.bookingStatus, " +
             " fs.flightRoute.hours, fs.flightRoute.minutes, fs.aircraftDetail.price) " +
             "FROM Booking AS bk " +
@@ -48,6 +49,18 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             "WHERE bk.user.id = usr.id " +
             "AND bk.flightSchedule.id = fs.id ")
     Page<BookingHistoryDTO> findAllBooking(Pageable pageable);
+
+    @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingHistoryDTO(fs.id, usr.id, " +
+            " usr.email, usr.phoneNumber, bk.id, bk.amount, bk.bookingStatus, bk.createdAt, bk.updatedAt) " +
+            "FROM Booking AS bk " +
+            "JOIN bk.flightSchedule AS fs " +
+            "JOIN bk.user AS usr " +
+            "WHERE bk.user.id = usr.id " +
+            "AND bk.flightSchedule.id = fs.id " +
+            "AND bk.bookingStatus = :booking_status")
+    Page<BookingHistoryDTO> findAllBookingByStatus(
+            @Param("booking_status") BookingStatus bookingStatus,
+            Pageable pageable);
 
     @Query(value = "SELECT NEW com.binar.flyket.dto.model.BookingDetailDTO(bk.id, fs.flightRoute.fromAirport.IATACode, " +
             "fs.flightRoute.toAirport.IATACode, fs.flightRoute.hours, fs.flightRoute.minutes, bk.amount) " +
