@@ -37,7 +37,6 @@ class FlightRouteServiceImplTest {
     @Test
     void testAddAirportRoute() {
         AirportRouteRequest request = new AirportRouteRequest();
-        request.setId("CGK-NRT");
         request.setOriginAirportCode("CGK");
         request.setDestinationAirportCode("NRT");
         request.setHours(4);
