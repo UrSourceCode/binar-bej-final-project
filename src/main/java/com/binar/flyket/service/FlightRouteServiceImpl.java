@@ -63,13 +63,21 @@ public class FlightRouteServiceImpl implements FlightRouteService {
     @Override
     @Transactional
     public Boolean addAirportRoute(AirportRouteRequest airportRouteRequest) {
+        String routeId = airportRouteRequest.getOriginAirportCode().toUpperCase()
+                .concat("-")
+                .concat(airportRouteRequest.getDestinationAirportCode().toUpperCase());
+
+        Optional<FlightRoute> fr = airportRouteRepository.findById(routeId);
+        if(fr.isPresent())
+            throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.NOT_ACCEPTABLE, Constants.ALREADY_EXIST_MSG);
+
         Optional<Airport> fromAirport = airportRepository.findById(airportRouteRequest.getOriginAirportCode().toUpperCase());
         Optional<Airport> toAirport = airportRepository.findById(airportRouteRequest.getDestinationAirportCode().toUpperCase());
 
         isExistRoute(fromAirport, toAirport);
 
         FlightRoute flightRoute = new FlightRoute();
-        flightRoute.setId(airportRouteRequest.getId());
+        flightRoute.setId(routeId);
         flightRoute.setFromAirport(fromAirport.get());
         flightRoute.setToAirport(toAirport.get());
         flightRoute.setHours(airportRouteRequest.getHours());
