@@ -54,11 +54,22 @@ public class CountryController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteCountry(@RequestParam("code") String code) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
                     Constants.SUCCESS_MSG, countryService.deleteCountry(code)));
+        } catch (FlyketException.EntityNotFoundException e) {
+            return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
+                    new Date(),e.getMessage()), e.getStatusCode());
+        }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCountry(@RequestParam("code") String code, @RequestBody CountryDTO countryDTO) {
+        try {
+            return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
+                    Constants.SUCCESS_MSG, countryService.updateCountry(code, countryDTO)));
         } catch (FlyketException.EntityNotFoundException e) {
             return new ResponseEntity<>(new ResponseError(e.getStatusCode().value(),
                     new Date(),e.getMessage()), e.getStatusCode());

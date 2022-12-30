@@ -47,7 +47,7 @@ public class AirportController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAirportById(@RequestParam("code") String code) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),

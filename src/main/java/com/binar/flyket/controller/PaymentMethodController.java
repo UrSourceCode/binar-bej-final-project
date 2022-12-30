@@ -40,7 +40,7 @@ public class PaymentMethodController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestParam("id") String id) {
         try {
             paymentMethodService.deletePaymentMethod(id);

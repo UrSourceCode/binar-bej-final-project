@@ -19,11 +19,8 @@ public class SeatDetailServiceImpl implements SeatDetailService {
 
     private SeatDetailRepository seatDetailRepository;
 
-    private AircraftDetailRepository aircraftDetailRepository;
-
-    public SeatDetailServiceImpl(SeatDetailRepository seatDetailRepository, AircraftDetailRepository aircraftDetailRepository) {
+    public SeatDetailServiceImpl(SeatDetailRepository seatDetailRepository) {
         this.seatDetailRepository = seatDetailRepository;
-        this.aircraftDetailRepository = aircraftDetailRepository;
     }
 
     @Override
@@ -33,13 +30,11 @@ public class SeatDetailServiceImpl implements SeatDetailService {
         if(seatDetail.isPresent())
             throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.CONFLICT, Constants.ALREADY_EXIST_MSG);
 
-        Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(request.getAircraftDetailId());
-        if(aircraftDetail.isEmpty())
-            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, "Aircraft Detail " + Constants.NOT_FOUND_MSG);
-
         SeatDetail seatDetailModel = new SeatDetail();
-        seatDetailModel.setId(seatDetailModel.getId().toUpperCase());
+        seatDetailModel.setId(request.getSeatNo().toUpperCase());
         seatDetailModel.setStatus(false);
+
+        seatDetailRepository.save(seatDetailModel);
         return true;
     }
 

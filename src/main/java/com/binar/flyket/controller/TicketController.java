@@ -60,7 +60,7 @@ public class TicketController {
         }
     }
 
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteTicketById(@RequestParam("/id") String ticketId) {
         try {
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), new Date(),
