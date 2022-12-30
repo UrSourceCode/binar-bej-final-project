@@ -3,6 +3,7 @@ package com.binar.flyket.service;
 import com.binar.flyket.dto.model.BookingHistoryDTO;
 import com.binar.flyket.dto.model.MyOrderDTO;
 import com.binar.flyket.dto.model.MyOrderDetailDTO;
+import com.binar.flyket.dto.response.MyOrderDetailResponse;
 import com.binar.flyket.exception.ExceptionType;
 import com.binar.flyket.exception.FlyketException;
 import com.binar.flyket.model.Booking;
@@ -54,14 +55,14 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     }
 
     @Override
-    public MyOrderDetailDTO getRecentOrderDetail(String bookingId) {
+    public MyOrderDetailResponse getRecentOrderDetail(String bookingId) {
         Optional<Booking> booking = bookingRepository.findById(bookingId);
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
-        MyOrderDetailDTO myOrderDetailDTO = new MyOrderDetailDTO();
-        myOrderDetailDTO.setBookingId(bookingId);
-        myOrderDetailDTO.setPassengerTicketLists(ticketRepository.getRecentOrderDetail(bookingId));
-        return myOrderDetailDTO;
+        MyOrderDetailResponse response = new MyOrderDetailResponse();
+        response.setOrderDetail(bookingRepository.getMyOrderDetail(bookingId).get());
+        response.setPassengerTicketLists(ticketRepository.getRecentOrderDetail(bookingId));
+        return response;
     }
 
     @Override
