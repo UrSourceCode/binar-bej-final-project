@@ -118,7 +118,8 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT new com.binar.flyket.dto.model.MyOrderDetailDTO(bk.id, fs.id, " +
             "CONCAT(usr.firstName, ' ', usr.lastName), usr.email, usr.phoneNumber, bk.bookingStatus, fs.aircraftDetail.aircraftClass, " +
-            "pm.name, fs.flightRoute.fromAirport.name, fs.flightRoute.toAirport.name, bk.amount) " +
+            "pm.name, fs.flightRoute.fromAirport.name, fs.flightRoute.toAirport.name, " +
+            "fs.departureTime, fs.arrivalTime, bk.amount) " +
             "FROM Booking AS bk " +
             "JOIN bk.user AS usr " +
             "JOIN bk.paymentMethod AS pm " +
