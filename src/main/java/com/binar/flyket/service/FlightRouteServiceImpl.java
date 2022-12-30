@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FlightRouteServiceImpl implements FlightRouteService {
@@ -63,13 +64,8 @@ public class FlightRouteServiceImpl implements FlightRouteService {
     @Override
     @Transactional
     public Boolean addAirportRoute(AirportRouteRequest airportRouteRequest) {
-        String routeId = airportRouteRequest.getOriginAirportCode().toUpperCase()
-                .concat("-")
-                .concat(airportRouteRequest.getDestinationAirportCode().toUpperCase());
-
-        Optional<FlightRoute> fr = airportRouteRepository.findById(routeId);
-        if(fr.isPresent())
-            throw FlyketException.throwException(ExceptionType.DUPLICATE_ENTITY, HttpStatus.NOT_ACCEPTABLE, Constants.ALREADY_EXIST_MSG);
+        String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
+        String routeId = "route-".concat(randId[0]).concat(randId[1]);
 
         Optional<Airport> fromAirport = airportRepository.findById(airportRouteRequest.getOriginAirportCode().toUpperCase());
         Optional<Airport> toAirport = airportRepository.findById(airportRouteRequest.getDestinationAirportCode().toUpperCase());
