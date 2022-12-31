@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 class AircraftServiceImplTest {
@@ -42,6 +44,36 @@ class AircraftServiceImplTest {
         var expectedValue = true;
 
         Assertions.assertEquals(expectedValue, actual);
+    }
+
+    @Test
+    void testAddAircraftList() {
+        AircraftDTO aircraftDTO1 = new AircraftDTO();
+        aircraftDTO1.setId(AircraftDummies.aircraftList().get(0).getId());
+        aircraftDTO1.setType(AircraftDummies.aircraftList().get(0).getType());
+
+        AircraftDTO aircraftDTO2 = new AircraftDTO();
+        aircraftDTO2.setId(AircraftDummies.aircraftList().get(1).getId());
+        aircraftDTO2.setId(AircraftDummies.aircraftList().get(1).getId());
+
+        List<AircraftDTO> listAircraft = new ArrayList<>();
+        listAircraft.add(aircraftDTO1);
+        listAircraft.add(aircraftDTO2);
+
+        List<Aircraft> listModel = listAircraft.stream().map(aircraftDTO ->
+        {
+            Aircraft aircraftModel = new Aircraft();
+            aircraftModel.setId(aircraftDTO.getId());
+            aircraftModel.setType(aircraftDTO.getType());
+            return aircraftModel;
+        }).toList();
+
+        Mockito.when(aircraftRepository.saveAll(listModel)).thenReturn(listModel);
+
+        var actualVal = aircraftService.addAircraft(listAircraft);
+        var expectedSize = 2;
+
+        Assertions.assertEquals(expectedSize, actualVal.size());
     }
 
     @Test
@@ -83,5 +115,22 @@ class AircraftServiceImplTest {
         var expectedSize = 2;
         Assertions.assertNotNull(actualValue);
         Assertions.assertEquals(expectedSize, actualValue.size());
+    }
+
+    @Test
+    void testDeleteAircraft() {
+        Integer aircraftId = AircraftDummies.aircraftList().get(0).getId();
+
+        Mockito.when(aircraftRepository.findById(aircraftId))
+                .thenReturn(Optional.of(AircraftDummies.aircraftList().get(0)));
+        Mockito.doNothing()
+                .when(aircraftRepository).delete(AircraftDummies.aircraftList().get(0));
+
+        var actualVal = aircraftService.deleteAircraft(aircraftId);
+        var expectedId = AircraftDummies.aircraftList().get(0).getId();
+        var expectedType = AircraftDummies.aircraftList().get(0).getType();
+
+        Assertions.assertEquals(expectedId, actualVal.getId());
+        Assertions.assertEquals(expectedType, actualVal.getType());
     }
 }
