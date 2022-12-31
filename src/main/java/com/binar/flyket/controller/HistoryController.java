@@ -37,9 +37,20 @@ public class HistoryController {
     public ResponseEntity<?> getAllRecentOrderByUser(
             @RequestParam(defaultValue = "0", value = "page") int page,
             @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "", value = "booking-status-filter") String bookingStatusFilter,
             @PathVariable(value = "userid") String userId) {
         try {
+
             Pageable paging = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+            if(bookingStatusFilter.equalsIgnoreCase("completed")
+                    || bookingStatusFilter.equalsIgnoreCase("waiting")
+                    || bookingStatusFilter.equalsIgnoreCase("expired")
+                    || bookingStatusFilter.equalsIgnoreCase("active")) {
+                return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+                        new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrder(bookingStatusFilter, userId, paging)));
+            }
+
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                     new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrder(userId, paging)));
         } catch (FlyketException.EntityNotFoundException e) {
