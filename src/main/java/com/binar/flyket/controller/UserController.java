@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    @DeleteMapping("/delete/{user-id}")
+//    @DeleteMapping("/delete/{user-id}")
     public ResponseEntity<?> deleteUserByEmail(@PathVariable("user-id") String userId) {
         try {
 

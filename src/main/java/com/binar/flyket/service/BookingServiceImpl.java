@@ -1,7 +1,9 @@
 package com.binar.flyket.service;
 
 import com.binar.flyket.dto.model.AvailableSeatDTO;
+import com.binar.flyket.dto.model.BookingDTO;
 import com.binar.flyket.dto.model.BookingDetailDTO;
+import com.binar.flyket.dto.model.BookingValidateDTO;
 import com.binar.flyket.dto.request.BookingRequest;
 import com.binar.flyket.dto.request.PassengerRequest;
 import com.binar.flyket.dto.request.PaymentRequest;
@@ -16,6 +18,7 @@ import com.binar.flyket.repository.*;
 import com.binar.flyket.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -92,7 +95,7 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
 
         for(PassengerRequest passengerRequest : request.getPassengerRequests()) {
-            passengerTicket(passengerRequest, schedule.get(), bookingId);
+            passengerTicket(passengerRequest, schedule.get(), booking);
         }
 
         BookingResponse bookingResponse = new BookingResponse();
@@ -111,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingResponse;
     }
 
-    private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, String bookingId) {
+    private void passengerTicket(PassengerRequest passengerRequest, FlightSchedule flightSchedule, Booking booking) {
         if(passengerRequest.getSeatNo() == null)
             throw new FlyketException.InputIsEmptyException(HttpStatus.NOT_ACCEPTABLE, "Seat no : " + Constants.EMPTY_MSG);
 
@@ -119,16 +122,12 @@ public class BookingServiceImpl implements BookingService {
         if(seatDetail.isEmpty())
             throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Seat no " + Constants.NOT_FOUND_MSG);
 
-        Optional<Booking> booking = bookingRepository.findById(bookingId);
-        if(booking.isEmpty())
-            throw new FlyketException.EntityNotFoundException(HttpStatus.NOT_FOUND, "Booking with " + bookingId + " " + Constants.NOT_FOUND_MSG);
-
         String[] uniqueId = UUID.randomUUID().toString().toUpperCase().split("-");
         String ticketId = "ticket-" + uniqueId[0] + uniqueId[1];
 
         Ticket ticket = new Ticket();
         ticket.setId(ticketId);
-        ticket.setBooking(booking.get());
+        ticket.setBooking(booking);
         ticket.setPassengerTitle(passengerRequest.getTitle());
         ticket.setPassengerName(passengerRequest.getName());
         ticket.setCreatedAt(LocalDateTime.now());
@@ -164,6 +163,7 @@ public class BookingServiceImpl implements BookingService {
         for(Ticket tc : tickets) processTicket(tc);
 
         Booking bookingModel = booking.get();
+        bookingModel.setUpdatedAt(LocalDateTime.now());
         bookingModel.setBookingStatus(BookingStatus.COMPLETED);
         bookingRepository.save(bookingModel);
 
@@ -199,7 +199,7 @@ public class BookingServiceImpl implements BookingService {
 
         bookingModel.setPaymentMethod(paymentMethod.get());
         bookingModel.setBookingStatus(BookingStatus.WAITING);
-
+        bookingModel.setUpdatedAt(LocalDateTime.now());
         bookingRepository.save(bookingModel);
 
         PaymentResponse paymentResponse = new PaymentResponse();
@@ -227,8 +227,19 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+
+    public List<BookingValidateDTO> validateBookingList(Pageable pageable) {
+        return bookingRepository.validateBookingList(BookingStatus.WAITING, pageable).getContent();
+    }
+
+    @Override
+    public List<BookingDTO> findByStatus(String status, Pageable pageable) {
+        BookingStatus bookingStatus = BookingStatus.getStatus(status);
+        return bookingRepository.findBookingStatus(bookingStatus, pageable).getContent();
+    }
+
     public BookingStatusResponse bookingStatus(String bookingId) {
-        Optional<Booking> booking = bookingRepository.checkBookingStatus(bookingId);
+        Optional<Booking> booking = bookingRepository.checkStatus(bookingId);
         if(booking.isEmpty())
             throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
         BookingStatusResponse response = new BookingStatusResponse();
@@ -237,6 +248,7 @@ public class BookingServiceImpl implements BookingService {
         response.setIsPaid(booking.get().getBookingStatus() == BookingStatus.WAITING
                         || booking.get().getBookingStatus() == BookingStatus.COMPLETED);
         return response;
+
     }
 
     private void checkStatusBooking(Booking bookingModel) {

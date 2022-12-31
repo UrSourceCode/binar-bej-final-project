@@ -54,7 +54,7 @@ public class AircraftController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAirCraft(@RequestParam("aircraftID") Integer airCraftID) {
         try {
             aircraftService.deleteAircraft(airCraftID);

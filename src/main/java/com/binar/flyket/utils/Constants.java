@@ -1,5 +1,6 @@
 package com.binar.flyket.utils;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -32,6 +33,8 @@ public class Constants {
     public static final String NOT_FOUND_MSG = "not found";
     public static final String ALREADY_EXIST_MSG = "already exist";
     public static final String INVALID_EMAIL_MSG = "Invalid email";
+    public static final String INVALID_PASSWORD_MSG = "8 to 24 characters. Must include uppercase and lowercase letters, a number " +
+            "and a special character";
 
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER = "Authorization";
@@ -39,6 +42,8 @@ public class Constants {
     public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]" +
             "(.[_A-Za-z0-9-]+)@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)" +
             "(.[A-Za-z]{2,})$";
+
+    public static String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$";
 
     /*
      * @Param email
@@ -48,6 +53,12 @@ public class Constants {
     public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean validatePassword(String password) {
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
 
@@ -69,6 +80,16 @@ public class Constants {
         File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
         multipart.transferTo(convFile);
         return convFile;
+    }
+
+    public static Sort.Direction sortDirection(String direction) {
+        if (direction.equals("latest")) {
+            return Sort.Direction.ASC;
+        } else if (direction.equals("newest")) {
+            return Sort.Direction.DESC;
+        }
+
+        return Sort.Direction.ASC;
     }
 
     Constants() {}
