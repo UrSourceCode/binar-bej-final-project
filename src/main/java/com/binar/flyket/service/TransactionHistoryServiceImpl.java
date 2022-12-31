@@ -58,6 +58,15 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     }
 
     @Override
+    public List<MyOrderDTO> getRecentOrder(String bookingStatus, String userId, Pageable pageable) {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty())
+            throw FlyketException.throwException(ExceptionType.NOT_FOUND, HttpStatus.NOT_FOUND, Constants.NOT_FOUND_MSG);
+        BookingStatus status = BookingStatus.getStatus(bookingStatus);
+        return bookingRepository.getRecentOrderByUser(status, userId, pageable).getContent();
+    }
+
+    @Override
     public MyOrderDetailResponse getRecentOrderDetail(String bookingId) {
         Optional<Booking> booking = bookingRepository.findById(bookingId);
         if(booking.isEmpty())

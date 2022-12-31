@@ -14,6 +14,7 @@ import java.util.List;
 public interface TransactionHistoryService {
 
     List<MyOrderDTO> getRecentOrder(String userId, Pageable pageable);
+    List<MyOrderDTO> getRecentOrder(String bookingStatus, String userId, Pageable pageable);
 
     MyOrderDetailResponse getRecentOrderDetail(String bookingId);
 
