@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AirportRouteRequest {
-    private String id;
     @NotNull
     @Size(max = 4)
     private String originAirportCode;

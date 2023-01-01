@@ -39,7 +39,7 @@ public class FlightRouteController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
+//    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteRoute(@RequestParam("id") String id) {
         try {
             flightRouteService.deleteById(id);

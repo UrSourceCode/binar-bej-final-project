@@ -16,8 +16,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyOrderDTO {
-    private String flightScheduleId;
+    private String flightId;
     private String bookingId;
+    private String userId;
+    private String email;
+    private String phoneNumber;
+    private BigDecimal amount;
     private Integer totalPassenger;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime arrivalTime;

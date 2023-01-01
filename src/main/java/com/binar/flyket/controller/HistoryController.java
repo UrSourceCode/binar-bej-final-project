@@ -37,9 +37,20 @@ public class HistoryController {
     public ResponseEntity<?> getAllRecentOrderByUser(
             @RequestParam(defaultValue = "0", value = "page") int page,
             @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "", value = "booking-status-filter") String bookingStatusFilter,
             @PathVariable(value = "userid") String userId) {
         try {
+
             Pageable paging = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+            if(bookingStatusFilter.equalsIgnoreCase("completed")
+                    || bookingStatusFilter.equalsIgnoreCase("waiting")
+                    || bookingStatusFilter.equalsIgnoreCase("expired")
+                    || bookingStatusFilter.equalsIgnoreCase("active")) {
+                return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+                        new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrder(bookingStatusFilter, userId, paging)));
+            }
+
             return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
                     new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getRecentOrder(userId, paging)));
         } catch (FlyketException.EntityNotFoundException e) {
@@ -62,28 +73,56 @@ public class HistoryController {
     public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "0", value = "page") int page,
             @RequestParam(defaultValue = "10", value = "size") int size,
-//            @RequestParam(defaultValue = "asc", value = "booking-status-sort") String bookingStatus,
+            @RequestParam(defaultValue = "", value = "booking-status-filter") String bookingStatusFilter,
             @RequestParam(defaultValue = "asc", value = "booking-date-sort") String bookingDate) {
 
-        List<Sort.Order> orders = new ArrayList<>();
-
-//        orders.add(new Sort.Order(getSortDirection(bookingStatus), "bookingStatus"));
-        orders.add(new Sort.Order(getSortDirection(bookingDate), "createdAt"));
-
-        Pageable paging = PageRequest.of(page, size, Sort.by(orders));
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
-                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
+                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(
+                        page, size,
+                        bookingStatusFilter, bookingDate)));
     }
 
+    @GetMapping("/booking/sort-by-status")
+    public ResponseEntity<?> sortByStatus(
+            @RequestParam(defaultValue = "0", value = "page") int page,
+            @RequestParam(defaultValue = "10", value = "size") int size,
+            @RequestParam(defaultValue = "asc", value = "booking-status-sort") String bookingStatus) {
 
+        Sort sort;
 
-    private Sort.Direction getSortDirection(String direction) {
-        if (direction.equals("asc")) {
-            return Sort.Direction.ASC;
-        } else if (direction.equals("desc")) {
-            return Sort.Direction.DESC;
+        if(bookingStatus.equalsIgnoreCase("asc")) {
+            sort = Sort.by("bookingStatus").ascending();
+        } else if(bookingStatus.equalsIgnoreCase("desc"))  {
+            sort = Sort.by("bookingStatus").descending();
+        } else {
+            sort = Sort.by("bookingStatus").ascending();
         }
 
-        return Sort.Direction.ASC;
+        Pageable paging = PageRequest.of(page, size, sort);
+        return null;
+//        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+//                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
     }
+
+//    @GetMapping("/booking/sort-by-date")
+    public ResponseEntity<?> sortByDate( @RequestParam(defaultValue = "0", value = "page") int page,
+                                         @RequestParam(defaultValue = "10", value = "size") int size,
+                                         @RequestParam(defaultValue = "asc", value = "booking-date-sort") String bookingDate) {
+
+        Sort sort;
+
+        if(bookingDate.equalsIgnoreCase("asc")) {
+            sort = Sort.by("createdAt").ascending();
+        } else if(bookingDate.equalsIgnoreCase("desc"))  {
+            sort = Sort.by("createdAt").descending();
+        } else {
+            sort = Sort.by("createdAt").ascending();
+        }
+
+        Pageable paging = PageRequest.of(page, size, sort);
+        return null;
+//        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(),
+//                new Date(), Constants.SUCCESS_MSG, transactionHistoryService.getAllBookingHistory(paging)));
+    }
+
 }

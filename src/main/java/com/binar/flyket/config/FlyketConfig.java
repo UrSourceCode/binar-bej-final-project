@@ -24,12 +24,12 @@ public class FlyketConfig {
         factory.setResources(new Resource[] {
 //                new ClassPathResource("datajson/aircraft.json"),
 //                new ClassPathResource("datajson/aircraftdetail.json"),
-                new ClassPathResource("datajson/paymentmethod.json"),
+//                new ClassPathResource("datajson/paymentmethod.json"),
 //                new ClassPathResource("datajson/flightroute.json"),
-                new ClassPathResource("datajson/detailseat.json"),
+//                new ClassPathResource("datajson/detailseat.json"),
 //                new ClassPathResource("datajson/flightschedule.json"),
-                new ClassPathResource("datajson/countries.json"),
-                new ClassPathResource("datajson/airports.json"),
+//                new ClassPathResource("datajson/countries.json"),
+//                new ClassPathResource("datajson/airports.json"),
         });
         return factory;
     }
