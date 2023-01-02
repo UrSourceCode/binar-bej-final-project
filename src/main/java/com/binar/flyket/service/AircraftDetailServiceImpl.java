@@ -67,11 +67,6 @@ public class AircraftDetailServiceImpl implements AircraftDetailService {
     }
 
     @Override
-    public boolean addAircraftDetail(List<AircraftDetailRequest> aircraftDetailRequests) {
-        return false;
-    }
-
-    @Override
     public boolean deleteById(String id) {
         Optional<AircraftDetail> aircraftDetail = aircraftDetailRepository.findById(id);
         if(aircraftDetail.isPresent()) {
