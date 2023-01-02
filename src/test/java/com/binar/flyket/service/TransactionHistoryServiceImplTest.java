@@ -130,7 +130,6 @@ class TransactionHistoryServiceImplTest {
             String[] randId = UUID.randomUUID().toString().toUpperCase().split("-");
 
             FlightRoute fr = FlightRouteDummies.flightRoute().get(0);
-
             AircraftDetail acd = AircraftDetailDummies.getAll().get(2);
 
             FlightSchedule fs = new FlightSchedule();
