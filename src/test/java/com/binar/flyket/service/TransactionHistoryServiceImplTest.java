@@ -159,7 +159,6 @@ class TransactionHistoryServiceImplTest {
             bk.setTotalPassenger(2);
 
             PassengerTicketList passengerTicketList = new PassengerTicketList();
-
             passengerTicketList.setPassengerName("Agam");
             passengerTicketList.setTicketId("A02-wda");
             passengerTicketList.setSeatNo("A1");
