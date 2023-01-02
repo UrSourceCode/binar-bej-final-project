@@ -83,7 +83,6 @@ class TransactionHistoryServiceImplTest {
         myOrderDTO.setDestinationAirport("CGK");
 
         List<MyOrderDTO>myOrderDTOList = List.of(myOrderDTO,myOrderDTO);
-
         PageImpl<MyOrderDTO> page = new PageImpl<>(myOrderDTOList);
 
         Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
