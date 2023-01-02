@@ -131,7 +131,6 @@ class TransactionHistoryServiceImplTest {
 
             FlightRoute fr = FlightRouteDummies.flightRoute().get(0);
             AircraftDetail acd = AircraftDetailDummies.getAll().get(2);
-
             FlightSchedule fs = new FlightSchedule();
             fs.setId("sc-" + randId[0] + randId[1]);
             fs.setFlightRoute(fr);
