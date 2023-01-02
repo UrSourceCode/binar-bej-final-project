@@ -171,7 +171,6 @@ class TransactionHistoryServiceImplTest {
             var expectedTicketId = "A02-wda";
             var expectedSeatNo = "A1";
 
-
             Assertions.assertEquals(expectedPassengerName,actualvalue.getPassengerTicketLists().get(0).getPassengerName());
             Assertions.assertEquals(expectedPassengerTittle,actualvalue.getPassengerTicketLists().get(0).getPassengerTitle());
             Assertions.assertEquals(expectedTicketId,actualvalue.getPassengerTicketLists().get(0).getTicketId());
