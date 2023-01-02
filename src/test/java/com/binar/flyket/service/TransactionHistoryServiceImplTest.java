@@ -84,7 +84,6 @@ class TransactionHistoryServiceImplTest {
 
         List<MyOrderDTO>myOrderDTOList = List.of(myOrderDTO,myOrderDTO);
         PageImpl<MyOrderDTO> page = new PageImpl<>(myOrderDTOList);
-
         Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         Mockito.when(bookingRepository.getRecentOrderByUser(user.getId(),pageable)).thenReturn(page);
 
