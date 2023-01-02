@@ -122,7 +122,6 @@ class TransactionHistoryServiceImplTest {
         Assertions.assertEquals(expectedDepartureTime,actualvalue.get(0).getDepartureTime());
         Assertions.assertEquals(expectedFlightId,actualvalue.get(0).getFlightId());
 
-
     }
 
     @Test
