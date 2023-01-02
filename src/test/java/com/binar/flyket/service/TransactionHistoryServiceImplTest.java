@@ -175,7 +175,6 @@ class TransactionHistoryServiceImplTest {
             Assertions.assertEquals(expectedPassengerTittle,actualvalue.getPassengerTicketLists().get(0).getPassengerTitle());
             Assertions.assertEquals(expectedTicketId,actualvalue.getPassengerTicketLists().get(0).getTicketId());
             Assertions.assertEquals(expectedSeatNo,actualvalue.getPassengerTicketLists().get(0).getSeatNo());
-
     }
 
 
